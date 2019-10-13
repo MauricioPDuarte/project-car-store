@@ -1,34 +1,38 @@
 package com.mauriciopd.carstore.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Marca implements Serializable{
+public class Modelo implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	
-	@OneToMany(mappedBy = "marca")
-	private List<Modelo> modelos = new ArrayList<>();
-	
-	public Marca() {
+
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "marca_id")
+	private Marca marca;
+
+	public Modelo() {
 	}
 
-	public Marca(Integer id, String nome) {
+	public Modelo(Integer id, String nome, Marca marca) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.marca = marca;
 	}
 
 	public Integer getId() {
@@ -47,12 +51,11 @@ public class Marca implements Serializable{
 		this.nome = nome;
 	}
 
-	public List<Modelo> getModelos() {
-		return modelos;
+	public Marca getMarca() {
+		return marca;
 	}
 
-	public void setModelos(List<Modelo> modelos) {
-		this.modelos = modelos;
+	public void setMarca(Marca marca) {
+		this.marca = marca;
 	}
-
 }
