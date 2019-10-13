@@ -1,6 +1,7 @@
 package com.mauriciopd.carstore.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mauriciopd.carstore.domain.Marca;
 import com.mauriciopd.carstore.domain.Modelo;
+import com.mauriciopd.carstore.dto.MarcaDTO;
 import com.mauriciopd.carstore.services.MarcaService;
 import com.mauriciopd.carstore.services.ModeloService;
 
@@ -25,9 +27,10 @@ public class MarcaResource {
 	private ModeloService modeloService;
 
 	@GetMapping
-	public ResponseEntity<List<Marca>> findAll() {
+	public ResponseEntity<List<MarcaDTO>> findAll() {
 		List<Marca> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<MarcaDTO> listDto = list.stream().map(x -> new MarcaDTO(x)).collect(Collectors.toList()); 
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@GetMapping(value = "/{marcaId}/modelos")
