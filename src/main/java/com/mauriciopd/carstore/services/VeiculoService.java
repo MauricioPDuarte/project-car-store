@@ -40,6 +40,11 @@ public class VeiculoService {
 		return repo.findModelo(marca, modelo);
 	}
 	
+	public void delete(Integer id) {
+		findById(id);
+		repo.deleteById(id);
+	}
+	
 	
 	public Veiculo fromDTO(VeiculoDTO obj) {
 		Modelo modelo = new Modelo(obj.getModeloId(), null, null);
