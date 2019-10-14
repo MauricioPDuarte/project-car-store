@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.mauriciopd.carstore.domain.Marca;
 import com.mauriciopd.carstore.dto.MarcaDTO;
 import com.mauriciopd.carstore.repository.MarcaRepository;
+import com.mauriciopd.carstore.services.exceptions.DataIntegrityException;
+import com.mauriciopd.carstore.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class MarcaService {
@@ -27,7 +29,7 @@ public class MarcaService {
 
 	public Marca findById(Integer id) {
 		Optional<Marca> marca = repo.findById(id);
-		return marca.orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
+		return marca.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado: " + id));
 	}
 
 	public void delete(Integer id) {
@@ -35,7 +37,7 @@ public class MarcaService {
 		try {
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityViolationException(
+			throw new DataIntegrityException(
 					"Não é possível excluir uma marca que possui modelos/carros cadastrados");
 		}
 	}

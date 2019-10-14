@@ -12,6 +12,7 @@ import com.mauriciopd.carstore.domain.enums.CorVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 import com.mauriciopd.carstore.dto.VeiculoDTO;
 import com.mauriciopd.carstore.repository.VeiculoRepository;
+import com.mauriciopd.carstore.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class VeiculoService {
@@ -25,7 +26,7 @@ public class VeiculoService {
 	
 	public Veiculo findById(Integer id) {
 		Optional<Veiculo> veiculo = repo.findById(id); 
-		return veiculo.orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
+		return veiculo.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado: " + id));
 	}
 
 	public List<Veiculo> findAll() {

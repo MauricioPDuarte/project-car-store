@@ -11,6 +11,8 @@ import com.mauriciopd.carstore.domain.Marca;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.dto.ModeloNewDTO;
 import com.mauriciopd.carstore.repository.ModeloRepository;
+import com.mauriciopd.carstore.services.exceptions.DataIntegrityException;
+import com.mauriciopd.carstore.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ModeloService {
@@ -24,7 +26,7 @@ public class ModeloService {
 	
 	public Modelo findById(Integer id) {
 		Optional<Modelo> modelo = repo.findById(id);
-		return modelo.orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
+		return modelo.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado: " + id));
 	}
 	
 	public List<Modelo> findByMarca(Integer marcaId) {
@@ -36,7 +38,7 @@ public class ModeloService {
 		try {
 			repo.deleteById(id);			
 		}catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityViolationException("Não é possível excluir um modelo que possui carros cadastrados");
+			throw new DataIntegrityException("Não é possível excluir um modelo que possui carros cadastrados");
 		}
 	}
 	

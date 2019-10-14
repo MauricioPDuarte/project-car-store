@@ -43,7 +43,7 @@ public class VeiculoResource {
 	}
 	
 	@GetMapping("/buscar/{id}")
-	public ResponseEntity<Veiculo> findByMarca(@PathVariable Integer id) {
+	public ResponseEntity<Veiculo> findById(@PathVariable Integer id) {
 		Veiculo veiculo = service.findById(id);
 		return ResponseEntity.ok().body(veiculo);
 	}
