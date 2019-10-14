@@ -21,13 +21,13 @@ public class ModeloService {
 		return repo.save(modelo);
 	}
 	
-	public List<Modelo> findByMarca(Integer marcaId) {
-		return repo.findMarca(marcaId);
-	}
-	
 	public Modelo findById(Integer id) {
 		Optional<Modelo> modelo = repo.findById(id);
 		return modelo.orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
+	}
+	
+	public List<Modelo> findByMarca(Integer marcaId) {
+		return repo.findMarca(marcaId);
 	}
 	
 	public Modelo fromDTO(ModeloNewDTO obj) {

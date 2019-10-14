@@ -16,17 +16,17 @@ public class MarcaService {
 	@Autowired
 	private MarcaRepository repo;
 	
-	public Marca findById(Integer id) {
-		Optional<Marca> marca = repo.findById(id);
-		return marca.orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
+	public Marca insert(Marca marca) {
+		return repo.save(marca);
 	}
-
+	
 	public List<Marca> findAll() {
 		return repo.findAll();
 	}
 	
-	public Marca insert(Marca marca) {
-		return repo.save(marca);
+	public Marca findById(Integer id) {
+		Optional<Marca> marca = repo.findById(id);
+		return marca.orElseThrow(() -> new RuntimeException("Objeto não encontrado: " + id));
 	}
 	
 	public Marca FromDTO(MarcaDTO obj) {
