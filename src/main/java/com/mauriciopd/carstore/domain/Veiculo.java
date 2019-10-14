@@ -6,14 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.mauriciopd.carstore.domain.enums.CorVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 
 @Entity
-public class Veiculo implements Serializable{
+public class Veiculo implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -21,17 +23,22 @@ public class Veiculo implements Serializable{
 	private int ano;
 	private Integer tipo;
 	private Integer cor;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "modelo_id")
+	private Modelo modelo;
+
 	public Veiculo() {
 	}
 
-	public Veiculo(Integer id, double preco, int ano, TipoVeiculo tipo, CorVeiculo cor) {
+	public Veiculo(Integer id, double preco, int ano, TipoVeiculo tipo, CorVeiculo cor, Modelo modelo) {
 		super();
 		this.id = id;
 		this.preco = preco;
 		this.ano = ano;
 		this.tipo = (tipo == null) ? null : tipo.getCod();
 		this.cor = (cor == null) ? null : cor.getCod();
+		this.modelo = modelo;
 	}
 
 	public Integer getId() {
@@ -72,6 +79,14 @@ public class Veiculo implements Serializable{
 
 	public void setCor(CorVeiculo cor) {
 		this.cor = cor.getCod();
+	}
+
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
 	}
 
 	@Override

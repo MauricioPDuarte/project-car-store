@@ -17,4 +17,13 @@ public class VeiculoService {
 	public List<Veiculo> findAll() {
 		return repo.findAll();
 	}
+	
+	public List<Veiculo> findByModelo(Integer modeloId) {
+		return repo.findModelo(modeloId);
+	}
+	
+	public List<Veiculo> findByMarca(Integer marcaId) {
+		return repo.findMarca(marcaId);
+	}
+	
 }

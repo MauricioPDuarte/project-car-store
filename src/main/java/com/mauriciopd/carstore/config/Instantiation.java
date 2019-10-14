@@ -46,15 +46,21 @@ public class Instantiation implements CommandLineRunner{
 		m4.getModelos().addAll(Arrays.asList(mod4));
 		m3.getModelos().addAll(Arrays.asList(mod5, mod6));
 		
+		Veiculo v1 = new Veiculo(null, 25000.20, 2019, TipoVeiculo.SUV, CorVeiculo.PRETO, mod5);
+		Veiculo v2 = new Veiculo(null, 33000.20, 2017, TipoVeiculo.HATCHBACK, CorVeiculo.BRANCO, mod3);
+		Veiculo v3 = new Veiculo(null, 36500.70, 2014, TipoVeiculo.SEDAN, CorVeiculo.BEGE, mod6);
+		Veiculo v4 = new Veiculo(null, 55000.20, 2012, TipoVeiculo.SUV, CorVeiculo.PRETO, mod1);
+		Veiculo v5 = new Veiculo(null, 120000.20, 2019, TipoVeiculo.PICAPE, CorVeiculo.AZUL, mod4);
+		
+		mod1.getVeiculos().addAll(Arrays.asList(v4));
+		mod2.getVeiculos().addAll(Arrays.asList());
+		mod3.getVeiculos().addAll(Arrays.asList(v2));
+		mod4.getVeiculos().addAll(Arrays.asList(v5));
+		mod5.getVeiculos().addAll(Arrays.asList(v1));
+		mod6.getVeiculos().addAll(Arrays.asList(v3));
+		
 		marcaRepository.saveAll(Arrays.asList(m1, m2, m3, m4));
 		modeloRepository.saveAll(Arrays.asList(mod1, mod2, mod3, mod4, mod5, mod6));
-		
-		Veiculo v1 = new Veiculo(null, 25000.20, 2019, TipoVeiculo.SUV, CorVeiculo.PRETO);
-		Veiculo v2 = new Veiculo(null, 33000.20, 2017, TipoVeiculo.HATCHBACK, CorVeiculo.BRANCO);
-		Veiculo v3 = new Veiculo(null, 36500.70, 2014, TipoVeiculo.SEDAN, CorVeiculo.BEGE);
-		Veiculo v4 = new Veiculo(null, 55000.20, 2012, TipoVeiculo.SUV, CorVeiculo.PRETO);
-		Veiculo v5 = new Veiculo(null, 120000.20, 2019, TipoVeiculo.PICAPE, CorVeiculo.AZUL);
-		
 		veiculoRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5));
 	}
 

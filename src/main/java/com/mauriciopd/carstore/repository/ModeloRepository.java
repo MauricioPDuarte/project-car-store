@@ -14,6 +14,7 @@ import com.mauriciopd.carstore.domain.Modelo;
 
 @Repository
 public interface ModeloRepository extends JpaRepository<Modelo, Integer>{
+	
 	@Transactional(readOnly=true)
 	@Query("SELECT obj FROM Modelo obj WHERE obj.marca.id = :marcaId ORDER BY obj.nome")
 	List<Modelo> findMarca(@Param("marcaId") Integer marca_id);
