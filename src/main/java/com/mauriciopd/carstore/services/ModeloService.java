@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.mauriciopd.carstore.domain.Marca;
@@ -28,6 +29,27 @@ public class ModeloService {
 	
 	public List<Modelo> findByMarca(Integer marcaId) {
 		return repo.findMarca(marcaId);
+	}
+	
+	public void delete(Integer id) {
+		findById(id);
+		try {
+			repo.deleteById(id);			
+		}catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityViolationException("Não é possível excluir um modelo que possui carros cadastrados");
+		}
+	}
+	
+	public Modelo atualizar(Modelo obj) {
+		Modelo newModelo = findById(obj.getId());
+		updateData(newModelo, obj);
+		return repo.save(newModelo);
+	}
+
+	private void updateData(Modelo newModelo, Modelo obj) {
+		Marca marca = new Marca(obj.getMarca().getId(), null);
+		newModelo.setNome(obj.getNome());
+		newModelo.setMarca(marca);
 	}
 	
 	public Modelo fromDTO(ModeloNewDTO obj) {

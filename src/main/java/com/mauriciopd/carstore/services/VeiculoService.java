@@ -46,6 +46,21 @@ public class VeiculoService {
 	}
 	
 	
+	public Veiculo atualizar(Veiculo obj) {
+		Veiculo newVeiculo = findById(obj.getId());
+		updateData(newVeiculo, obj);
+		return repo.save(newVeiculo);
+	}
+	
+	private void updateData(Veiculo newVeiculo, Veiculo obj) {
+		Modelo modelo = new Modelo(obj.getModelo().getId(), null, null);
+		newVeiculo.setAno(obj.getAno());
+		newVeiculo.setCor(obj.getCor());
+		newVeiculo.setModelo(modelo);
+		newVeiculo.setPreco(obj.getPreco());
+		newVeiculo.setTipo(obj.getTipo());
+	}
+
 	public Veiculo fromDTO(VeiculoDTO obj) {
 		Modelo modelo = new Modelo(obj.getModeloId(), null, null);
 		Veiculo veiculo = new Veiculo(obj.getId(), obj.getPreco(), obj.getAno(), TipoVeiculo.toEnum(obj.getTipo()), CorVeiculo.toEnum(obj.getCor()), modelo);

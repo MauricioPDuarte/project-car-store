@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +32,14 @@ public class VeiculoResource {
 		veiculo = service.insert(veiculo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/buscar/{id}").buildAndExpand(veiculo.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> atualizar(@RequestBody VeiculoDTO veiculoDto, @PathVariable Integer id) {
+		Veiculo veiculo = service.fromDTO(veiculoDto);
+		veiculo.setId(id);
+		veiculo = service.atualizar(veiculo);
+		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping("/buscar/{id}")

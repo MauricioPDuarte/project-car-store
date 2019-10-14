@@ -6,9 +6,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +33,20 @@ public class MarcaResource {
 	@Autowired
 	private ModeloService modeloService;
 
+	@PostMapping
+	public ResponseEntity<Void> insert(@RequestBody MarcaDTO marcaDto) {
+		Marca marca = service.fromDTO(marcaDto);
+		marca = service.insert(marca);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(marca.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
+	@GetMapping(value = "/{marcaId}")
+	public ResponseEntity<Marca> findById(@PathVariable Integer marcaId) {
+		Marca marca = service.findById(marcaId);
+		return ResponseEntity.ok().body(marca);
+	}
+	
 	@GetMapping
 	public ResponseEntity<List<MarcaDTO>> findAll() {
 		List<Marca> list = service.findAll();
@@ -45,18 +61,17 @@ public class MarcaResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
-	@GetMapping(value = "/{marcaId}")
-	public ResponseEntity<Marca> findById(@PathVariable Integer marcaId) {
-		Marca marca = service.findById(marcaId);
-		return ResponseEntity.ok().body(marca);
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> atualizar(@RequestBody MarcaDTO marcaDto, @PathVariable Integer id) {
+		Marca marca = service.fromDTO(marcaDto);
+		marca.setId(id);
+		marca = service.atualizar(marca);
+		return ResponseEntity.noContent().build();
 	}
 	
-	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody MarcaDTO marcaDto) {
-		Marca marca = service.FromDTO(marcaDto);
-		marca = service.insert(marca);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(marca.getId()).toUri();
-		return ResponseEntity.created(uri).build();
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
 	}
-	
 }
