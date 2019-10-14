@@ -25,16 +25,15 @@ public class VeiculoResource {
 		return ResponseEntity.ok().body(list);
 	}
 
-	@GetMapping(value = "/modelo/{modeloId}")
-	public ResponseEntity<List<Veiculo>> findByModelo(@PathVariable Integer modeloId) {
-		List<Veiculo> list = service.findByModelo(modeloId);
+	@GetMapping("/{marca}")
+	public ResponseEntity<List<Veiculo>> findByMarca(@PathVariable String marca) {
+		List<Veiculo> list = service.findByMarca(marca);
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping(value = "/marca/{marcaId}")
-	public ResponseEntity<List<Veiculo>> findByMarca(@PathVariable Integer marcaId) {
-		List<Veiculo> list = service.findByMarca(marcaId);
+	@GetMapping("/{marca}/{modelo}")
+	public ResponseEntity<List<Veiculo>> findByMarcaAndModelo(@PathVariable String marca, @PathVariable String modelo) {
+		List<Veiculo> list = service.findByMarcaAndModelo(marca, modelo);
 		return ResponseEntity.ok().body(list);
 	}
-	
 }

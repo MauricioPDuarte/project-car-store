@@ -14,10 +14,11 @@ import com.mauriciopd.carstore.domain.Veiculo;
 public interface VeiculoRepository extends JpaRepository<Veiculo, Integer>{
 	
 	@Transactional(readOnly=true)
-	@Query("SELECT obj FROM Veiculo obj WHERE obj.modelo.id = :modeloId") 
-	List<Veiculo> findModelo(@Param("modeloId") Integer modelo_id);
+	@Query("SELECT obj FROM Veiculo obj WHERE obj.modelo.marca.nome = :marca AND obj.modelo.nome = :modelo") 
+	List<Veiculo> findModelo(@Param("marca") String marca, @Param("modelo")String modelo);
 	
 	@Transactional(readOnly=true)
-	@Query("SELECT obj FROM Veiculo obj WHERE obj.modelo.marca.id = :marcaId") 
-	List<Veiculo> findMarca(@Param("marcaId") Integer marca_id);
+	@Query("SELECT obj FROM Veiculo obj WHERE obj.modelo.marca.nome = :marca") 
+	List<Veiculo> findMarca(@Param("marca") String marca);
+
 }

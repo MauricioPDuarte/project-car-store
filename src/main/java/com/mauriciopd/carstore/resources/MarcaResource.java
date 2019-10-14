@@ -38,4 +38,11 @@ public class MarcaResource {
 		List<Modelo> list = modeloService.findByMarca(marcaId);
 		return ResponseEntity.ok().body(list);
 	}
+	
+	@GetMapping(value = "/{marcaId}")
+	public ResponseEntity<Marca> findById(@PathVariable Integer marcaId) {
+		Marca marca = service.findById(marcaId);
+		return ResponseEntity.ok().body(marca);
+	}
+	
 }
