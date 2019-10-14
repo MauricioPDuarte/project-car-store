@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.mauriciopd.carstore.domain.Marca;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.dto.MarcaDTO;
+import com.mauriciopd.carstore.dto.ModeloDTO;
 import com.mauriciopd.carstore.services.MarcaService;
 import com.mauriciopd.carstore.services.ModeloService;
 
@@ -38,9 +39,10 @@ public class MarcaResource {
 	}
 	
 	@GetMapping(value = "/{marcaId}/modelos")
-	public ResponseEntity<List<Modelo>> findModelos(@PathVariable Integer marcaId) {
+	public ResponseEntity<List<ModeloDTO>> findModelos(@PathVariable Integer marcaId) {
 		List<Modelo> list = modeloService.findByMarca(marcaId);
-		return ResponseEntity.ok().body(list);
+		List<ModeloDTO> listDto = list.stream().map(x -> new ModeloDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@GetMapping(value = "/{marcaId}")
@@ -55,8 +57,6 @@ public class MarcaResource {
 		marca = service.insert(marca);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(marca.getId()).toUri();
 		return ResponseEntity.created(uri).build();
-		
-		
 	}
 	
 }
