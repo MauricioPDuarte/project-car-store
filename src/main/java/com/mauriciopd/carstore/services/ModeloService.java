@@ -16,9 +16,6 @@ public class ModeloService {
 	
 	@Autowired
 	private ModeloRepository repo;
-	
-	@Autowired
-	private MarcaService marcaService;
 
 	public Modelo insert(Modelo modelo) {
 		return repo.save(modelo);
@@ -34,11 +31,8 @@ public class ModeloService {
 	}
 	
 	public Modelo fromDTO(ModeloNewDTO obj) {
-		Marca marca = marcaService.findById(obj.getMarcaId());
-		Modelo modelo = new Modelo();
-		modelo.setId(obj.getId());
-		modelo.setNome(obj.getNome());
-		modelo.setMarca(marca);
+		Marca marca = new Marca(obj.getMarcaId(), null);
+		Modelo modelo = new Modelo(obj.getId(), obj.getNome(), marca);
 		return modelo;
 	}
 	
