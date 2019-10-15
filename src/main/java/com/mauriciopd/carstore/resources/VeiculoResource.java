@@ -3,6 +3,8 @@ package com.mauriciopd.carstore.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,7 +29,7 @@ public class VeiculoResource {
 	private VeiculoService service;
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody VeiculoDTO veiculoDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody VeiculoDTO veiculoDto) {
 		Veiculo veiculo = service.fromDTO(veiculoDto);
 		veiculo = service.insert(veiculo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/buscar/{id}").buildAndExpand(veiculo.getId()).toUri();
@@ -35,7 +37,7 @@ public class VeiculoResource {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> atualizar(@RequestBody VeiculoDTO veiculoDto, @PathVariable Integer id) {
+	public ResponseEntity<Void> atualizar(@Valid @RequestBody VeiculoDTO veiculoDto, @PathVariable Integer id) {
 		Veiculo veiculo = service.fromDTO(veiculoDto);
 		veiculo.setId(id);
 		veiculo = service.atualizar(veiculo);

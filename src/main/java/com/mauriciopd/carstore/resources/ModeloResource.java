@@ -2,6 +2,8 @@ package com.mauriciopd.carstore.resources;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,7 +28,7 @@ public class ModeloResource {
 	private ModeloService service;
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody ModeloNewDTO modeloDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody ModeloNewDTO modeloDto) {
 		Modelo modelo = service.fromDTO(modeloDto);
 		modelo = service.insert(modelo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(modelo.getId()).toUri();
@@ -40,7 +42,7 @@ public class ModeloResource {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> atualizar(@RequestBody ModeloNewDTO modeloDto, @PathVariable Integer id) {
+	public ResponseEntity<Void> atualizar(@Valid @RequestBody ModeloNewDTO modeloDto, @PathVariable Integer id) {
 		Modelo modelo = service.fromDTO(modeloDto);
 		modelo.setId(id);
 		modelo = service.atualizar(modelo);

@@ -2,15 +2,26 @@ package com.mauriciopd.carstore.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Min;
+
 public class VeiculoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+	
+	@Min(value = 1, message = "Preenchimento obrigatório")
 	private double preco;
+	
+	@Min(value = 1, message = "Preenchimento obrigatório")
 	private int ano;
+	
+	@Min(value = 1, message = "Preenchimento obrigatório")
 	private Integer tipo;
+	
+	@Min(value = 1, message = "Preenchimento obrigatório")
 	private Integer cor;
 
+	@Min(value = 1, message = "Preenchimento obrigatório")
 	private Integer modeloId;
 
 	public VeiculoDTO() {
