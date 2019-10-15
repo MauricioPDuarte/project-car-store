@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.mauriciopd.carstore.services.exceptions.DataIntegrityException;
+import com.mauriciopd.carstore.services.exceptions.FileStorageException;
+import com.mauriciopd.carstore.services.exceptions.MyFileNotFoundException;
 import com.mauriciopd.carstore.services.exceptions.ObjectNotFoundException;
 
 @RestControllerAdvice
@@ -63,6 +65,37 @@ public class ResourceExceptionHandler {
 	
 		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);	
 	}
+	
+	@ExceptionHandler(FileStorageException.class)
+	public ResponseEntity<StandartError> dataIntegrity(FileStorageException e, HttpServletRequest request) {
+		StandartError err = StandartError
+				.Builder
+				.newBuilder()
+				.withTimestamp(System.currentTimeMillis())
+				.withStatus(HttpStatus.BAD_REQUEST.value())
+				.withError("Erro de armazenamento")
+				.withMessage(e.getMessage())
+				.withPath(request.getRequestURI())
+				.build();
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);	
+	}
+	
+	@ExceptionHandler(MyFileNotFoundException.class)
+	public ResponseEntity<StandartError> dataIntegrity(MyFileNotFoundException e, HttpServletRequest request) {
+		StandartError err = StandartError
+				.Builder
+				.newBuilder()
+				.withTimestamp(System.currentTimeMillis())
+				.withStatus(HttpStatus.NOT_FOUND.value())
+				.withError("Arquivo não encontrado")
+				.withMessage(e.getMessage())
+				.withPath(request.getRequestURI())
+				.build();
+		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);	
+	}
+	
 	
 	
 }

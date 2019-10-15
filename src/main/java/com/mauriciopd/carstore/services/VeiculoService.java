@@ -1,10 +1,13 @@
 package com.mauriciopd.carstore.services;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Veiculo;
@@ -19,6 +22,9 @@ public class VeiculoService {
 	
 	@Autowired
 	private VeiculoRepository repo;
+	
+	@Autowired
+	private UploadService uploadService;
 	
 	public Veiculo insert(Veiculo veiculo) {
 		return repo.save(veiculo);
@@ -51,6 +57,15 @@ public class VeiculoService {
 		Veiculo newVeiculo = findById(obj.getId());
 		updateData(newVeiculo, obj);
 		return repo.save(newVeiculo);
+	}
+	
+	public URI uploadVehiclePicture(Veiculo obj, MultipartFile file) {
+		URI uri = uploadService.uploadFile(file, obj);
+		return uri;
+	}
+	
+	public Resource loadPictureVehicle(String fileName, Veiculo obj) {
+		return uploadService.loadPicture(fileName, obj);
 	}
 	
 	private void updateData(Veiculo newVeiculo, Veiculo obj) {
