@@ -2,6 +2,7 @@ package com.mauriciopd.carstore.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -24,8 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.mauriciopd.carstore.domain.Picture;
 import com.mauriciopd.carstore.domain.Veiculo;
 import com.mauriciopd.carstore.dto.VeiculoDTO;
+import com.mauriciopd.carstore.dto.VeiculoNewDTO;
 import com.mauriciopd.carstore.services.VeiculoService;
 
 @RestController
@@ -39,7 +42,7 @@ public class VeiculoResource {
 	private String prefix;
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody VeiculoDTO veiculoDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody VeiculoNewDTO veiculoDto) {
 		Veiculo veiculo = service.fromDTO(veiculoDto);
 		veiculo = service.insert(veiculo);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/buscar/{id}").buildAndExpand(veiculo.getId()).toUri();
@@ -47,35 +50,38 @@ public class VeiculoResource {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> atualizar(@Valid @RequestBody VeiculoDTO veiculoDto, @PathVariable Integer id) {
+	public ResponseEntity<Void> atualizar(@Valid @RequestBody VeiculoNewDTO veiculoDto, @PathVariable Integer id) {
 		Veiculo veiculo = service.fromDTO(veiculoDto);
 		veiculo.setId(id);
 		veiculo = service.atualizar(veiculo);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@GetMapping("/buscar/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Veiculo> findById(@PathVariable Integer id) {
 		Veiculo veiculo = service.findById(id);
 		return ResponseEntity.ok().body(veiculo);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Veiculo>> findAll() {
+	public ResponseEntity<List<VeiculoDTO>> findAll() {
 		List<Veiculo> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<VeiculoDTO> listDto = list.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 
-	@GetMapping("/{marca}")
-	public ResponseEntity<List<Veiculo>> findByMarca(@PathVariable String marca) {
+	@GetMapping("/buscar/{marca}")
+	public ResponseEntity<List<VeiculoDTO>> findByMarca(@PathVariable String marca) {
 		List<Veiculo> list = service.findByMarca(marca);
-		return ResponseEntity.ok().body(list);
+		List<VeiculoDTO> listDto = list.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
-	@GetMapping("/{marca}/{modelo}")
-	public ResponseEntity<List<Veiculo>> findByMarcaAndModelo(@PathVariable String marca, @PathVariable String modelo) {
+	@GetMapping("/buscar/{marca}/{modelo}")
+	public ResponseEntity<List<VeiculoDTO>> findByMarcaAndModelo(@PathVariable String marca, @PathVariable String modelo) {
 		List<Veiculo> list = service.findByMarcaAndModelo(marca, modelo);
-		return ResponseEntity.ok().body(list);
+		List<VeiculoDTO> listDto = list.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -85,10 +91,10 @@ public class VeiculoResource {
 	}
 	
 	@PostMapping("/picture/{id}")
-	public ResponseEntity<Void> uploadVehiclePicture(@RequestParam(name = "file") MultipartFile file, @PathVariable("id") Integer id) {
+	public ResponseEntity<List<Picture>> uploadVehiclePicture(@RequestParam(name = "file") List<MultipartFile> files, @PathVariable("id") Integer id) {
 		Veiculo veiculo = service.findById(id);
-		URI uri = service.uploadVehiclePicture(veiculo, file);
-		return ResponseEntity.created(uri).build();
+		List<Picture> pictures = files.stream().map(x -> service.uploadVehiclePicture(veiculo, x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(pictures);
 	}
 	
 	@GetMapping("/picture/{id}/{fileName}")

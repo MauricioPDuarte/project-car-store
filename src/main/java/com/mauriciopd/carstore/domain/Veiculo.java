@@ -1,6 +1,8 @@
 package com.mauriciopd.carstore.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.mauriciopd.carstore.domain.enums.CorVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
@@ -27,6 +30,9 @@ public class Veiculo implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "modelo_id")
 	private Modelo modelo;
+
+	@OneToMany(mappedBy = "veiculo")
+	private List<Picture> pictures = new ArrayList<>();
 
 	public Veiculo() {
 	}
@@ -87,6 +93,14 @@ public class Veiculo implements Serializable {
 
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
+	}
+
+	public List<Picture> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<Picture> pictures) {
+		this.pictures = pictures;
 	}
 
 	@Override

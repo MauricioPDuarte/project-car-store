@@ -1,6 +1,5 @@
 package com.mauriciopd.carstore.services;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,10 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mauriciopd.carstore.domain.Modelo;
+import com.mauriciopd.carstore.domain.Picture;
 import com.mauriciopd.carstore.domain.Veiculo;
 import com.mauriciopd.carstore.domain.enums.CorVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
-import com.mauriciopd.carstore.dto.VeiculoDTO;
+import com.mauriciopd.carstore.dto.VeiculoNewDTO;
 import com.mauriciopd.carstore.repository.VeiculoRepository;
 import com.mauriciopd.carstore.services.exceptions.ObjectNotFoundException;
 
@@ -59,9 +59,11 @@ public class VeiculoService {
 		return repo.save(newVeiculo);
 	}
 	
-	public URI uploadVehiclePicture(Veiculo obj, MultipartFile file) {
-		URI uri = uploadService.uploadFile(file, obj);
-		return uri;
+	public Picture uploadVehiclePicture(Veiculo obj, MultipartFile file) {
+		Picture picture = uploadService.uploadFile(file, obj);
+		obj.getPictures().add(picture);
+		repo.save(obj);
+		return picture;
 	}
 	
 	public Resource loadPictureVehicle(String fileName, Veiculo obj) {
@@ -77,7 +79,7 @@ public class VeiculoService {
 		newVeiculo.setTipo(obj.getTipo());
 	}
 
-	public Veiculo fromDTO(VeiculoDTO obj) {
+	public Veiculo fromDTO(VeiculoNewDTO obj) {
 		Modelo modelo = new Modelo(obj.getModeloId(), null, null);
 		Veiculo veiculo = new Veiculo(obj.getId(), obj.getPreco(), obj.getAno(), TipoVeiculo.toEnum(obj.getTipo()), CorVeiculo.toEnum(obj.getCor()), modelo);
 		return veiculo;

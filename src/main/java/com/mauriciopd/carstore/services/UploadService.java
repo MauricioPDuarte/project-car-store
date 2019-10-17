@@ -1,21 +1,24 @@
 package com.mauriciopd.carstore.services;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.mauriciopd.carstore.domain.Picture;
 import com.mauriciopd.carstore.domain.Veiculo;
+import com.mauriciopd.carstore.repository.PictureRepository;
 import com.mauriciopd.carstore.services.exceptions.FileStorageException;
 import com.mauriciopd.carstore.services.exceptions.MyFileNotFoundException;
 
@@ -25,23 +28,33 @@ public class UploadService {
 	@Value("${file.upload-dir}")
 	private String raiz;
 	
-	@Value("${file.content-type}")
-	private String contentType;
+	@Autowired
+	private ImageService imageService;
 	
-	public URI uploadFile(MultipartFile file, Veiculo obj) {
+	@Autowired
+	private PictureRepository repo;
+	
+
+	public Picture uploadFile(MultipartFile file, Veiculo obj) {
 	
 		Path pathDiretorio = obterDiretorioFoto(obj);
-		Path pathPicture = pathDiretorio.resolve(file.getOriginalFilename());
+		BufferedImage jpgImage = imageService.getJpgImageFromFile(file);
 		
+		String fileName = obj.getModelo().getNome()
+				+ "-" +
+				obj.getModelo().getMarca().getNome()
+				+ "-" +
+				obj.getId()
+				+ "-" + 
+				new Date().getTime() + 
+				".jpg";
+		
+		Path pathPicture = pathDiretorio.resolve(fileName);
 		try {
 			Files.createDirectories(pathDiretorio);
-			Files.copy(file.getInputStream(), pathPicture, StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(imageService.getInputStream(jpgImage, "jpg"), pathPicture, StandardCopyOption.REPLACE_EXISTING);
 			
-			return ServletUriComponentsBuilder
-					.fromCurrentRequest()
-					.path("/" + file.getOriginalFilename())
-					.build()
-					.toUri();
+			return repo.save(new Picture(null, fileName, false, obj));
 		}catch (IOException e) {
 			throw new FileStorageException("Erro ao tentar armazenar o arquivo. Porfavor tente novamente!");
 		}
@@ -49,7 +62,6 @@ public class UploadService {
 	
 	public Resource loadPicture(String fileName, Veiculo obj) {
 		try {
-			fileName += contentType;
 			Path path = obterDiretorioFoto(obj);
 			Path pathNovo = path.resolve(fileName);
 			Resource resource = new UrlResource(pathNovo.toUri());
@@ -62,6 +74,16 @@ public class UploadService {
 			throw new MyFileNotFoundException("Arquivo " + fileName + " não encontrado ", e);
 		}
 	}
+	
+//	public void deleteFile(Veiculo obj) {
+//		Path path = obterDiretorioFoto(obj);
+//		try {
+//			Files.deleteIfExists(path);
+//		} catch (IOException e) {
+//			throw new MyFileNotFoundException("Arquivo não encontrado");
+//		}
+//		
+//	}
 	
 	private Path obterDiretorioFoto(Veiculo veiculo) {
 		String modelo = veiculo.getModelo().getNome();

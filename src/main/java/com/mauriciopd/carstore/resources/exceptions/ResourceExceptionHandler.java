@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.mauriciopd.carstore.services.exceptions.DataIntegrityException;
+import com.mauriciopd.carstore.services.exceptions.FileException;
 import com.mauriciopd.carstore.services.exceptions.FileStorageException;
 import com.mauriciopd.carstore.services.exceptions.MyFileNotFoundException;
 import com.mauriciopd.carstore.services.exceptions.ObjectNotFoundException;
@@ -96,6 +97,19 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);	
 	}
 	
-	
+	@ExceptionHandler(FileException.class)
+	public ResponseEntity<StandartError> dataIntegrity(FileException e, HttpServletRequest request) {
+		StandartError err = StandartError
+				.Builder
+				.newBuilder()
+				.withTimestamp(System.currentTimeMillis())
+				.withStatus(HttpStatus.BAD_REQUEST.value())
+				.withError("Erro de arquivo")
+				.withMessage(e.getMessage())
+				.withPath(request.getRequestURI())
+				.build();
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);	
+	}
 	
 }
