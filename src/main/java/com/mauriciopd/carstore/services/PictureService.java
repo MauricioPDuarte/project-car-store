@@ -38,19 +38,24 @@ public class PictureService {
 	@Autowired
 	private PictureRepository repo;
 
-	public Picture uploadFile(MultipartFile file, Veiculo obj) {
-
-		Path pathDiretorio = obterDiretorioFoto(obj);
+	public Picture findByNomeFile(String fileName) {
+		Optional<Picture> picture = repo.findByFileName(fileName);
+		return picture.orElseThrow(() -> new ObjectNotFoundException("Arquivo não encontrado: " + fileName));
+	}
+	
+	public Picture findById(Integer id) {
+		Optional<Picture> picture = repo.findById(id);
+		return picture.orElseThrow(() -> new ObjectNotFoundException("Arquivo não encontrado: " + id));
+	}
+	
+	public Picture uploadPictureVehicle(MultipartFile file, Veiculo obj) {
+		Path pathDiretorio = obterDiretorioFotoVeiculo(obj);
 		BufferedImage jpgImage = imageService.getJpgImageFromFile(file);
-
-		String fileName = obj.getModelo().getNome() + "-" + obj.getModelo().getMarca().getNome() + "-" + obj.getId()
-				+ "-" + new Date().getTime() + ".jpg";
-
+		String fileName = obterNovoFileName(obj);
 		Path pathPicture = pathDiretorio.resolve(fileName);
 		try {
 			Files.createDirectories(pathDiretorio);
 			Files.copy(imageService.getInputStream(jpgImage, "jpg"), pathPicture, StandardCopyOption.REPLACE_EXISTING);
-
 			return repo.save(new Picture(null, fileName, false, obj));
 		} catch (IOException e) {
 			throw new FileStorageException("Erro ao tentar armazenar o arquivo. Porfavor tente novamente!");
@@ -59,7 +64,7 @@ public class PictureService {
 
 	public Resource loadPicture(String fileName, Veiculo obj) {
 		try {
-			Path path = obterDiretorioFoto(obj);
+			Path path = obterDiretorioFotoVeiculo(obj);
 			Path pathNovo = path.resolve(fileName);
 			Resource resource = new UrlResource(pathNovo.toUri());
 			if (resource.exists()) {
@@ -74,7 +79,7 @@ public class PictureService {
 
 	public void deleteFile(Veiculo obj, String fileName) {
 		Picture picture = findByNomeFile(fileName);
-		Path path = obterDiretorioFoto(obj);
+		Path path = obterDiretorioFotoVeiculo(obj);
 		path.resolve(fileName);
 		File file = new File(path.toString());
 		file.delete();
@@ -83,7 +88,7 @@ public class PictureService {
 	}
 
 	public void deleteFileAndDirectory(Veiculo obj) {
-		File file = new File(obterDiretorioFoto(obj).toString());
+		File file = new File(obterDiretorioFotoVeiculo(obj).toString());
 		try {
 			FileUtils.deleteDirectory(file);
 		} catch (IOException e) {
@@ -92,12 +97,13 @@ public class PictureService {
 
 	}
 	
-	public Picture findByNomeFile(String fileName) {
-		Optional<Picture> picture = repo.findByFileName(fileName);
-		return picture.orElseThrow(() -> new ObjectNotFoundException("Arquivo não encontrado: " + fileName));
+	private String obterNovoFileName(Veiculo obj) {
+		return obj.getModelo().getNome() + "-" +
+				obj.getModelo().getMarca().getNome() + "-" +
+				obj.getId() + "-" + new Date().getTime() + ".jpg";
 	}
-
-	private Path obterDiretorioFoto(Veiculo veiculo) {
+	
+	private Path obterDiretorioFotoVeiculo(Veiculo veiculo) {
 		String modelo = veiculo.getModelo().getNome();
 		String marca = veiculo.getModelo().getMarca().getNome();
 		return Paths.get(raiz, marca, modelo, veiculo.getId().toString());

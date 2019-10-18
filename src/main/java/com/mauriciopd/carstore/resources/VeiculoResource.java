@@ -101,15 +101,23 @@ public class VeiculoResource {
 	
 	@ApiOperation(value="Inserir foto por id do veiculo")
 	@PostMapping("/picture/{id}")
-	public ResponseEntity<List<Picture>> uploadVehiclePicture(@RequestParam(name = "file") List<MultipartFile> files, @PathVariable("id") Integer id) {
+	public ResponseEntity<List<Picture>> insertVehiclePicture(@RequestParam(name = "file") List<MultipartFile> files, @PathVariable("id") Integer id) {
 		Veiculo veiculo = service.findById(id);
 		List<Picture> pictures = files.stream().map(x -> service.uploadVehiclePicture(veiculo, x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(pictures);
 	}
 	
+	@ApiOperation(value="Altera thumbnail veiculo")
+	@PutMapping("{vehicleId}/picture/{pictureId}")
+	public ResponseEntity<List<Picture>> updateVehiclePicture(@PathVariable("vehicleId") Integer vehicleId, @PathVariable("pictureId") Integer pictureId) {
+		Veiculo veiculo = service.findById(vehicleId);
+		service.updateThumbnailVehicle(pictureId, veiculo);
+		return ResponseEntity.noContent().build();
+	}
+	
 	@ApiOperation(value="Deletar determinada foto do veiculo")
 	@DeleteMapping("/picture/{id}/{fileName:.+}")
-	public ResponseEntity<List<Picture>> uploadVehiclePicture(@PathVariable("fileName") String fileName, @PathVariable("id") Integer id) {
+	public ResponseEntity<List<Picture>> deleteVehiclePicture(@PathVariable("fileName") String fileName, @PathVariable("id") Integer id) {
 		service.deleteVehiclePicture(id, fileName);
 		return ResponseEntity.noContent().build();
 	}
