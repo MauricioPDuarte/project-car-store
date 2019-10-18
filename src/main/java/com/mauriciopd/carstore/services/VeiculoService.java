@@ -14,8 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Picture;
 import com.mauriciopd.carstore.domain.Veiculo;
-import com.mauriciopd.carstore.domain.enums.CorVeiculo;
-import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 import com.mauriciopd.carstore.dto.VeiculoNewDTO;
 import com.mauriciopd.carstore.repository.VeiculoRepository;
 import com.mauriciopd.carstore.services.exceptions.ObjectNotFoundException;
@@ -79,9 +77,10 @@ public class VeiculoService {
 	
 	
 	public Veiculo atualizar(Veiculo obj) {
-		Veiculo newVeiculo = findById(obj.getId());
-		updateData(newVeiculo, obj);
-		return repo.save(newVeiculo);
+		findById(obj.getId());
+		//Veiculo newVeiculo = findById(obj.getId());
+		//updateData(newVeiculo, obj);
+		return repo.save(obj);
 	}
 	
 	public Picture uploadVehiclePicture(Veiculo obj, MultipartFile file) {
@@ -108,20 +107,30 @@ public class VeiculoService {
 		Veiculo obj = findById(veiculoId);
 		return pictureService.loadPicture(fileName, obj);
 	}
-	
-	private void updateData(Veiculo newVeiculo, Veiculo obj) {
-		Modelo modelo = new Modelo(obj.getModelo().getId(), null, null);
-		newVeiculo.setAno(obj.getAno());
-		newVeiculo.setCor(obj.getCor());
-		newVeiculo.setModelo(modelo);
-		newVeiculo.setPreco(obj.getPreco());
-		newVeiculo.setTipo(obj.getTipo());
-	}
 
 	public Veiculo fromDTO(VeiculoNewDTO obj) {
 		Modelo modelo = new Modelo(obj.getModeloId(), null, null);
-		Veiculo veiculo = new Veiculo(obj.getId(), obj.getPreco(), obj.getAno(), TipoVeiculo.toEnum(obj.getTipo()), CorVeiculo.toEnum(obj.getCor()), modelo);
-		return veiculo;
+		
+		return Veiculo.Builder
+				.newBuilder()
+				.withId(obj.getId())
+				.withPreco(obj.getPreco())
+				.withAno(obj.getAno())
+				.withTipo(obj.getTipo())
+				.withCor(obj.getCor())
+				.withCombustivel(obj.getCombustivel())
+				.withCambio(obj.getCambio())
+				.withPlaca(obj.getPlaca())
+				.withDescricao(obj.getDescricao())
+				.withKmRodado(obj.getKmRodado())
+				.withIpvaPago(obj.isIpvaPago())
+				.withBlindado(obj.isBlindado())
+				.withTroca(obj.isTroca())
+				.withGarantiaFabrica(obj.isGarantiaFabrica())
+				.withUnicoDono(obj.isUnicoDono())
+				.withModelo(modelo)
+				.withOpcionais(obj.getOpcionais())
+				.build();	
 	}
 	
 }

@@ -119,7 +119,7 @@ public class VeiculoResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 
-	
+	@ApiOperation(value="Buscar todos paginada")
 	@GetMapping("/page")
 	public ResponseEntity<Page<VeiculoDTO>> findAllPage(@RequestParam(value = "page", defaultValue = "0")Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24")Integer linesPerPage,
@@ -138,6 +138,7 @@ public class VeiculoResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
+	@ApiOperation(value="Buscar por marca paginada")
 	@GetMapping("/buscar/page/{marca}")
 	public ResponseEntity<Page<VeiculoDTO>> findAllMarcaPage(@PathVariable String marca,
 			@RequestParam(value = "page", defaultValue = "0")Integer page,
@@ -157,6 +158,7 @@ public class VeiculoResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
+	@ApiOperation(value="Buscar por modelo paginada")
 	@GetMapping("/buscar/page/{marca}/{modelo}")
 	public ResponseEntity<Page<VeiculoDTO>> findAllModeloPage(@PathVariable String marca,
 			@PathVariable String modelo,
