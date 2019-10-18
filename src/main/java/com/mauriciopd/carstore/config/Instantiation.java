@@ -81,6 +81,6 @@ public class Instantiation implements CommandLineRunner{
 		marcaRepository.saveAll(Arrays.asList(m1, m2, m3, m4, m5, m6, m7));
 		modeloRepository.saveAll(Arrays.asList(mod1, mod2, mod3, mod4, mod5, mod6, mod7, mod8, mod9, mod10));
 		veiculoRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10));
+		
 	}
-
 }

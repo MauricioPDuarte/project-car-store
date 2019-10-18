@@ -41,7 +41,7 @@ public class PictureService {
 	public Picture uploadPictureVehicle(MultipartFile file, Veiculo obj) {
 		Path path = obterDiretorioFotoVeiculo(obj);
 		String fileName = obterNovoFileName(obj);
-		Picture picture = uploadService.uploadPictureVehicle(file, path, fileName);
+		Picture picture = uploadService.uploadPicture(file, path, fileName);
 		picture.setVeiculo(obj);
 		return repo.save(picture);
 	}

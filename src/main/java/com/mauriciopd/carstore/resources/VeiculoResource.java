@@ -109,14 +109,14 @@ public class VeiculoResource {
 	
 	@ApiOperation(value="Altera thumbnail veiculo")
 	@PutMapping("{vehicleId}/picture/{pictureId}")
-	public ResponseEntity<List<Picture>> updateVehiclePicture(@PathVariable("vehicleId") Integer vehicleId, @PathVariable("pictureId") Integer pictureId) {
+	public ResponseEntity<Void> updateVehiclePicture(@PathVariable("vehicleId") Integer vehicleId, @PathVariable("pictureId") Integer pictureId) {
 		service.updateThumbnailVehicle(pictureId, vehicleId);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@ApiOperation(value="Deletar determinada foto do veiculo")
 	@DeleteMapping("/picture/{id}/{fileName:.+}")
-	public ResponseEntity<List<Picture>> deleteVehiclePicture(@PathVariable("fileName") String fileName, @PathVariable("id") Integer id) {
+	public ResponseEntity<Void> deleteVehiclePicture(@PathVariable("fileName") String fileName, @PathVariable("id") Integer id) {
 		service.deleteVehiclePicture(id, fileName);
 		return ResponseEntity.noContent().build();
 	}
@@ -133,4 +133,7 @@ public class VeiculoResource {
 				.body(resource);
 						
 	}
+	
+	@GetMapping
+	public ResponseEntity<Page<VeiculoDTO>>
 }

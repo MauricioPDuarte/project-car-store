@@ -1,4 +1,4 @@
-package com.mauriciopd.carstore.services.utils;
+package com.mauriciopd.carstore.services;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mauriciopd.carstore.services.exceptions.FileException;
 
 @Service
-public class PictureUtil {
+public class PictureToolsService {
 
 	public BufferedImage getJpgImageFromFile(MultipartFile uploadedFile) {
 		String ext = FilenameUtils.getExtension(uploadedFile.getOriginalFilename());
