@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,13 +42,29 @@ public class VeiculoService {
 		return repo.findAll();
 	}
 	
+	public Page<Veiculo> findAllPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findAll(pageRequest);
+	}
+	
 	public List<Veiculo> findByMarca(String marca) {
 		return repo.findMarca(marca);
+	}
+	
+	public Page<Veiculo> findByMarcaPage(String marca, Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findMarcaPage(marca, pageRequest);
 	}
 	
 	public List<Veiculo> findByMarcaAndModelo(String marca, String modelo) {
 		return repo.findModelo(marca, modelo);
 	}
+	
+	public Page<Veiculo> findByModeloPage(String marca, String modelo, Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findModeloPage(marca, modelo, pageRequest);
+	}
+
 	
 	public void delete(Integer id) {
 		Veiculo veiculo = findById(id);

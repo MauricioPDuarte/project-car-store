@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -68,30 +69,6 @@ public class VeiculoResource {
 		return ResponseEntity.ok().body(veiculo);
 	}
 	
-	@ApiOperation(value="Buscar todos")
-	@GetMapping
-	public ResponseEntity<List<VeiculoDTO>> findAll() {
-		List<Veiculo> list = service.findAll();
-		List<VeiculoDTO> listDto = list.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDto);
-	}
-
-	@ApiOperation(value="Buscar por marca")
-	@GetMapping("/buscar/{marca}")
-	public ResponseEntity<List<VeiculoDTO>> findByMarca(@PathVariable String marca) {
-		List<Veiculo> list = service.findByMarca(marca);
-		List<VeiculoDTO> listDto = list.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDto);
-	}
-	
-	@ApiOperation(value="Buscar por modelo")
-	@GetMapping("/buscar/{marca}/{modelo}")
-	public ResponseEntity<List<VeiculoDTO>> findByMarcaAndModelo(@PathVariable String marca, @PathVariable String modelo) {
-		List<Veiculo> list = service.findByMarcaAndModelo(marca, modelo);
-		List<VeiculoDTO> listDto = list.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDto);
-	}
-	
 	@ApiOperation(value="Deletar por id")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
@@ -134,6 +111,62 @@ public class VeiculoResource {
 						
 	}
 	
+	@ApiOperation(value="Buscar todos")
 	@GetMapping
-	public ResponseEntity<Page<VeiculoDTO>>
+	public ResponseEntity<List<VeiculoDTO>> findAll() {
+		List<Veiculo> list = service.findAll();
+		List<VeiculoDTO> listDto = list.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+	}
+
+	
+	@GetMapping("/page")
+	public ResponseEntity<Page<VeiculoDTO>> findAllPage(@RequestParam(value = "page", defaultValue = "0")Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "24")Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "modelo.marca.nome")String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC")String direction) {
+		Page<Veiculo> list = service.findAllPage(page, linesPerPage, orderBy, direction);
+		Page<VeiculoDTO> listDto = list.map(x -> new VeiculoDTO(x));
+		return ResponseEntity.ok().body(listDto);
+	}
+	
+	@ApiOperation(value="Buscar por marca")
+	@GetMapping("/buscar/{marca}")
+	public ResponseEntity<List<VeiculoDTO>> findByMarca(@PathVariable String marca) {
+		List<Veiculo> list = service.findByMarca(marca);
+		List<VeiculoDTO> listDto = list.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+	}
+	
+	@GetMapping("/buscar/page/{marca}")
+	public ResponseEntity<Page<VeiculoDTO>> findAllMarcaPage(@PathVariable String marca,
+			@RequestParam(value = "page", defaultValue = "0")Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "24")Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "modelo.marca.nome")String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC")String direction) {
+		Page<Veiculo> list = service.findByMarcaPage(marca ,page, linesPerPage, orderBy, direction);
+		Page<VeiculoDTO> listDto = list.map(x -> new VeiculoDTO(x));
+		return ResponseEntity.ok().body(listDto);
+	}
+	
+	@ApiOperation(value="Buscar por modelo")
+	@GetMapping("/buscar/{marca}/{modelo}")
+	public ResponseEntity<List<VeiculoDTO>> findByMarcaAndModelo(@PathVariable String marca, @PathVariable String modelo) {
+		List<Veiculo> list = service.findByMarcaAndModelo(marca, modelo);
+		List<VeiculoDTO> listDto = list.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+	}
+	
+	@GetMapping("/buscar/page/{marca}/{modelo}")
+	public ResponseEntity<Page<VeiculoDTO>> findAllModeloPage(@PathVariable String marca,
+			@PathVariable String modelo,
+			@RequestParam(value = "page", defaultValue = "0")Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "24")Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "modelo.marca.nome")String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC")String direction) {
+		Page<Veiculo> list = service.findByModeloPage(marca, modelo ,page, linesPerPage, orderBy, direction);
+		Page<VeiculoDTO> listDto = list.map(x -> new VeiculoDTO(x));
+		return ResponseEntity.ok().body(listDto);
+	}
+	
 }

@@ -2,6 +2,8 @@ package com.mauriciopd.carstore.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,5 +22,13 @@ public interface VeiculoRepository extends JpaRepository<Veiculo, Integer>{
 	@Transactional(readOnly=true)
 	@Query("SELECT obj FROM Veiculo obj WHERE lower(obj.modelo.marca.nome) like lower(:marca)") 
 	List<Veiculo> findMarca(@Param("marca") String marca);
-
+	
+	@Transactional(readOnly=true)
+	@Query("SELECT obj FROM Veiculo obj WHERE lower(obj.modelo.marca.nome) like lower(:marca)") 
+	Page<Veiculo> findMarcaPage(@Param("marca") String marca, Pageable pageable);
+	
+	@Transactional(readOnly=true)
+	@Query("SELECT obj FROM Veiculo obj WHERE lower(obj.modelo.marca.nome) like lower(:marca) AND lower(obj.modelo.nome) like lower(:modelo)") 
+	Page<Veiculo> findModeloPage(@Param("marca") String marca, @Param("modelo")String modelo, Pageable pageable);
+	
 }
