@@ -24,7 +24,7 @@ public class VeiculoService {
 	private VeiculoRepository repo;
 	
 	@Autowired
-	private UploadService uploadService;
+	private PictureService pictureService;
 	
 	public Veiculo insert(Veiculo veiculo) {
 		return repo.save(veiculo);
@@ -48,8 +48,14 @@ public class VeiculoService {
 	}
 	
 	public void delete(Integer id) {
-		findById(id);
+		Veiculo veiculo = findById(id);
 		repo.deleteById(id);
+		pictureService.deleteFileAndDirectory(veiculo);
+	}
+	
+	public void deleteVehiclePicture(Integer id, String fileName) {
+		Veiculo veiculo = findById(id);
+		pictureService.deleteFile(veiculo, fileName);
 	}
 	
 	
@@ -60,14 +66,14 @@ public class VeiculoService {
 	}
 	
 	public Picture uploadVehiclePicture(Veiculo obj, MultipartFile file) {
-		Picture picture = uploadService.uploadFile(file, obj);
+		Picture picture = pictureService.uploadFile(file, obj);
 		obj.getPictures().add(picture);
 		repo.save(obj);
 		return picture;
 	}
 	
 	public Resource loadPictureVehicle(String fileName, Veiculo obj) {
-		return uploadService.loadPicture(fileName, obj);
+		return pictureService.loadPicture(fileName, obj);
 	}
 	
 	private void updateData(Veiculo newVeiculo, Veiculo obj) {

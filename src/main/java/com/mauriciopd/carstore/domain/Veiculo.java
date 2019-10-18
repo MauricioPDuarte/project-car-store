@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,7 +32,7 @@ public class Veiculo implements Serializable {
 	@JoinColumn(name = "modelo_id")
 	private Modelo modelo;
 
-	@OneToMany(mappedBy = "veiculo")
+	@OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL)
 	private List<Picture> pictures = new ArrayList<>();
 
 	public Veiculo() {

@@ -97,6 +97,12 @@ public class VeiculoResource {
 		return ResponseEntity.ok().body(pictures);
 	}
 	
+	@DeleteMapping("/picture/{id}/{fileName}")
+	public ResponseEntity<List<Picture>> uploadVehiclePicture(@PathVariable("fileName") String fileName, @PathVariable("id") Integer id) {
+		service.deleteVehiclePicture(id, fileName);
+		return ResponseEntity.noContent().build();
+	}
+	
 	@GetMapping("/picture/{id}/{fileName}")
 	public ResponseEntity<Resource> loadPictureVehicle(@PathVariable("id") Integer id, @PathVariable("fileName") String fileName,
 			HttpServletRequest request
