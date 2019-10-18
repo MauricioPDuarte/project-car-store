@@ -48,7 +48,7 @@ public class VeiculoResource {
 	public ResponseEntity<Void> insert(@Valid @RequestBody VeiculoNewDTO veiculoDto) {
 		Veiculo veiculo = service.fromDTO(veiculoDto);
 		veiculo = service.insert(veiculo);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/buscar/{id}").buildAndExpand(veiculo.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(veiculo.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -110,8 +110,7 @@ public class VeiculoResource {
 	@ApiOperation(value="Altera thumbnail veiculo")
 	@PutMapping("{vehicleId}/picture/{pictureId}")
 	public ResponseEntity<List<Picture>> updateVehiclePicture(@PathVariable("vehicleId") Integer vehicleId, @PathVariable("pictureId") Integer pictureId) {
-		Veiculo veiculo = service.findById(vehicleId);
-		service.updateThumbnailVehicle(pictureId, veiculo);
+		service.updateThumbnailVehicle(pictureId, vehicleId);
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -127,8 +126,7 @@ public class VeiculoResource {
 	public ResponseEntity<Resource> loadPictureVehicle(@PathVariable("id") Integer id, @PathVariable("fileName") String fileName,
 			HttpServletRequest request
 			) {
-		Veiculo veiculo = service.findById(id);
-		Resource resource = service.loadPictureVehicle(fileName, veiculo);
+		Resource resource = service.loadPictureVehicle(fileName, id);
 		return ResponseEntity.ok()
 				.contentType(MediaType.IMAGE_JPEG)
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")

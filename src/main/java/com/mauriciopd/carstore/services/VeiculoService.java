@@ -14,7 +14,6 @@ import com.mauriciopd.carstore.domain.Veiculo;
 import com.mauriciopd.carstore.domain.enums.CorVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 import com.mauriciopd.carstore.dto.VeiculoNewDTO;
-import com.mauriciopd.carstore.repository.PictureRepository;
 import com.mauriciopd.carstore.repository.VeiculoRepository;
 import com.mauriciopd.carstore.services.exceptions.ObjectNotFoundException;
 
@@ -26,9 +25,6 @@ public class VeiculoService {
 	
 	@Autowired
 	private PictureService pictureService;
-	
-	@Autowired
-	private PictureRepository pictureRepository;
 	
 	public Veiculo insert(Veiculo veiculo) {
 		return repo.save(veiculo);
@@ -76,7 +72,8 @@ public class VeiculoService {
 		return picture;
 	}
 	
-	public void updateThumbnailVehicle(Integer pictureId, Veiculo veiculo) {
+	public void updateThumbnailVehicle(Integer pictureId, Integer veiculoId) {
+		Veiculo veiculo = findById(veiculoId);
 		Picture picture = pictureService.findById(pictureId);
 		for(Picture obj : veiculo.getPictures()) {
 			if(obj.equals(picture)) {
@@ -86,11 +83,10 @@ public class VeiculoService {
 			}
 		}
 		repo.save(veiculo);
-		pictureRepository.save(picture);
-		
 	}
 	
-	public Resource loadPictureVehicle(String fileName, Veiculo obj) {
+	public Resource loadPictureVehicle(String fileName, Integer veiculoId) {
+		Veiculo obj = findById(veiculoId);
 		return pictureService.loadPicture(fileName, obj);
 	}
 	
