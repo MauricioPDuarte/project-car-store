@@ -1,4 +1,4 @@
-package com.mauriciopd.carstore.services;
+package com.mauriciopd.carstore.services.utils;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -16,20 +16,20 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mauriciopd.carstore.services.exceptions.FileException;
 
 @Service
-public class ImageService {
+public class PictureUtil {
 
 	public BufferedImage getJpgImageFromFile(MultipartFile uploadedFile) {
 		String ext = FilenameUtils.getExtension(uploadedFile.getOriginalFilename());
-		if(!"png".equals(ext) && !"jpg".equals(ext)) {
+		if (!"png".equals(ext) && !"jpg".equals(ext)) {
 			throw new FileException("Somente imagens PNG ou JPG são permitidas");
 		}
 		try {
 			BufferedImage img = ImageIO.read(uploadedFile.getInputStream());
-			if("png".equals(ext)) {
+			if ("png".equals(ext)) {
 				img = pngToJpg(img);
 			}
 			return img;
-		}catch (IOException e) {
+		} catch (IOException e) {
 			throw new FileException("Erro ao ler arquivo");
 		}
 	}
@@ -39,14 +39,15 @@ public class ImageService {
 		jpgImage.createGraphics().drawImage(img, 0, 0, Color.WHITE, null);
 		return jpgImage;
 	}
-	
+
 	public InputStream getInputStream(BufferedImage img, String extension) {
 		try {
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			ImageIO.write(img, extension, os);
 			return new ByteArrayInputStream(os.toByteArray());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			throw new FileException("Erro ao ler arquivo");
 		}
 	}
+	
 }
