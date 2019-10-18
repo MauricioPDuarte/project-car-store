@@ -87,7 +87,7 @@ public class PictureService {
 		try {
 			FileUtils.deleteDirectory(file);
 		} catch (IOException e) {
-			throw new MyFileNotFoundException("Diretorio não encontrado");
+			throw new MyFileNotFoundException("Erro ao excluir o diretorio/arquivos do veiculo");
 		}
 
 	}

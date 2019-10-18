@@ -31,6 +31,8 @@ import com.mauriciopd.carstore.dto.VeiculoDTO;
 import com.mauriciopd.carstore.dto.VeiculoNewDTO;
 import com.mauriciopd.carstore.services.VeiculoService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping(value = "/veiculos")
 public class VeiculoResource {
@@ -41,6 +43,7 @@ public class VeiculoResource {
 	@Value("${file.prefix}")
 	private String prefix;
 	
+	@ApiOperation(value="Inserir novo")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody VeiculoNewDTO veiculoDto) {
 		Veiculo veiculo = service.fromDTO(veiculoDto);
@@ -49,6 +52,7 @@ public class VeiculoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@ApiOperation(value="Atualizar por id")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> atualizar(@Valid @RequestBody VeiculoNewDTO veiculoDto, @PathVariable Integer id) {
 		Veiculo veiculo = service.fromDTO(veiculoDto);
@@ -57,12 +61,14 @@ public class VeiculoResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@ApiOperation(value="Buscar por id")
 	@GetMapping("/{id}")
 	public ResponseEntity<Veiculo> findById(@PathVariable Integer id) {
 		Veiculo veiculo = service.findById(id);
 		return ResponseEntity.ok().body(veiculo);
 	}
 	
+	@ApiOperation(value="Buscar todos")
 	@GetMapping
 	public ResponseEntity<List<VeiculoDTO>> findAll() {
 		List<Veiculo> list = service.findAll();
@@ -70,6 +76,7 @@ public class VeiculoResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 
+	@ApiOperation(value="Buscar por marca")
 	@GetMapping("/buscar/{marca}")
 	public ResponseEntity<List<VeiculoDTO>> findByMarca(@PathVariable String marca) {
 		List<Veiculo> list = service.findByMarca(marca);
@@ -77,6 +84,7 @@ public class VeiculoResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
+	@ApiOperation(value="Buscar por modelo")
 	@GetMapping("/buscar/{marca}/{modelo}")
 	public ResponseEntity<List<VeiculoDTO>> findByMarcaAndModelo(@PathVariable String marca, @PathVariable String modelo) {
 		List<Veiculo> list = service.findByMarcaAndModelo(marca, modelo);
@@ -84,12 +92,14 @@ public class VeiculoResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
+	@ApiOperation(value="Deletar por id")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@ApiOperation(value="Inserir foto por id do veiculo")
 	@PostMapping("/picture/{id}")
 	public ResponseEntity<List<Picture>> uploadVehiclePicture(@RequestParam(name = "file") List<MultipartFile> files, @PathVariable("id") Integer id) {
 		Veiculo veiculo = service.findById(id);
@@ -97,12 +107,14 @@ public class VeiculoResource {
 		return ResponseEntity.ok().body(pictures);
 	}
 	
-	@DeleteMapping("/picture/{id}/{fileName}")
+	@ApiOperation(value="Deletar determinada foto do veiculo")
+	@DeleteMapping("/picture/{id}/{fileName:.+}")
 	public ResponseEntity<List<Picture>> uploadVehiclePicture(@PathVariable("fileName") String fileName, @PathVariable("id") Integer id) {
 		service.deleteVehiclePicture(id, fileName);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@ApiOperation(value="Buscar/exibir foto por nome")
 	@GetMapping("/picture/{id}/{fileName}")
 	public ResponseEntity<Resource> loadPictureVehicle(@PathVariable("id") Integer id, @PathVariable("fileName") String fileName,
 			HttpServletRequest request
