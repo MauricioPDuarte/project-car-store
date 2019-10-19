@@ -78,8 +78,6 @@ public class VeiculoService {
 	
 	public Veiculo atualizar(Veiculo obj) {
 		findById(obj.getId());
-		//Veiculo newVeiculo = findById(obj.getId());
-		//updateData(newVeiculo, obj);
 		return repo.save(obj);
 	}
 	
@@ -120,6 +118,7 @@ public class VeiculoService {
 				.withCor(obj.getCor())
 				.withCombustivel(obj.getCombustivel())
 				.withCambio(obj.getCambio())
+				.withNumPortas(obj.getNumPortas())
 				.withPlaca(obj.getPlaca())
 				.withDescricao(obj.getDescricao())
 				.withKmRodado(obj.getKmRodado())

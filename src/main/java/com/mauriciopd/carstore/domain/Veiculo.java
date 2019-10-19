@@ -19,6 +19,7 @@ import com.mauriciopd.carstore.domain.enums.CambioVeiculo;
 import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
 import com.mauriciopd.carstore.domain.enums.CorVeiculo;
 import com.mauriciopd.carstore.domain.enums.OpcionaisVeiculo;
+import com.mauriciopd.carstore.domain.enums.PortasVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 
 @Entity
@@ -34,6 +35,7 @@ public class Veiculo implements Serializable {
 	private Integer cor;
 	private Integer combustivel;
 	private Integer cambio;
+	private Integer numPortas;
 	private String placa;
 	private String descricao;
 	private Long kmRodado;
@@ -56,60 +58,6 @@ public class Veiculo implements Serializable {
 
 	public Veiculo() {
 	}
-
-//	public Veiculo(
-//			Integer id,
-//			double preco,
-//			Integer ano,
-//			String placa,
-//			Long kmRodado,
-//			boolean ipvaPago,
-//			boolean blindado,
-//			boolean troca,
-//			boolean garantiaFabrica,
-//			boolean unicoDono,
-//			TipoVeiculo tipo,
-//			CorVeiculo cor,
-//			Modelo modelo,
-//			CombustivelVeiculo combustivel,
-//			CambioVeiculo cambio
-//			) {
-//		super();
-//		this.id = id;
-//		this.preco = preco;
-//		this.ano = ano;
-//		this.placa = placa;
-//		this.kmRodado = kmRodado;
-//		this.ipvaPago = ipvaPago;
-//		this.blindado = blindado;
-//		this.troca = troca;
-//		this.garantiaFabrica = garantiaFabrica;
-//		this.unicoDono = unicoDono;
-//		this.tipo = (tipo == null) ? null : tipo.getCod();
-//		this.cor = (cor == null) ? null : cor.getCod();
-//		this.modelo = modelo;
-//		this.combustivel = (combustivel == null) ? null : combustivel.getCod();
-//		this.cambio = (cambio == null) ? null : cambio.getCod();
-//		
-//	}
-	
-//	public Veiculo(
-//			Integer id,
-//			double preco,
-//			int ano,
-//			TipoVeiculo tipo,
-//			CorVeiculo cor,
-//			Modelo modelo
-//			) {
-//		super();
-//		this.id = id;
-//		this.preco = preco;
-//		this.ano = ano;
-//		this.tipo = (tipo == null) ? null : tipo.getCod();
-//		this.cor = (cor == null) ? null : cor.getCod();
-//		this.modelo = modelo;
-//		
-//	}
 	
 	public static final class Builder {
 		private Integer id;
@@ -119,6 +67,7 @@ public class Veiculo implements Serializable {
 		private Integer cor;
 		private Integer combustivel;
 		private Integer cambio;
+		private Integer numPortas;
 		private String placa;
 		private String descricao;
 		private Long kmRodado;
@@ -168,6 +117,11 @@ public class Veiculo implements Serializable {
 		
 		public Builder withCambio(Integer cambio) {
 			this.cambio = cambio;
+			return this;
+		}
+		
+		public Builder withNumPortas(Integer numPortas) {
+			this.numPortas = numPortas;
 			return this;
 		}
 		
@@ -230,6 +184,7 @@ public class Veiculo implements Serializable {
 			veiculo.setCor(cor);
 			veiculo.setCombustivel(combustivel);
 			veiculo.setCambio(cambio);
+			veiculo.setNumPortas(numPortas);
 			veiculo.setPlaca(placa);
 			veiculo.setDescricao(descricao);
 			veiculo.setKmRodado(kmRodado);
@@ -273,10 +228,6 @@ public class Veiculo implements Serializable {
 	public TipoVeiculo getTipo() {
 		return TipoVeiculo.toEnum(tipo);
 	}
-
-	public void setTipo(TipoVeiculo tipo) {
-		this.tipo = tipo.getCod();
-	}
 	
 	public void setTipo(Integer tipo) {
 		this.tipo = tipo;
@@ -285,16 +236,11 @@ public class Veiculo implements Serializable {
 	public CorVeiculo getCor() {
 		return CorVeiculo.toEnum(cor);
 	}
-
-	public void setCor(CorVeiculo cor) {
-		this.cor = cor.getCod();
-	}
 	
 	public void setCor(Integer cor) {
 		this.cor = cor;
 	}
 	
-
 	public Modelo getModelo() {
 		return modelo;
 	}
@@ -314,10 +260,6 @@ public class Veiculo implements Serializable {
 	public CombustivelVeiculo getCombustivel() {
 		return CombustivelVeiculo.toEnum(combustivel);
 	}
-
-	public void setCombustivel(CombustivelVeiculo combustivel) {
-		this.combustivel = combustivel.getCod();
-	}
 	
 	public void setCombustivel(Integer combustivel) {
 		this.combustivel = combustivel;
@@ -325,10 +267,6 @@ public class Veiculo implements Serializable {
 
 	public CambioVeiculo getCambio() {
 		return CambioVeiculo.toEnum(cambio);
-	}
-
-	public void setCambio(CambioVeiculo cambio) {
-		this.cambio = cambio.getCod();
 	}
 	
 	public void setCambio(Integer cambio) {
@@ -405,6 +343,14 @@ public class Veiculo implements Serializable {
 
 	public void setOpcionais(List<OpcionaisVeiculo> opcionais) {
 		this.opcionais = opcionais;
+	}
+	
+	public PortasVeiculo getNumPortas() {
+		return PortasVeiculo.toEnum(numPortas);
+	}
+
+	public void setNumPortas(Integer numPortas) {
+		this.numPortas = numPortas;
 	}
 
 	@Override

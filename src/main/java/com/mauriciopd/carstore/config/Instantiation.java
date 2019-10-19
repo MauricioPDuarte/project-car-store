@@ -13,6 +13,7 @@ import com.mauriciopd.carstore.domain.enums.CambioVeiculo;
 import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
 import com.mauriciopd.carstore.domain.enums.CorVeiculo;
 import com.mauriciopd.carstore.domain.enums.OpcionaisVeiculo;
+import com.mauriciopd.carstore.domain.enums.PortasVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 import com.mauriciopd.carstore.repository.MarcaRepository;
 import com.mauriciopd.carstore.repository.ModeloRepository;
@@ -68,6 +69,7 @@ public class Instantiation implements CommandLineRunner {
 				.withCor(CorVeiculo.PRETO.getCod())
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
 				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
+				.withNumPortas(PortasVeiculo.QUATRO.getCod())
 				.withPlaca("UTY-4343")
 				.withDescricao("Veiculo em ótimo estado, nunca foi batido!")
 				.withKmRodado(45000L)
@@ -89,6 +91,7 @@ public class Instantiation implements CommandLineRunner {
 				.withCor(CorVeiculo.BRANCO.getCod())
 				.withCombustivel(CombustivelVeiculo.GASOLINAEGAS.getCod())
 				.withCambio(CambioVeiculo.MANUAL.getCod())
+				.withNumPortas(PortasVeiculo.QUATRO.getCod())
 				.withPlaca("ADY-4244")
 				.withDescricao("Já teve 3 donos, já foi batido")
 				.withKmRodado(200000L)
@@ -110,6 +113,7 @@ public class Instantiation implements CommandLineRunner {
 				.withCor(CorVeiculo.BEGE.getCod())
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
 				.withCambio(CambioVeiculo.AUTOMATIZADA.getCod())
+				.withNumPortas(PortasVeiculo.QUATRO.getCod())
 				.withPlaca("JKY-2763")
 				.withDescricao("Carro super confortavel!")
 				.withKmRodado(83456L)
@@ -131,6 +135,7 @@ public class Instantiation implements CommandLineRunner {
 				.withCor(CorVeiculo.PRETO.getCod())
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
 				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
+				.withNumPortas(PortasVeiculo.QUATRO.getCod())
 				.withPlaca("JCE-8242")
 				.withDescricao("Carro em perfeito estado, fazer as trocas dos pneus.")
 				.withKmRodado(120000L)
@@ -152,6 +157,7 @@ public class Instantiation implements CommandLineRunner {
 				.withCor(CorVeiculo.AZUL.getCod())
 				.withCombustivel(CombustivelVeiculo.DIESEL.getCod())
 				.withCambio(CambioVeiculo.MANUAL.getCod())
+				.withNumPortas(PortasVeiculo.QUATRO.getCod())
 				.withPlaca("HFT-3232")
 				.withDescricao("Carro era utilizado para fazer offroad.")
 				.withKmRodado(92000L)
@@ -173,6 +179,7 @@ public class Instantiation implements CommandLineRunner {
 				.withCor(CorVeiculo.AMARELO.getCod())
 				.withCombustivel(CombustivelVeiculo.GASOLINAALCOOLEGAS.getCod())
 				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
+				.withNumPortas(PortasVeiculo.QUATRO.getCod())
 				.withPlaca("GFE-3434")
 				.withDescricao("Carro era utilizado para fazer fretes, nos correios. Carro faz um barulho na roda dianteira")
 				.withKmRodado(82450L)
@@ -194,6 +201,7 @@ public class Instantiation implements CommandLineRunner {
 				.withCor(CorVeiculo.PRATA.getCod())
 				.withCombustivel(CombustivelVeiculo.ELETRICO.getCod())
 				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
+				.withNumPortas(PortasVeiculo.QUATRO.getCod())
 				.withPlaca("HHE-2224")
 				.withDescricao("Carro em perfeito estado, utilizado apenas por uma familia")
 				.withKmRodado(10300L)
@@ -215,6 +223,7 @@ public class Instantiation implements CommandLineRunner {
 				.withCor(CorVeiculo.ROSA.getCod())
 				.withCombustivel(CombustivelVeiculo.GASOLINAEELETRICO.getCod())
 				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
+				.withNumPortas(PortasVeiculo.QUATRO.getCod())
 				.withPlaca("KHK-7524")
 				.withDescricao("Em ótimas condições")
 				.withKmRodado(2000L)
@@ -236,6 +245,7 @@ public class Instantiation implements CommandLineRunner {
 				.withCor(CorVeiculo.VERMELHO.getCod())
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
 				.withCambio(CambioVeiculo.MANUAL.getCod())
+				.withNumPortas(PortasVeiculo.QUATRO.getCod())
 				.withPlaca("GSK-6424")
 				.withDescricao("Carro precisa ser reparado algumas partes da lataria")
 				.withKmRodado(89600L)
@@ -257,6 +267,7 @@ public class Instantiation implements CommandLineRunner {
 				.withCor(CorVeiculo.BRANCO.getCod())
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
 				.withCambio(CambioVeiculo.AUTOMATIZADA.getCod())
+				.withNumPortas(PortasVeiculo.QUATRO.getCod())
 				.withPlaca("LSK-9824")
 				.withDescricao("Só comprar e andar")
 				.withKmRodado(2000L)

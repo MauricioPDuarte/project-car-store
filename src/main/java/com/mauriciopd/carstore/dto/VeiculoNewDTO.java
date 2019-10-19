@@ -13,45 +13,48 @@ public class VeiculoNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	
+
 	@Min(value = 1, message = "Preenchimento obrigatório")
 	private double preco;
-	
+
 	@Min(value = 1, message = "Preenchimento obrigatório")
 	private int ano;
-	
+
 	@Min(value = 1, message = "Preenchimento obrigatório")
 	private Integer tipo;
-	
+
 	@Min(value = 1, message = "Preenchimento obrigatório")
 	private Integer cor;
-	
+
 	@Min(value = 1, message = "Preenchimento obrigatório")
 	private Integer combustivel;
-	
+
 	@Min(value = 1, message = "Preenchimento obrigatório")
 	private Integer cambio;
 
 	@Min(value = 1, message = "Preenchimento obrigatório")
+	private Integer numPortas;
+
+	@Min(value = 1, message = "Preenchimento obrigatório")
 	private Integer modeloId;
-	
+
 	@NotEmpty(message = "Preenchimento obrigatório")
 	private String placa;
-	
+
 	private String descricao;
-	
+
 	private Long kmRodado;
-	
+
 	private boolean ipvaPago;
-	
+
 	private boolean blindado;
-	
+
 	private boolean troca;
-	
+
 	private boolean garantiaFabrica;
-	
+
 	private boolean unicoDono;
-	
+
 	private List<OpcionaisVeiculo> opcionais = new ArrayList<>();
 
 	public VeiculoNewDTO() {
@@ -191,6 +194,14 @@ public class VeiculoNewDTO implements Serializable {
 
 	public void setUnicoDono(boolean unicoDono) {
 		this.unicoDono = unicoDono;
+	}
+
+	public Integer getNumPortas() {
+		return numPortas;
+	}
+
+	public void setNumPortas(Integer numPortas) {
+		this.numPortas = numPortas;
 	}
 
 }
