@@ -43,7 +43,7 @@ public class Veiculo implements Serializable {
 	private boolean garantiaFabrica;
 	private boolean unicoDono;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinTable(name = "OPCIONAL_VEICULO", joinColumns = @JoinColumn(name = "veiculo_id"), inverseJoinColumns = @JoinColumn(name = "opcional_id"))
 	private List<Opcional> opcionais = new ArrayList<>();
 

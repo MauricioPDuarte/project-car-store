@@ -1,8 +1,8 @@
 package com.mauriciopd.carstore.domain;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +23,7 @@ public class Opcional implements Serializable {
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy = "opcionais")
-	private Set<Veiculo> veiculos = new HashSet<>();
+	private List<Veiculo> veiculos = new ArrayList<>();
 	
 	public Opcional() {
 	}
@@ -50,12 +50,14 @@ public class Opcional implements Serializable {
 		this.nome = nome;
 	}
 
-	public Set<Veiculo> getVeiculos() {
+	public List<Veiculo> getVeiculos() {
 		return veiculos;
 	}
 
-	public void setVeiculos(Set<Veiculo> veiculos) {
+	public void setVeiculos(List<Veiculo> veiculos) {
 		this.veiculos = veiculos;
 	}
+
+	
 	
 }

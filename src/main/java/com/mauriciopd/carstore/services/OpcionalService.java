@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mauriciopd.carstore.domain.Opcional;
+import com.mauriciopd.carstore.dto.OpcionalDTO;
 import com.mauriciopd.carstore.repository.OpcionalRepository;
 import com.mauriciopd.carstore.services.exceptions.ObjectNotFoundException;
 
@@ -30,8 +31,17 @@ public class OpcionalService {
 		return repo.findAll();
 	}
 	
-	public Opcional atualizar(Opcional obj) {
+	public Opcional update(Opcional obj) {
 		findById(obj.getId());
 		return repo.save(obj);
+	}
+	
+	public void delete(Integer id) {
+		findById(id);
+		repo.deleteById(id);
+	}
+	
+	public Opcional fromDTO(OpcionalDTO obj) {
+		return new Opcional(obj.getId(), obj.getNome());
 	}
 }

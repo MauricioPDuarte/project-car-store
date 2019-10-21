@@ -49,7 +49,11 @@ public class VeiculoResource {
 	public ResponseEntity<Void> insert(@Valid @RequestBody VeiculoNewDTO veiculoDto) {
 		Veiculo veiculo = service.fromDTO(veiculoDto);
 		veiculo = service.insert(veiculo);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(veiculo.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(veiculo.getId())
+				.toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
