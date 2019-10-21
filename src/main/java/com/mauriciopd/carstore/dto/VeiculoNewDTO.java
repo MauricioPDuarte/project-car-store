@@ -7,8 +7,6 @@ import java.util.List;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
-import com.mauriciopd.carstore.domain.enums.OpcionaisVeiculo;
-
 public class VeiculoNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -55,7 +53,7 @@ public class VeiculoNewDTO implements Serializable {
 
 	private boolean unicoDono;
 
-	private List<OpcionaisVeiculo> opcionais = new ArrayList<>();
+	private List<Integer> opcionais = new ArrayList<>();
 
 	public VeiculoNewDTO() {
 	}
@@ -108,11 +106,11 @@ public class VeiculoNewDTO implements Serializable {
 		this.modeloId = modeloId;
 	}
 
-	public List<OpcionaisVeiculo> getOpcionais() {
+	public List<Integer> getOpcionais() {
 		return opcionais;
 	}
 
-	public void setOpcionais(List<OpcionaisVeiculo> opcionais) {
+	public void setOpcionais(List<Integer> opcionais) {
 		this.opcionais = opcionais;
 	}
 

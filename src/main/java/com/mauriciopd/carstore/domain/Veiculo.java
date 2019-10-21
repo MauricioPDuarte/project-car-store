@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -17,7 +18,6 @@ import javax.persistence.OneToMany;
 import com.mauriciopd.carstore.domain.enums.CambioVeiculo;
 import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
 import com.mauriciopd.carstore.domain.enums.CorVeiculo;
-import com.mauriciopd.carstore.domain.enums.PortasVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 
 @Entity
@@ -43,7 +43,8 @@ public class Veiculo implements Serializable {
 	private boolean garantiaFabrica;
 	private boolean unicoDono;
 	
-	@ManyToMany(mappedBy = "veiculos")
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "OPCIONAL_VEICULO", joinColumns = @JoinColumn(name = "veiculo_id"), inverseJoinColumns = @JoinColumn(name = "opcional_id"))
 	private List<Opcional> opcionais = new ArrayList<>();
 
 	@ManyToOne
@@ -56,6 +57,10 @@ public class Veiculo implements Serializable {
 	public Veiculo() {
 	}
 	
+	public Veiculo(Integer id) {
+		super();
+		this.id = id;
+	}
 	public static final class Builder {
 		private Integer id;
 		private double preco;
@@ -342,8 +347,8 @@ public class Veiculo implements Serializable {
 		this.opcionais = opcionais;
 	}
 
-	public PortasVeiculo getNumPortas() {
-		return PortasVeiculo.toEnum(numPortas);
+	public Integer getNumPortas() {
+		return numPortas;
 	}
 
 	public void setNumPortas(Integer numPortas) {

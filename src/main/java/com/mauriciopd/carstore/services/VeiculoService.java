@@ -2,6 +2,7 @@ package com.mauriciopd.carstore.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -9,9 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mauriciopd.carstore.domain.Modelo;
+import com.mauriciopd.carstore.domain.Opcional;
 import com.mauriciopd.carstore.domain.Picture;
 import com.mauriciopd.carstore.domain.Veiculo;
 import com.mauriciopd.carstore.dto.VeiculoNewDTO;
@@ -27,8 +30,20 @@ public class VeiculoService {
 	@Autowired
 	private PictureService pictureService;
 	
-	public Veiculo insert(Veiculo veiculo) {
-		return repo.save(veiculo);
+	@Autowired
+	private OpcionalService opcionalService;
+	
+	
+	@Transactional
+	public Veiculo insert(Veiculo obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
+	public Veiculo atualizar(Veiculo obj) {
+		findById(obj.getId());
+		return repo.save(obj);
+		
 	}
 	
 	public Veiculo findById(Integer id) {
@@ -76,10 +91,6 @@ public class VeiculoService {
 	}
 	
 	
-	public Veiculo atualizar(Veiculo obj) {
-		findById(obj.getId());
-		return repo.save(obj);
-	}
 	
 	public Picture uploadVehiclePicture(Veiculo obj, MultipartFile file) {
 		Picture picture = pictureService.uploadPictureVehicle(file, obj);
@@ -108,6 +119,11 @@ public class VeiculoService {
 
 	public Veiculo fromDTO(VeiculoNewDTO obj) {
 		Modelo modelo = new Modelo(obj.getModeloId(), null, null);
+
+		List<Opcional> opcionais = obj.getOpcionais()
+				.stream()
+				.map(x -> opcionalService.findById(x))
+				.collect(Collectors.toList());
 		
 		return Veiculo.Builder
 				.newBuilder()
@@ -128,7 +144,10 @@ public class VeiculoService {
 				.withGarantiaFabrica(obj.isGarantiaFabrica())
 				.withUnicoDono(obj.isUnicoDono())
 				.withModelo(modelo)
+				.withOpcionais(opcionais)
 				.build();	
 	}
+	
+	
 	
 }

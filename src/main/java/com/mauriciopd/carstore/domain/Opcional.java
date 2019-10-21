@@ -1,15 +1,13 @@
 package com.mauriciopd.carstore.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,9 +22,8 @@ public class Opcional implements Serializable {
 	private String nome;
 	
 	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "OPCIONAL_VEICULO", joinColumns = @JoinColumn(name = "opcional_id"), inverseJoinColumns = @JoinColumn(name = "veiculo_id"))
-	private List<Veiculo> veiculos = new ArrayList<>();
+	@ManyToMany(mappedBy = "opcionais")
+	private Set<Veiculo> veiculos = new HashSet<>();
 	
 	public Opcional() {
 	}
@@ -53,11 +50,11 @@ public class Opcional implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<Veiculo> getVeiculos() {
+	public Set<Veiculo> getVeiculos() {
 		return veiculos;
 	}
 
-	public void setVeiculos(List<Veiculo> veiculos) {
+	public void setVeiculos(Set<Veiculo> veiculos) {
 		this.veiculos = veiculos;
 	}
 	
