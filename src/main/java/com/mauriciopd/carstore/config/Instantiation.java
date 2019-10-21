@@ -8,15 +8,16 @@ import org.springframework.context.annotation.Configuration;
 
 import com.mauriciopd.carstore.domain.Marca;
 import com.mauriciopd.carstore.domain.Modelo;
+import com.mauriciopd.carstore.domain.Opcional;
 import com.mauriciopd.carstore.domain.Veiculo;
 import com.mauriciopd.carstore.domain.enums.CambioVeiculo;
 import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
 import com.mauriciopd.carstore.domain.enums.CorVeiculo;
-import com.mauriciopd.carstore.domain.enums.OpcionaisVeiculo;
 import com.mauriciopd.carstore.domain.enums.PortasVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 import com.mauriciopd.carstore.repository.MarcaRepository;
 import com.mauriciopd.carstore.repository.ModeloRepository;
+import com.mauriciopd.carstore.repository.OpcionalRepository;
 import com.mauriciopd.carstore.repository.VeiculoRepository;
 
 @Configuration
@@ -30,6 +31,9 @@ public class Instantiation implements CommandLineRunner {
 
 	@Autowired
 	private VeiculoRepository veiculoRepository;
+	
+	@Autowired
+	private OpcionalRepository opcionalRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -40,6 +44,30 @@ public class Instantiation implements CommandLineRunner {
 		Marca m5 = new Marca(null, "Chevrolet");
 		Marca m6 = new Marca(null, "Hyundai");
 		Marca m7 = new Marca(null, "BMW");
+		
+		Opcional op1 = new Opcional(null, "Airbag");
+		Opcional op2 = new Opcional(null, "Alarme");
+		Opcional op3 = new Opcional(null, "Ar quente");
+		Opcional op4 = new Opcional(null, "Banco com regulagem de altura");
+		Opcional op5 = new Opcional(null, "CD Player");
+		Opcional op6 = new Opcional(null, "Rádio");
+		Opcional op7 = new Opcional(null, "Computador de bordo");
+		Opcional op8 = new Opcional(null, "Controle de tração");
+		Opcional op9 = new Opcional(null, "Desembaçador traseiro");
+		Opcional op10 = new Opcional(null, "Ar condicionado");
+		Opcional op11 = new Opcional(null, "Encosto de cabeça traseiro");
+		Opcional op12 = new Opcional(null, "Freio ABS");
+		Opcional op13 = new Opcional(null, "Controle automático de velocidade");
+		Opcional op14 = new Opcional(null, "Retrovisores elétricos");
+		Opcional op15 = new Opcional(null, "Rodas de liga leve");
+		Opcional op16 = new Opcional(null, "Travas elétricas");
+		Opcional op17 = new Opcional(null, "Vidros elétricos");
+		Opcional op18 = new Opcional(null, "Volante com regulagem de altura");
+		Opcional op19 = new Opcional(null, "Bancos de couro");
+		Opcional op20 = new Opcional(null, "Direção hidraulica");
+		Opcional op21 = new Opcional(null, "GPS");
+		Opcional op22 = new Opcional(null, "Sensor de chuva");
+		Opcional op23 = new Opcional(null, "Teto solar");
 		
 		Modelo mod1 = new Modelo(null, "Journey", m1);
 		Modelo mod2 = new Modelo(null, "Durango", m1);
@@ -79,7 +107,7 @@ public class Instantiation implements CommandLineRunner {
 				.withGarantiaFabrica(false)
 				.withUnicoDono(true)
 				.withModelo(mod5)
-				.withOpcionais(Arrays.asList(OpcionaisVeiculo.AIRBAG, OpcionaisVeiculo.ALARME))
+				.withOpcionais(Arrays.asList(op1, op2, op3, op4, op5))
 				.build();
 		
 		Veiculo v2 = Veiculo.Builder
@@ -101,7 +129,7 @@ public class Instantiation implements CommandLineRunner {
 				.withGarantiaFabrica(false)
 				.withUnicoDono(false)
 				.withModelo(mod3)
-				.withOpcionais(Arrays.asList(OpcionaisVeiculo.ARQUENTE, OpcionaisVeiculo.ALARME, OpcionaisVeiculo.CDPLAYER))
+				.withOpcionais(Arrays.asList(op6, op7, op8, op9, op10))
 				.build();
 		
 		Veiculo v3 = Veiculo.Builder
@@ -123,7 +151,7 @@ public class Instantiation implements CommandLineRunner {
 				.withGarantiaFabrica(false)
 				.withUnicoDono(true)
 				.withModelo(mod6)
-				.withOpcionais(Arrays.asList(OpcionaisVeiculo.ARQUENTE, OpcionaisVeiculo.ALARME, OpcionaisVeiculo.BANCOCOMREGULAGEMDEALTURA, OpcionaisVeiculo.CONTROLEAUTOMATICODEVELOCIDADE))
+				.withOpcionais(Arrays.asList(op11, op12, op13, op14, op15))
 				.build();
 		
 		Veiculo v4 = Veiculo.Builder
@@ -145,7 +173,7 @@ public class Instantiation implements CommandLineRunner {
 				.withGarantiaFabrica(false)
 				.withUnicoDono(false)
 				.withModelo(mod1)
-				.withOpcionais(Arrays.asList(OpcionaisVeiculo.AIRBAG, OpcionaisVeiculo.CDPLAYER, OpcionaisVeiculo.FREIOABS, OpcionaisVeiculo.CONTROLEDETRACAO))
+				.withOpcionais(Arrays.asList(op16, op17, op18, op19, op20))
 				.build();
 		
 		Veiculo v5 = Veiculo.Builder
@@ -167,7 +195,7 @@ public class Instantiation implements CommandLineRunner {
 				.withGarantiaFabrica(false)
 				.withUnicoDono(true)
 				.withModelo(mod4)
-				.withOpcionais(Arrays.asList(OpcionaisVeiculo.AIRBAG, OpcionaisVeiculo.CDPLAYER, OpcionaisVeiculo.FREIOABS, OpcionaisVeiculo.CONTROLEDETRACAO, OpcionaisVeiculo.ARQUENTE))
+				.withOpcionais(Arrays.asList(op21, op22, op23, op10, op12))
 				.build();
 		
 		Veiculo v6 = Veiculo.Builder
@@ -189,7 +217,7 @@ public class Instantiation implements CommandLineRunner {
 				.withGarantiaFabrica(true)
 				.withUnicoDono(true)
 				.withModelo(mod7)
-				.withOpcionais(Arrays.asList(OpcionaisVeiculo.AIRBAG, OpcionaisVeiculo.CDPLAYER, OpcionaisVeiculo.BANCOSDECOURO, OpcionaisVeiculo.CONTROLEDETRACAO))
+				.withOpcionais(Arrays.asList(op17, op3, op23, op15, op19))
 				.build();
 		
 		Veiculo v7 = Veiculo.Builder
@@ -211,7 +239,7 @@ public class Instantiation implements CommandLineRunner {
 				.withGarantiaFabrica(true)
 				.withUnicoDono(true)
 				.withModelo(mod8)
-				.withOpcionais(Arrays.asList(OpcionaisVeiculo.AIRBAG, OpcionaisVeiculo.BANCOSDECOURO, OpcionaisVeiculo.CONTROLEDETRACAO, OpcionaisVeiculo.ALARME))
+				.withOpcionais(Arrays.asList(op1, op2, op9, op15, op17))
 				.build();
 		
 		Veiculo v8 = Veiculo.Builder
@@ -233,7 +261,7 @@ public class Instantiation implements CommandLineRunner {
 				.withGarantiaFabrica(true)
 				.withUnicoDono(true)
 				.withModelo(mod9)
-				.withOpcionais(Arrays.asList(OpcionaisVeiculo.AIRBAG, OpcionaisVeiculo.CONTROLEDETRACAO, OpcionaisVeiculo.ALARME, OpcionaisVeiculo.VOLANTECOMREGULAGEMDEALTURA))
+				.withOpcionais(Arrays.asList(op8, op2, op12, op20, op23))
 				.build();
 		
 		Veiculo v9 = Veiculo.Builder
@@ -255,7 +283,7 @@ public class Instantiation implements CommandLineRunner {
 				.withGarantiaFabrica(false)
 				.withUnicoDono(false)
 				.withModelo(mod8)
-				.withOpcionais(Arrays.asList(OpcionaisVeiculo.ARCONDICIONADO, OpcionaisVeiculo.CONTROLEDETRACAO, OpcionaisVeiculo.ALARME))
+				.withOpcionais(Arrays.asList(op23, op22, op7, op21, op17))
 				.build();
 		
 		Veiculo v10 = Veiculo.Builder
@@ -277,8 +305,32 @@ public class Instantiation implements CommandLineRunner {
 				.withGarantiaFabrica(true)
 				.withUnicoDono(true)
 				.withModelo(mod10)
-				.withOpcionais(Arrays.asList(OpcionaisVeiculo.ARCONDICIONADO, OpcionaisVeiculo.CONTROLEDETRACAO, OpcionaisVeiculo.ALARME))
+				.withOpcionais(Arrays.asList(op9, op10, op23, op11, op14))
 				.build();
+		
+		op1.getVeiculos().addAll(Arrays.asList(v1, v7));
+		op2.getVeiculos().addAll(Arrays.asList(v8, v7, v1));
+		op3.getVeiculos().addAll(Arrays.asList(v6, v1));
+		op4.getVeiculos().addAll(Arrays.asList(v1));
+		op5.getVeiculos().addAll(Arrays.asList(v1));
+		op6.getVeiculos().addAll(Arrays.asList(v2));
+		op7.getVeiculos().addAll(Arrays.asList(v9, v2));
+		op8.getVeiculos().addAll(Arrays.asList(v8, v2));
+		op9.getVeiculos().addAll(Arrays.asList(v10, v7, v2));
+		op10.getVeiculos().addAll(Arrays.asList(v10, v5, v2));
+		op11.getVeiculos().addAll(Arrays.asList(v10, v3));
+		op12.getVeiculos().addAll(Arrays.asList(v8, v5, v3));
+		op13.getVeiculos().addAll(Arrays.asList(v3));
+		op14.getVeiculos().addAll(Arrays.asList(v10, v3));
+		op15.getVeiculos().addAll(Arrays.asList(v7, v6, v3));
+		op16.getVeiculos().addAll(Arrays.asList(v4));
+		op17.getVeiculos().addAll(Arrays.asList(v9, v7, v6, v4));
+		op18.getVeiculos().addAll(Arrays.asList(v4));
+		op19.getVeiculos().addAll(Arrays.asList(v6, v4));
+		op20.getVeiculos().addAll(Arrays.asList(v8, v4));
+		op21.getVeiculos().addAll(Arrays.asList(v9, v5));
+		op22.getVeiculos().addAll(Arrays.asList(v9, v5));
+		op23.getVeiculos().addAll(Arrays.asList(v10, v9, v8, v6, v5));
 		
 		mod1.getVeiculos().addAll(Arrays.asList(v4));
 		mod2.getVeiculos().addAll(Arrays.asList());
@@ -294,6 +346,7 @@ public class Instantiation implements CommandLineRunner {
 		marcaRepository.saveAll(Arrays.asList(m1, m2, m3, m4, m5, m6, m7));
 		modeloRepository.saveAll(Arrays.asList(mod1, mod2, mod3, mod4, mod5, mod6, mod7, mod8, mod9, mod10));
 		veiculoRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10));
+		opcionalRepository.saveAll(Arrays.asList(op1, op2, op3, op4, op5, op6, op7, op8, op9, op10, op11, op12, op13, op14, op15, op16, op17, op18, op19, op20, op21, op22, op23));
 		
 	}
 }

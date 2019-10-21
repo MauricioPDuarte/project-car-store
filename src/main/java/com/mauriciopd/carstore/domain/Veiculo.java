@@ -5,20 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.mauriciopd.carstore.domain.enums.CambioVeiculo;
 import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
 import com.mauriciopd.carstore.domain.enums.CorVeiculo;
-import com.mauriciopd.carstore.domain.enums.OpcionaisVeiculo;
 import com.mauriciopd.carstore.domain.enums.PortasVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 
@@ -45,9 +43,8 @@ public class Veiculo implements Serializable {
 	private boolean garantiaFabrica;
 	private boolean unicoDono;
 	
-	@ElementCollection
-	@CollectionTable(name = "OPCIONAL")
-	private List<OpcionaisVeiculo> opcionais = new ArrayList<>();
+	@ManyToMany(mappedBy = "veiculos")
+	private List<Opcional> opcionais = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "modelo_id")
@@ -76,8 +73,8 @@ public class Veiculo implements Serializable {
 		private boolean troca;
 		private boolean garantiaFabrica;
 		private boolean unicoDono;
-		private List<OpcionaisVeiculo> opcionais = new ArrayList<>();
 		private Modelo modelo;
+		private List<Opcional> opcionais = new ArrayList<>();
 		
 		private Builder() {
 		}
@@ -170,7 +167,7 @@ public class Veiculo implements Serializable {
 			return this;
 		}
 		
-		public Builder withOpcionais(List<OpcionaisVeiculo> opcionais) {
+		public Builder withOpcionais(List<Opcional> opcionais) {
 			this.opcionais = opcionais;
 			return this;
 		}
@@ -193,8 +190,8 @@ public class Veiculo implements Serializable {
 			veiculo.setTroca(troca);
 			veiculo.setGarantiaFabrica(garantiaFabrica);
 			veiculo.setUnicoDono(unicoDono);
-			veiculo.setOpcionais(opcionais);
 			veiculo.setModelo(modelo);
+			veiculo.setOpcionais(opcionais);
 			
 			return veiculo;
 		}
@@ -337,14 +334,14 @@ public class Veiculo implements Serializable {
 		this.unicoDono = unicoDono;
 	}
 	
-	public List<OpcionaisVeiculo> getOpcionais() {
+	public List<Opcional> getOpcionais() {
 		return opcionais;
 	}
 
-	public void setOpcionais(List<OpcionaisVeiculo> opcionais) {
+	public void setOpcionais(List<Opcional> opcionais) {
 		this.opcionais = opcionais;
 	}
-	
+
 	public PortasVeiculo getNumPortas() {
 		return PortasVeiculo.toEnum(numPortas);
 	}

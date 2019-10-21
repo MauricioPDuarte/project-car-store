@@ -128,7 +128,6 @@ public class VeiculoService {
 				.withGarantiaFabrica(obj.isGarantiaFabrica())
 				.withUnicoDono(obj.isUnicoDono())
 				.withModelo(modelo)
-				.withOpcionais(obj.getOpcionais())
 				.build();	
 	}
 	
