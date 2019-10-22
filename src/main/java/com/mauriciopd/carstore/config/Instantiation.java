@@ -150,7 +150,7 @@ public class Instantiation implements CommandLineRunner {
 				.withGarantiaFabrica(false)
 				.withUnicoDono(true)
 				.withModelo(mod6)
-				.withOpcionais(Arrays.asList(op11, op12, op13, op14, op15))
+				.withOpcionais(Arrays.asList(op11, op12, op13, op14, op15, op1))
 				.build();
 		
 		Veiculo v4 = Veiculo.Builder
@@ -307,7 +307,7 @@ public class Instantiation implements CommandLineRunner {
 				.withOpcionais(Arrays.asList(op9, op10, op23, op11, op14))
 				.build();
 		
-		op1.getVeiculos().addAll(Arrays.asList(v1, v7));
+		op1.getVeiculos().addAll(Arrays.asList(v1, v7, v3));
 		op2.getVeiculos().addAll(Arrays.asList(v8, v7, v1));
 		op3.getVeiculos().addAll(Arrays.asList(v6, v1));
 		op4.getVeiculos().addAll(Arrays.asList(v1));

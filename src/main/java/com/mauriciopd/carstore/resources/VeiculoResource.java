@@ -30,6 +30,7 @@ import com.mauriciopd.carstore.domain.Picture;
 import com.mauriciopd.carstore.domain.Veiculo;
 import com.mauriciopd.carstore.dto.VeiculoDTO;
 import com.mauriciopd.carstore.dto.VeiculoNewDTO;
+import com.mauriciopd.carstore.resources.utils.URL;
 import com.mauriciopd.carstore.services.VeiculoService;
 
 import io.swagger.annotations.ApiOperation;
@@ -175,4 +176,16 @@ public class VeiculoResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
+	@ApiOperation(value="Buscar por modelo/marca e opcionais")
+	@GetMapping("/busc/{marca}")
+	public ResponseEntity<List<VeiculoDTO>> findByMarcaAndOpcionais(@PathVariable String marca,
+			//@PathVariable String modelo,
+			@RequestParam(value = "opcionais") String opcionais) {
+		String urlDecode = URL.decodeParam(opcionais);
+		List<String> nomesOpcional = URL.decodeList(urlDecode);
+		//List<String> teste = Arrays.asList(urlDecode);
+		List<Veiculo> veiculos = service.findByMarcaAndOpcionais(marca, nomesOpcional);
+		List<VeiculoDTO> listDto = veiculos.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+	}
 }

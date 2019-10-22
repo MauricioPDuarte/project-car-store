@@ -7,5 +7,4 @@ import com.mauriciopd.carstore.domain.Opcional;
 
 @Repository
 public interface OpcionalRepository extends JpaRepository<Opcional, Integer>{
-
 }

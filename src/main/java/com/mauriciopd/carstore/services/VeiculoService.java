@@ -61,21 +61,29 @@ public class VeiculoService {
 	}
 	
 	public List<Veiculo> findByMarca(String marca) {
-		return repo.findMarca(marca);
+		return repo.findByModeloMarcaNomeIgnoreCase(marca);
 	}
 	
 	public Page<Veiculo> findByMarcaPage(String marca, Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repo.findMarcaPage(marca, pageRequest);
+		return repo.findByModeloMarcaNomeIgnoreCase(marca, pageRequest);
 	}
 	
 	public List<Veiculo> findByMarcaAndModelo(String marca, String modelo) {
-		return repo.findModelo(marca, modelo);
+		return repo.findByModeloMarcaNomeAndModeloNomeAllIgnoreCase(marca, modelo);
 	}
 	
 	public Page<Veiculo> findByModeloPage(String marca, String modelo, Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repo.findModeloPage(marca, modelo, pageRequest);
+		return repo.findByModeloMarcaNomeAndModeloNomeAllIgnoreCase(marca, modelo, pageRequest);
+	}
+	
+	public List<Veiculo> findByMarcaAndModeloAndOpcionais(String marca, String modelo, List<String> opcionais) {
+		return repo.findByModeloMarcaNomeAndModeloNomeAndOpcionaisNomeAllIgnoreCase(marca, modelo, opcionais);
+	}
+	
+	public List<Veiculo> findByMarcaAndOpcionais(String marca, List<String> opcionais) {
+		return repo.findDistinctByModeloMarcaNomeIgnoreCaseAndOpcionaisNomeIn(marca, opcionais);
 	}
 
 	
