@@ -227,16 +227,16 @@ public class Veiculo implements Serializable {
 		this.ano = ano;
 	}
 
-	public TipoVeiculo getTipo() {
-		return TipoVeiculo.toEnum(tipo);
+	public String getTipo() {
+		return TipoVeiculo.toEnum(tipo).getDescricao();
 	}
 	
 	public void setTipo(Integer tipo) {
 		this.tipo = tipo;
 	}
 
-	public CorVeiculo getCor() {
-		return CorVeiculo.toEnum(cor);
+	public String getCor() {
+		return CorVeiculo.toEnum(cor).getDescricao();
 	}
 	
 	public void setCor(Integer cor) {
@@ -259,16 +259,16 @@ public class Veiculo implements Serializable {
 		this.pictures = pictures;
 	}
 
-	public CombustivelVeiculo getCombustivel() {
-		return CombustivelVeiculo.toEnum(combustivel);
+	public String getCombustivel() {
+		return CombustivelVeiculo.toEnum(combustivel).getDescricao();
 	}
 	
 	public void setCombustivel(Integer combustivel) {
 		this.combustivel = combustivel;
 	}
 
-	public CambioVeiculo getCambio() {
-		return CambioVeiculo.toEnum(cambio);
+	public String getCambio() {
+		return CambioVeiculo.toEnum(cambio).getDescricao();
 	}
 	
 	public void setCambio(Integer cambio) {
