@@ -19,6 +19,7 @@ import com.mauriciopd.carstore.domain.Picture;
 import com.mauriciopd.carstore.domain.Veiculo;
 import com.mauriciopd.carstore.dto.VeiculoNewDTO;
 import com.mauriciopd.carstore.repository.VeiculoRepository;
+import com.mauriciopd.carstore.repository.specification.VeiculoSpecs;
 import com.mauriciopd.carstore.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -78,14 +79,9 @@ public class VeiculoService {
 		return repo.findByModeloMarcaNomeAndModeloNomeAllIgnoreCase(marca, modelo, pageRequest);
 	}
 	
-	public List<Veiculo> findByMarcaAndModeloAndOpcionais(String marca, String modelo, List<String> opcionais) {
-		return repo.findByModeloMarcaNomeAndModeloNomeAndOpcionaisNomeAllIgnoreCase(marca, modelo, opcionais);
+	public List<Veiculo> findByMarcaAndOpcionaisSpecification(String marca, List<String> opcionais) {
+		return repo.findAll(VeiculoSpecs.findByMarcaAndOpcionais(marca, opcionais));
 	}
-	
-	public List<Veiculo> findByMarcaAndOpcionais(String marca, List<String> opcionais) {
-		return repo.findDistinctByModeloMarcaNomeIgnoreCaseAndOpcionaisNomeIn(marca, opcionais);
-	}
-
 	
 	public void delete(Integer id) {
 		Veiculo veiculo = findById(id);

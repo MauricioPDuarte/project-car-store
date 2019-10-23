@@ -307,12 +307,34 @@ public class Instantiation implements CommandLineRunner {
 				.withOpcionais(Arrays.asList(op9, op10, op23, op11, op14))
 				.build();
 		
-		op1.getVeiculos().addAll(Arrays.asList(v1, v7, v3));
-		op2.getVeiculos().addAll(Arrays.asList(v8, v7, v1));
+		Veiculo v11 = Veiculo.Builder
+				.newBuilder()
+				.withId(null)
+				.withPreco(99000.64)
+				.withAno(2020)
+				.withTipo(TipoVeiculo.HATCHBACK.getCod())
+				.withCor(CorVeiculo.BRANCO.getCod())
+				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
+				.withCambio(CambioVeiculo.AUTOMATIZADA.getCod())
+				.withNumPortas(4)
+				.withPlaca("LGK-5824")
+				.withDescricao("Muito bom!")
+				.withKmRodado(9000L)
+				.withIpvaPago(true)
+				.withBlindado(false)
+				.withTroca(false)
+				.withGarantiaFabrica(true)
+				.withUnicoDono(true)
+				.withModelo(mod5)
+				.withOpcionais(Arrays.asList(op1, op2, op6))
+				.build();
+		
+		op1.getVeiculos().addAll(Arrays.asList(v1, v7, v3, v11));
+		op2.getVeiculos().addAll(Arrays.asList(v8, v7, v1, v11));
 		op3.getVeiculos().addAll(Arrays.asList(v6, v1));
 		op4.getVeiculos().addAll(Arrays.asList(v1));
 		op5.getVeiculos().addAll(Arrays.asList(v1));
-		op6.getVeiculos().addAll(Arrays.asList(v2));
+		op6.getVeiculos().addAll(Arrays.asList(v2, v11));
 		op7.getVeiculos().addAll(Arrays.asList(v9, v2));
 		op8.getVeiculos().addAll(Arrays.asList(v8, v2));
 		op9.getVeiculos().addAll(Arrays.asList(v10, v7, v2));
@@ -335,7 +357,7 @@ public class Instantiation implements CommandLineRunner {
 		mod2.getVeiculos().addAll(Arrays.asList());
 		mod3.getVeiculos().addAll(Arrays.asList(v2));
 		mod4.getVeiculos().addAll(Arrays.asList(v5));
-		mod5.getVeiculos().addAll(Arrays.asList(v1));
+		mod5.getVeiculos().addAll(Arrays.asList(v1, v11));
 		mod6.getVeiculos().addAll(Arrays.asList(v3));
 		mod7.getVeiculos().addAll(Arrays.asList(v6));
 		mod8.getVeiculos().addAll(Arrays.asList(v7, v9));
@@ -344,7 +366,7 @@ public class Instantiation implements CommandLineRunner {
 		
 		marcaRepository.saveAll(Arrays.asList(m1, m2, m3, m4, m5, m6, m7));
 		modeloRepository.saveAll(Arrays.asList(mod1, mod2, mod3, mod4, mod5, mod6, mod7, mod8, mod9, mod10));
-		veiculoRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10));
+		veiculoRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11));
 		opcionalRepository.saveAll(Arrays.asList(op1, op2, op3, op4, op5, op6, op7, op8, op9, op10, op11, op12, op13, op14, op15, op16, op17, op18, op19, op20, op21, op22, op23));
 		
 	}

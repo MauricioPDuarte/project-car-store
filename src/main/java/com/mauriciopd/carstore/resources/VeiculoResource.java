@@ -184,7 +184,8 @@ public class VeiculoResource {
 		String urlDecode = URL.decodeParam(opcionais);
 		List<String> nomesOpcional = URL.decodeList(urlDecode);
 		//List<String> teste = Arrays.asList(urlDecode);
-		List<Veiculo> veiculos = service.findByMarcaAndOpcionais(marca, nomesOpcional);
+		//List<Veiculo> veiculos = service.findByMarcaAndOpcionais(marca, nomesOpcional);
+		List<Veiculo> veiculos = service.findByMarcaAndOpcionaisSpecification(marca, nomesOpcional);
 		List<VeiculoDTO> listDto = veiculos.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
