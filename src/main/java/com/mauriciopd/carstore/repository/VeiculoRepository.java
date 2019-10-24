@@ -44,5 +44,6 @@ public interface VeiculoRepository extends JpaRepository<Veiculo, Integer>, JpaS
 	@Transactional(readOnly=true)
 	List<Veiculo> findByModeloMarcaNomeAndModeloNomeAllIgnoreCase(String marca, String modelo);
 	
-	List<Veiculo> findAll(Specification<Veiculo> spec);
+	@Transactional(readOnly=true)
+	Page<Veiculo> findAll(Specification<Veiculo> spec, Pageable pageable);
 }

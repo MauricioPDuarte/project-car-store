@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.mauriciopd.carstore.domain.Adicional;
 import com.mauriciopd.carstore.domain.Marca;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
@@ -14,6 +15,7 @@ import com.mauriciopd.carstore.domain.enums.CambioVeiculo;
 import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
 import com.mauriciopd.carstore.domain.enums.CorVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
+import com.mauriciopd.carstore.repository.AdicionalRepository;
 import com.mauriciopd.carstore.repository.MarcaRepository;
 import com.mauriciopd.carstore.repository.ModeloRepository;
 import com.mauriciopd.carstore.repository.OpcionalRepository;
@@ -33,6 +35,9 @@ public class Instantiation implements CommandLineRunner {
 	
 	@Autowired
 	private OpcionalRepository opcionalRepository;
+	
+	@Autowired
+	private AdicionalRepository adicionalRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -68,6 +73,12 @@ public class Instantiation implements CommandLineRunner {
 		Opcional op22 = new Opcional(null, "Sensor de chuva");
 		Opcional op23 = new Opcional(null, "Teto solar");
 		
+		Adicional ad1 = new Adicional(null, "IPVA Pago");
+		Adicional ad2 = new Adicional(null, "Blindado");
+		Adicional ad3 = new Adicional(null, "Uníco dono");
+		Adicional ad4= new Adicional(null, "Garantia de fábrica");
+		Adicional ad5= new Adicional(null, "Aceita troca");
+		
 		Modelo mod1 = new Modelo(null, "Journey", m1);
 		Modelo mod2 = new Modelo(null, "Durango", m1);
 		Modelo mod3 = new Modelo(null, "Grand Siena", m2);
@@ -100,13 +111,9 @@ public class Instantiation implements CommandLineRunner {
 				.withPlaca("UTY-4343")
 				.withDescricao("Veiculo em ótimo estado, nunca foi batido!")
 				.withKmRodado(45000L)
-				.withIpvaPago(true)
-				.withBlindado(false)
-				.withTroca(true)
-				.withGarantiaFabrica(false)
-				.withUnicoDono(true)
 				.withModelo(mod5)
 				.withOpcionais(Arrays.asList(op1, op2, op3, op4, op5))
+				.withAdicionais(Arrays.asList(ad1, ad2, ad5))
 				.build();
 		
 		Veiculo v2 = Veiculo.Builder
@@ -122,13 +129,9 @@ public class Instantiation implements CommandLineRunner {
 				.withPlaca("ADY-4244")
 				.withDescricao("Já teve 3 donos, já foi batido")
 				.withKmRodado(200000L)
-				.withIpvaPago(false)
-				.withBlindado(true)
-				.withTroca(true)
-				.withGarantiaFabrica(false)
-				.withUnicoDono(false)
 				.withModelo(mod3)
 				.withOpcionais(Arrays.asList(op6, op7, op8, op9, op10))
+				.withAdicionais(Arrays.asList(ad1))
 				.build();
 		
 		Veiculo v3 = Veiculo.Builder
@@ -144,13 +147,9 @@ public class Instantiation implements CommandLineRunner {
 				.withPlaca("JKY-2763")
 				.withDescricao("Carro super confortavel!")
 				.withKmRodado(83456L)
-				.withIpvaPago(true)
-				.withBlindado(true)
-				.withTroca(false)
-				.withGarantiaFabrica(false)
-				.withUnicoDono(true)
 				.withModelo(mod6)
 				.withOpcionais(Arrays.asList(op11, op12, op13, op14, op15, op1))
+				.withAdicionais(Arrays.asList(ad3, ad5, ad4))
 				.build();
 		
 		Veiculo v4 = Veiculo.Builder
@@ -166,13 +165,9 @@ public class Instantiation implements CommandLineRunner {
 				.withPlaca("JCE-8242")
 				.withDescricao("Carro em perfeito estado, fazer as trocas dos pneus.")
 				.withKmRodado(120000L)
-				.withIpvaPago(false)
-				.withBlindado(false)
-				.withTroca(true)
-				.withGarantiaFabrica(false)
-				.withUnicoDono(false)
 				.withModelo(mod1)
 				.withOpcionais(Arrays.asList(op16, op17, op18, op19, op20))
+				.withAdicionais(Arrays.asList(ad1, ad2, ad5, ad4))
 				.build();
 		
 		Veiculo v5 = Veiculo.Builder
@@ -188,13 +183,9 @@ public class Instantiation implements CommandLineRunner {
 				.withPlaca("HFT-3232")
 				.withDescricao("Carro era utilizado para fazer offroad.")
 				.withKmRodado(92000L)
-				.withIpvaPago(true)
-				.withBlindado(true)
-				.withTroca(true)
-				.withGarantiaFabrica(false)
-				.withUnicoDono(true)
 				.withModelo(mod4)
 				.withOpcionais(Arrays.asList(op21, op22, op23, op10, op12))
+				.withAdicionais(Arrays.asList(ad1, ad2))
 				.build();
 		
 		Veiculo v6 = Veiculo.Builder
@@ -210,13 +201,9 @@ public class Instantiation implements CommandLineRunner {
 				.withPlaca("GFE-3434")
 				.withDescricao("Carro era utilizado para fazer fretes, nos correios. Carro faz um barulho na roda dianteira")
 				.withKmRodado(82450L)
-				.withIpvaPago(false)
-				.withBlindado(false)
-				.withTroca(true)
-				.withGarantiaFabrica(true)
-				.withUnicoDono(true)
 				.withModelo(mod7)
 				.withOpcionais(Arrays.asList(op17, op3, op23, op15, op19))
+				.withAdicionais(Arrays.asList(ad2, ad5, ad3))
 				.build();
 		
 		Veiculo v7 = Veiculo.Builder
@@ -232,13 +219,9 @@ public class Instantiation implements CommandLineRunner {
 				.withPlaca("HHE-2224")
 				.withDescricao("Carro em perfeito estado, utilizado apenas por uma familia")
 				.withKmRodado(10300L)
-				.withIpvaPago(true)
-				.withBlindado(false)
-				.withTroca(false)
-				.withGarantiaFabrica(true)
-				.withUnicoDono(true)
 				.withModelo(mod8)
 				.withOpcionais(Arrays.asList(op1, op2, op9, op15, op17))
+				.withAdicionais(Arrays.asList(ad1, ad5))
 				.build();
 		
 		Veiculo v8 = Veiculo.Builder
@@ -254,13 +237,9 @@ public class Instantiation implements CommandLineRunner {
 				.withPlaca("KHK-7524")
 				.withDescricao("Em ótimas condições")
 				.withKmRodado(2000L)
-				.withIpvaPago(true)
-				.withBlindado(true)
-				.withTroca(true)
-				.withGarantiaFabrica(true)
-				.withUnicoDono(true)
 				.withModelo(mod9)
 				.withOpcionais(Arrays.asList(op8, op2, op12, op20, op23))
+				.withAdicionais(Arrays.asList(ad1, ad2, ad3))
 				.build();
 		
 		Veiculo v9 = Veiculo.Builder
@@ -276,13 +255,9 @@ public class Instantiation implements CommandLineRunner {
 				.withPlaca("GSK-6424")
 				.withDescricao("Carro precisa ser reparado algumas partes da lataria")
 				.withKmRodado(89600L)
-				.withIpvaPago(false)
-				.withBlindado(false)
-				.withTroca(true)
-				.withGarantiaFabrica(false)
-				.withUnicoDono(false)
 				.withModelo(mod8)
 				.withOpcionais(Arrays.asList(op23, op22, op7, op21, op17))
+				.withAdicionais(Arrays.asList(ad1, ad2, ad3, ad4, ad5))
 				.build();
 		
 		Veiculo v10 = Veiculo.Builder
@@ -298,13 +273,9 @@ public class Instantiation implements CommandLineRunner {
 				.withPlaca("LSK-9824")
 				.withDescricao("Só comprar e andar")
 				.withKmRodado(2000L)
-				.withIpvaPago(true)
-				.withBlindado(false)
-				.withTroca(false)
-				.withGarantiaFabrica(true)
-				.withUnicoDono(true)
 				.withModelo(mod10)
 				.withOpcionais(Arrays.asList(op9, op10, op23, op11, op14))
+				.withAdicionais(Arrays.asList(ad1, ad2))
 				.build();
 		
 		Veiculo v11 = Veiculo.Builder
@@ -320,13 +291,9 @@ public class Instantiation implements CommandLineRunner {
 				.withPlaca("LGK-5824")
 				.withDescricao("Muito bom!")
 				.withKmRodado(9000L)
-				.withIpvaPago(true)
-				.withBlindado(false)
-				.withTroca(false)
-				.withGarantiaFabrica(true)
-				.withUnicoDono(true)
 				.withModelo(mod5)
 				.withOpcionais(Arrays.asList(op1, op2, op6))
+				.withAdicionais(Arrays.asList(ad2))
 				.build();
 		
 		op1.getVeiculos().addAll(Arrays.asList(v1, v7, v3, v11));
@@ -353,6 +320,13 @@ public class Instantiation implements CommandLineRunner {
 		op22.getVeiculos().addAll(Arrays.asList(v9, v5));
 		op23.getVeiculos().addAll(Arrays.asList(v10, v9, v8, v6, v5));
 		
+		ad1.getVeiculos().addAll(Arrays.asList(v1, v2, v4, v5, v7, v8, v9, v10));
+		ad2.getVeiculos().addAll(Arrays.asList(v1, v4, v5, v6, v8, v9, v10, v11));
+		ad3.getVeiculos().addAll(Arrays.asList(v3, v6, v8, v9));
+		ad4.getVeiculos().addAll(Arrays.asList(v3, v4, v9));
+		ad5.getVeiculos().addAll(Arrays.asList(v1, v3, v4, v6, v7, v9));
+		
+		
 		mod1.getVeiculos().addAll(Arrays.asList(v4));
 		mod2.getVeiculos().addAll(Arrays.asList());
 		mod3.getVeiculos().addAll(Arrays.asList(v2));
@@ -368,6 +342,7 @@ public class Instantiation implements CommandLineRunner {
 		modeloRepository.saveAll(Arrays.asList(mod1, mod2, mod3, mod4, mod5, mod6, mod7, mod8, mod9, mod10));
 		veiculoRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11));
 		opcionalRepository.saveAll(Arrays.asList(op1, op2, op3, op4, op5, op6, op7, op8, op9, op10, op11, op12, op13, op14, op15, op16, op17, op18, op19, op20, op21, op22, op23));
+		adicionalRepository.saveAll(Arrays.asList(ad1, ad2, ad3, ad4, ad5));
 		
 	}
 }

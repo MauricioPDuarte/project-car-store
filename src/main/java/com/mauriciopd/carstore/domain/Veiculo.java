@@ -37,15 +37,14 @@ public class Veiculo implements Serializable {
 	private String placa;
 	private String descricao;
 	private Long kmRodado;
-	private boolean ipvaPago;
-	private boolean blindado;
-	private boolean troca;
-	private boolean garantiaFabrica;
-	private boolean unicoDono;
 	
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinTable(name = "OPCIONAL_VEICULO", joinColumns = @JoinColumn(name = "veiculo_id"), inverseJoinColumns = @JoinColumn(name = "opcional_id"))
 	private List<Opcional> opcionais = new ArrayList<>();
+	
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+	@JoinTable(name = "ADICIONAL_VEICULO", joinColumns = @JoinColumn(name = "veiculo_id"), inverseJoinColumns = @JoinColumn(name = "adicional_id"))
+	private List<Adicional> adicionais = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "modelo_id")
@@ -73,13 +72,9 @@ public class Veiculo implements Serializable {
 		private String placa;
 		private String descricao;
 		private Long kmRodado;
-		private boolean ipvaPago;
-		private boolean blindado;
-		private boolean troca;
-		private boolean garantiaFabrica;
-		private boolean unicoDono;
 		private Modelo modelo;
 		private List<Opcional> opcionais = new ArrayList<>();
+		private List<Adicional> adicionais = new ArrayList<>();
 		
 		private Builder() {
 		}
@@ -142,31 +137,6 @@ public class Veiculo implements Serializable {
 			return this;
 		}
 		
-		public Builder withIpvaPago(boolean ipvaPago) {
-			this.ipvaPago = ipvaPago;
-			return this;
-		}
-		
-		public Builder withBlindado(boolean blindado) {
-			this.blindado = blindado;
-			return this;
-		}
-		
-		public Builder withTroca(boolean troca) {
-			this.troca = troca;
-			return this;
-		}
-		
-		public Builder withGarantiaFabrica(boolean garantiaFabrica) {
-			this.garantiaFabrica = garantiaFabrica;
-			return this;
-		}
-		
-		public Builder withUnicoDono(boolean unicoDono) {
-			this.unicoDono = unicoDono;
-			return this;
-		}
-		
 		public Builder withModelo(Modelo modelo) {
 			this.modelo = modelo;
 			return this;
@@ -174,6 +144,11 @@ public class Veiculo implements Serializable {
 		
 		public Builder withOpcionais(List<Opcional> opcionais) {
 			this.opcionais = opcionais;
+			return this;
+		}
+		
+		public Builder withAdicionais(List<Adicional> adicionais) {
+			this.adicionais = adicionais;
 			return this;
 		}
 		
@@ -190,14 +165,9 @@ public class Veiculo implements Serializable {
 			veiculo.setPlaca(placa);
 			veiculo.setDescricao(descricao);
 			veiculo.setKmRodado(kmRodado);
-			veiculo.setIpvaPago(ipvaPago);
-			veiculo.setBlindado(blindado);
-			veiculo.setTroca(troca);
-			veiculo.setGarantiaFabrica(garantiaFabrica);
-			veiculo.setUnicoDono(unicoDono);
 			veiculo.setModelo(modelo);
 			veiculo.setOpcionais(opcionais);
-			
+			veiculo.setAdicionais(adicionais);
 			return veiculo;
 		}
 		
@@ -290,53 +260,13 @@ public class Veiculo implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	public boolean isBlindado() {
-		return blindado;
-	}
-
-	public void setBlindado(boolean blindado) {
-		this.blindado = blindado;
-	}
-
-	public boolean isTroca() {
-		return troca;
-	}
-
-	public void setTroca(boolean troca) {
-		this.troca = troca;
-	}
-
-	public boolean isIpvaPago() {
-		return ipvaPago;
-	}
-
-	public void setIpvaPago(boolean ipvaPago) {
-		this.ipvaPago = ipvaPago;
-	}
-
+	
 	public Long getKmRodado() {
 		return kmRodado;
 	}
 
 	public void setKmRodado(Long kmRodado) {
 		this.kmRodado = kmRodado;
-	}
-
-	public boolean isGarantiaFabrica() {
-		return garantiaFabrica;
-	}
-
-	public void setGarantiaFabrica(boolean garantiaFabrica) {
-		this.garantiaFabrica = garantiaFabrica;
-	}
-
-	public boolean isUnicoDono() {
-		return unicoDono;
-	}
-
-	public void setUnicoDono(boolean unicoDono) {
-		this.unicoDono = unicoDono;
 	}
 	
 	public List<Opcional> getOpcionais() {
@@ -353,6 +283,14 @@ public class Veiculo implements Serializable {
 
 	public void setNumPortas(Integer numPortas) {
 		this.numPortas = numPortas;
+	}
+
+	public List<Adicional> getAdicionais() {
+		return adicionais;
+	}
+
+	public void setAdicionais(List<Adicional> adicionais) {
+		this.adicionais = adicionais;
 	}
 
 	@Override

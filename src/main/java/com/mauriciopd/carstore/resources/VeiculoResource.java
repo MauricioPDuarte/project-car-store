@@ -190,7 +190,7 @@ public class VeiculoResource {
 
 	@ApiOperation(value = "Buscar completa")
 	@GetMapping("/buscar/custom/{marca}")
-	public ResponseEntity<List<VeiculoDTO>> findByCarro(@PathVariable String marca,
+	public ResponseEntity<Page<VeiculoDTO>> findByCarro(@PathVariable String marca,
 			@RequestParam(value = "opcionais", required = false, defaultValue = "") String opcionais,
 			@RequestParam(value = "deano", required = false, defaultValue = "0") Integer deAno,
 			@RequestParam(value = "ateano", required = false, defaultValue = "0") Integer ateAno,
@@ -201,7 +201,12 @@ public class VeiculoResource {
 			@RequestParam(value = "cores", required = false, defaultValue = "0") String cores,
 			@RequestParam(value = "cambio", required = false, defaultValue = "0") String tipoCambio,
 			@RequestParam(value = "combustivel", required = false, defaultValue = "0") String combustivel,
-			@RequestParam(value = "tipo", required = false, defaultValue = "0") String tipo
+			@RequestParam(value = "tipo", required = false, defaultValue = "0") String tipo,
+			@RequestParam(value = "adc", required = false, defaultValue = "") String adicionais,
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "ano") String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction
 			) {
 		
 		String urlDecodeOpcionais = URL.decodeParam(opcionais);
@@ -209,16 +214,20 @@ public class VeiculoResource {
 		String urlDecodeCambio = URL.decodeParam(tipoCambio);
 		String urlDecodeCombustivel = URL.decodeParam(combustivel);
 		String urlDecodeTipoCarro = URL.decodeParam(tipo);
+		String urlDecodeAdicionais = URL.decodeParam(adicionais);
 		
 		List<String> nomesOpcional = URL.decodeList(urlDecodeOpcionais);
 		List<Integer> nomeCores = URL.decodeIntList(urlDecodeCores);
 		List<Integer> tiposCambios = URL.decodeIntList(urlDecodeCambio);
 		List<Integer> tiposCombustivel = URL.decodeIntList(urlDecodeCombustivel);
 		List<Integer> tipoCarro = URL.decodeIntList(urlDecodeTipoCarro);
+		List<String> nomeAdicionais = URL.decodeList(urlDecodeAdicionais);
 
-		List<Veiculo> veiculos = service.findByCarroCustom(marca, nomesOpcional, deAno, ateAno, dePreco, atePreco, deKm,
-				ateKm, nomeCores, tiposCambios, tiposCombustivel, tipoCarro);
-		List<VeiculoDTO> listDto = veiculos.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
+		Page<Veiculo> veiculos = service.findByCarroCustom(marca, nomesOpcional, deAno, ateAno, dePreco, atePreco, deKm, 
+				ateKm, nomeCores, tiposCambios, tiposCombustivel, tipoCarro, nomeAdicionais, page, linesPerPage, orderBy, direction);
+		
+		Page<VeiculoDTO> listDto = veiculos.map(x -> new VeiculoDTO(x));
+		//Page<VeiculoDTO> listDto = veiculos.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 }

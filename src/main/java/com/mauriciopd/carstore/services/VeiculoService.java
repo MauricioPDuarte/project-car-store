@@ -9,6 +9,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -83,7 +84,7 @@ public class VeiculoService {
 		return repo.findAll(VeiculoSpecs.findByMarcaAndOpcionais(marca, opcionais));
 	}
 	
-	public List<Veiculo> findByCarroCustom(
+	public Page<Veiculo> findByCarroCustom(
 			String marca,
 			List<String> opcionais,
 			Integer deAno,
@@ -95,8 +96,15 @@ public class VeiculoService {
 			List<Integer> cores,
 			List<Integer> cambios,
 			List<Integer> combustivel,
-			List<Integer> tipoCarro){
-		return repo.findAll(VeiculoSpecs.findByCarroCustom(marca, opcionais, deAno, ateAno, dePreco, atePreco,  deKm, ateKm, cores, cambios, combustivel, tipoCarro));
+			List<Integer> tipoCarro,
+			List<String> nomeAdicionais,
+			Integer page,
+			Integer linesPerPage,
+			String orderBy,
+			String direction){
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Specification<Veiculo> spec = Specification.where(VeiculoSpecs.findByCarroCustom(marca, opcionais, deAno, ateAno, dePreco, atePreco,  deKm, ateKm, cores, cambios, combustivel, tipoCarro, nomeAdicionais));
+		return repo.findAll(spec, pageRequest);
 	}
 	
 	public void delete(Integer id) {
@@ -158,11 +166,6 @@ public class VeiculoService {
 				.withPlaca(obj.getPlaca())
 				.withDescricao(obj.getDescricao())
 				.withKmRodado(obj.getKmRodado())
-				.withIpvaPago(obj.isIpvaPago())
-				.withBlindado(obj.isBlindado())
-				.withTroca(obj.isTroca())
-				.withGarantiaFabrica(obj.isGarantiaFabrica())
-				.withUnicoDono(obj.isUnicoDono())
 				.withModelo(modelo)
 				.withOpcionais(opcionais)
 				.build();	
