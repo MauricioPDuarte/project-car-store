@@ -16,6 +16,7 @@ public class VeiculoDTO implements Serializable{
 	private String cor;
 	private Modelo modelo;
 	private Picture picture;
+	private Long kmRodado;
 	
 	public VeiculoDTO() {
 	}
@@ -26,6 +27,7 @@ public class VeiculoDTO implements Serializable{
 		this.ano = obj.getAno();
 		this.tipo = obj.getTipo();
 		this.cor = obj.getCor();
+		this.kmRodado = obj.getKmRodado();
 		
 		this.modelo = obj.getModelo();
 		for(Picture picture : obj.getPictures()) {
@@ -84,6 +86,16 @@ public class VeiculoDTO implements Serializable{
 	public void setPicture(Picture picture) {
 		this.picture = picture;
 	}
+
+	public Long getKmRodado() {
+		return kmRodado;
+	}
+
+	public void setKmRodado(Long kmRodado) {
+		this.kmRodado = kmRodado;
+	}
+	
+	
 
 	
 }

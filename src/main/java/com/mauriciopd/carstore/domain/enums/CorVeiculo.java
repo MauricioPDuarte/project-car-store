@@ -8,7 +8,7 @@ public enum CorVeiculo {
 	AMARELO(5, "Amarelo"),
 	BEGE(6, "Bege"),
 	ROSA(7, "Rosa"),
-	PRATA(8, "Bege");
+	PRATA(8, "Prata");
 	
 	
 	private int cod;

@@ -79,8 +79,24 @@ public class VeiculoService {
 		return repo.findByModeloMarcaNomeAndModeloNomeAllIgnoreCase(marca, modelo, pageRequest);
 	}
 	
-	public List<Veiculo> findByMarcaAndOpcionaisSpecification(String marca, List<String> opcionais) {
+	public List<Veiculo> findByMarcaAndOpcionais(String marca, List<String> opcionais) {
 		return repo.findAll(VeiculoSpecs.findByMarcaAndOpcionais(marca, opcionais));
+	}
+	
+	public List<Veiculo> findByCarroCustom(
+			String marca,
+			List<String> opcionais,
+			Integer deAno,
+			Integer ateAno,
+			Double dePreco,
+			Double atePreco,
+			Long deKm,
+			Long ateKm,
+			List<Integer> cores,
+			List<Integer> cambios,
+			List<Integer> combustivel,
+			List<Integer> tipoCarro){
+		return repo.findAll(VeiculoSpecs.findByCarroCustom(marca, opcionais, deAno, ateAno, dePreco, atePreco,  deKm, ateKm, cores, cambios, combustivel, tipoCarro));
 	}
 	
 	public void delete(Integer id) {

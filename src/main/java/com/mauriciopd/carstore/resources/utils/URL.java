@@ -4,11 +4,19 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class URL {
 
 	public static List<String> decodeList(String s) {
 		return Arrays.asList(s.split(","));
+	}
+	
+	public static List<Integer> decodeIntList(String cor) {
+		return Arrays.asList(cor.split(","))
+				.stream()
+				.map(x -> Integer.parseInt(x))
+				.collect(Collectors.toList());
 	}
 	
 	public static String decodeParam(String s) {

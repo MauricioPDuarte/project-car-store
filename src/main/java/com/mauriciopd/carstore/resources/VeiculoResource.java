@@ -38,27 +38,24 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping(value = "/veiculos")
 public class VeiculoResource {
-	
+
 	@Autowired
 	private VeiculoService service;
-	
+
 	@Value("${file.prefix}")
 	private String prefix;
-	
-	@ApiOperation(value="Inserir novo")
+
+	@ApiOperation(value = "Inserir novo")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody VeiculoNewDTO veiculoDto) {
 		Veiculo veiculo = service.fromDTO(veiculoDto);
 		veiculo = service.insert(veiculo);
-		URI uri = ServletUriComponentsBuilder
-				.fromCurrentRequest()
-				.path("/{id}")
-				.buildAndExpand(veiculo.getId())
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(veiculo.getId())
 				.toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
-	@ApiOperation(value="Atualizar por id")
+
+	@ApiOperation(value = "Atualizar por id")
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> atualizar(@Valid @RequestBody VeiculoNewDTO veiculoDto, @PathVariable Integer id) {
 		Veiculo veiculo = service.fromDTO(veiculoDto);
@@ -66,57 +63,59 @@ public class VeiculoResource {
 		veiculo = service.atualizar(veiculo);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@ApiOperation(value="Buscar por id")
+
+	@ApiOperation(value = "Buscar por id")
 	@GetMapping("/{id}")
 	public ResponseEntity<Veiculo> findById(@PathVariable Integer id) {
 		Veiculo veiculo = service.findById(id);
 		return ResponseEntity.ok().body(veiculo);
 	}
-	
-	@ApiOperation(value="Deletar por id")
+
+	@ApiOperation(value = "Deletar por id")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@ApiOperation(value="Inserir foto por id do veiculo")
+
+	@ApiOperation(value = "Inserir foto por id do veiculo")
 	@PostMapping("/picture/{id}")
-	public ResponseEntity<List<Picture>> insertVehiclePicture(@RequestParam(name = "file") List<MultipartFile> files, @PathVariable("id") Integer id) {
+	public ResponseEntity<List<Picture>> insertVehiclePicture(@RequestParam(name = "file") List<MultipartFile> files,
+			@PathVariable("id") Integer id) {
 		Veiculo veiculo = service.findById(id);
-		List<Picture> pictures = files.stream().map(x -> service.uploadVehiclePicture(veiculo, x)).collect(Collectors.toList());
+		List<Picture> pictures = files.stream().map(x -> service.uploadVehiclePicture(veiculo, x))
+				.collect(Collectors.toList());
 		return ResponseEntity.ok().body(pictures);
 	}
-	
-	@ApiOperation(value="Altera thumbnail veiculo")
+
+	@ApiOperation(value = "Altera thumbnail veiculo")
 	@PutMapping("{vehicleId}/picture/{pictureId}")
-	public ResponseEntity<Void> updateVehiclePicture(@PathVariable("vehicleId") Integer vehicleId, @PathVariable("pictureId") Integer pictureId) {
+	public ResponseEntity<Void> updateVehiclePicture(@PathVariable("vehicleId") Integer vehicleId,
+			@PathVariable("pictureId") Integer pictureId) {
 		service.updateThumbnailVehicle(pictureId, vehicleId);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@ApiOperation(value="Deletar determinada foto do veiculo")
+
+	@ApiOperation(value = "Deletar determinada foto do veiculo")
 	@DeleteMapping("/picture/{id}/{fileName:.+}")
-	public ResponseEntity<Void> deleteVehiclePicture(@PathVariable("fileName") String fileName, @PathVariable("id") Integer id) {
+	public ResponseEntity<Void> deleteVehiclePicture(@PathVariable("fileName") String fileName,
+			@PathVariable("id") Integer id) {
 		service.deleteVehiclePicture(id, fileName);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@ApiOperation(value="Buscar/exibir foto por nome")
+
+	@ApiOperation(value = "Buscar/exibir foto por nome")
 	@GetMapping("/picture/{id}/{fileName}")
-	public ResponseEntity<Resource> loadPictureVehicle(@PathVariable("id") Integer id, @PathVariable("fileName") String fileName,
-			HttpServletRequest request
-			) {
+	public ResponseEntity<Resource> loadPictureVehicle(@PathVariable("id") Integer id,
+			@PathVariable("fileName") String fileName, HttpServletRequest request) {
 		Resource resource = service.loadPictureVehicle(fileName, id);
-		return ResponseEntity.ok()
-				.contentType(MediaType.IMAGE_JPEG)
+		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
 				.body(resource);
-						
+
 	}
-	
-	@ApiOperation(value="Buscar todos")
+
+	@ApiOperation(value = "Buscar todos")
 	@GetMapping
 	public ResponseEntity<List<VeiculoDTO>> findAll() {
 		List<Veiculo> list = service.findAll();
@@ -124,68 +123,101 @@ public class VeiculoResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 
-	@ApiOperation(value="Buscar todos paginada")
+	@ApiOperation(value = "Buscar todos paginada")
 	@GetMapping("/page")
-	public ResponseEntity<Page<VeiculoDTO>> findAllPage(@RequestParam(value = "page", defaultValue = "0")Integer page,
-			@RequestParam(value = "linesPerPage", defaultValue = "24")Integer linesPerPage,
-			@RequestParam(value = "orderBy", defaultValue = "modelo.marca.nome")String orderBy,
-			@RequestParam(value = "direction", defaultValue = "ASC")String direction) {
+	public ResponseEntity<Page<VeiculoDTO>> findAllPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "modelo.marca.nome") String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		Page<Veiculo> list = service.findAllPage(page, linesPerPage, orderBy, direction);
 		Page<VeiculoDTO> listDto = list.map(x -> new VeiculoDTO(x));
 		return ResponseEntity.ok().body(listDto);
 	}
-	
-	@ApiOperation(value="Buscar por marca")
+
+	@ApiOperation(value = "Buscar por marca")
 	@GetMapping("/buscar/{marca}")
 	public ResponseEntity<List<VeiculoDTO>> findByMarca(@PathVariable String marca) {
 		List<Veiculo> list = service.findByMarca(marca);
 		List<VeiculoDTO> listDto = list.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
-	
-	@ApiOperation(value="Buscar por marca paginada")
+
+	@ApiOperation(value = "Buscar por marca paginada")
 	@GetMapping("/buscar/page/{marca}")
 	public ResponseEntity<Page<VeiculoDTO>> findAllMarcaPage(@PathVariable String marca,
-			@RequestParam(value = "page", defaultValue = "0")Integer page,
-			@RequestParam(value = "linesPerPage", defaultValue = "24")Integer linesPerPage,
-			@RequestParam(value = "orderBy", defaultValue = "modelo.marca.nome")String orderBy,
-			@RequestParam(value = "direction", defaultValue = "ASC")String direction) {
-		Page<Veiculo> list = service.findByMarcaPage(marca ,page, linesPerPage, orderBy, direction);
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "modelo.marca.nome") String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+		Page<Veiculo> list = service.findByMarcaPage(marca, page, linesPerPage, orderBy, direction);
 		Page<VeiculoDTO> listDto = list.map(x -> new VeiculoDTO(x));
 		return ResponseEntity.ok().body(listDto);
 	}
-	
-	@ApiOperation(value="Buscar por modelo")
+
+	@ApiOperation(value = "Buscar por modelo")
 	@GetMapping("/buscar/{marca}/{modelo}")
-	public ResponseEntity<List<VeiculoDTO>> findByMarcaAndModelo(@PathVariable String marca, @PathVariable String modelo) {
+	public ResponseEntity<List<VeiculoDTO>> findByMarcaAndModelo(@PathVariable String marca,
+			@PathVariable String modelo) {
 		List<Veiculo> list = service.findByMarcaAndModelo(marca, modelo);
 		List<VeiculoDTO> listDto = list.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
-	
-	@ApiOperation(value="Buscar por modelo paginada")
+
+	@ApiOperation(value = "Buscar por modelo paginada")
 	@GetMapping("/buscar/page/{marca}/{modelo}")
-	public ResponseEntity<Page<VeiculoDTO>> findAllModeloPage(@PathVariable String marca,
-			@PathVariable String modelo,
-			@RequestParam(value = "page", defaultValue = "0")Integer page,
-			@RequestParam(value = "linesPerPage", defaultValue = "24")Integer linesPerPage,
-			@RequestParam(value = "orderBy", defaultValue = "modelo.marca.nome")String orderBy,
-			@RequestParam(value = "direction", defaultValue = "ASC")String direction) {
-		Page<Veiculo> list = service.findByModeloPage(marca, modelo ,page, linesPerPage, orderBy, direction);
+	public ResponseEntity<Page<VeiculoDTO>> findAllModeloPage(@PathVariable String marca, @PathVariable String modelo,
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "modelo.marca.nome") String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+		Page<Veiculo> list = service.findByModeloPage(marca, modelo, page, linesPerPage, orderBy, direction);
 		Page<VeiculoDTO> listDto = list.map(x -> new VeiculoDTO(x));
 		return ResponseEntity.ok().body(listDto);
 	}
-	
-	@ApiOperation(value="Buscar por modelo/marca e opcionais")
+
+	@ApiOperation(value = "Buscar por modelo/marca e opcionais")
 	@GetMapping("/busc/{marca}")
 	public ResponseEntity<List<VeiculoDTO>> findByMarcaAndOpcionais(@PathVariable String marca,
-			//@PathVariable String modelo,
 			@RequestParam(value = "opcionais") String opcionais) {
 		String urlDecode = URL.decodeParam(opcionais);
 		List<String> nomesOpcional = URL.decodeList(urlDecode);
-		//List<String> teste = Arrays.asList(urlDecode);
-		//List<Veiculo> veiculos = service.findByMarcaAndOpcionais(marca, nomesOpcional);
-		List<Veiculo> veiculos = service.findByMarcaAndOpcionaisSpecification(marca, nomesOpcional);
+		List<Veiculo> veiculos = service.findByMarcaAndOpcionais(marca, nomesOpcional);
+		List<VeiculoDTO> listDto = veiculos.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+	}
+
+	// Testes de pesquisa avançada
+
+	@ApiOperation(value = "Buscar completa")
+	@GetMapping("/buscar/custom/{marca}")
+	public ResponseEntity<List<VeiculoDTO>> findByCarro(@PathVariable String marca,
+			@RequestParam(value = "opcionais", required = false, defaultValue = "") String opcionais,
+			@RequestParam(value = "deano", required = false, defaultValue = "0") Integer deAno,
+			@RequestParam(value = "ateano", required = false, defaultValue = "0") Integer ateAno,
+			@RequestParam(value = "depreco", required = false, defaultValue = "0") Double dePreco,
+			@RequestParam(value = "atepreco", required = false, defaultValue = "0") Double atePreco,
+			@RequestParam(value = "dekm", required = false, defaultValue = "0") Long deKm,
+			@RequestParam(value = "atekm", required = false, defaultValue = "0") Long ateKm,
+			@RequestParam(value = "cores", required = false, defaultValue = "0") String cores,
+			@RequestParam(value = "cambio", required = false, defaultValue = "0") String tipoCambio,
+			@RequestParam(value = "combustivel", required = false, defaultValue = "0") String combustivel,
+			@RequestParam(value = "tipo", required = false, defaultValue = "0") String tipo
+			) {
+		
+		String urlDecodeOpcionais = URL.decodeParam(opcionais);
+		String urlDecodeCores = URL.decodeParam(cores);
+		String urlDecodeCambio = URL.decodeParam(tipoCambio);
+		String urlDecodeCombustivel = URL.decodeParam(combustivel);
+		String urlDecodeTipoCarro = URL.decodeParam(tipo);
+		
+		List<String> nomesOpcional = URL.decodeList(urlDecodeOpcionais);
+		List<Integer> nomeCores = URL.decodeIntList(urlDecodeCores);
+		List<Integer> tiposCambios = URL.decodeIntList(urlDecodeCambio);
+		List<Integer> tiposCombustivel = URL.decodeIntList(urlDecodeCombustivel);
+		List<Integer> tipoCarro = URL.decodeIntList(urlDecodeTipoCarro);
+
+		List<Veiculo> veiculos = service.findByCarroCustom(marca, nomesOpcional, deAno, ateAno, dePreco, atePreco, deKm,
+				ateKm, nomeCores, tiposCambios, tiposCombustivel, tipoCarro);
 		List<VeiculoDTO> listDto = veiculos.stream().map(x -> new VeiculoDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
