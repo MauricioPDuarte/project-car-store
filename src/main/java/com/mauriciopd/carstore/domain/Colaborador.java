@@ -1,61 +1,85 @@
 package com.mauriciopd.carstore.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mauriciopd.carstore.domain.enums.Perfil;
 
 @Entity
-public class Colaborador implements Serializable{
+public class Colaborador implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@NotEmpty(message = "Preenchimento obrigatório")
+
 	private String nome;
-	
-	@Column(unique=true)
-	@NotEmpty(message = "Preenchimento obrigatório")
+
+	@Column(unique = true)
 	private String email;
-	
+
 	@JsonIgnore
-	@NotEmpty(message = "Preenchimento obrigatório")
 	private String senha;
-	
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
+
 	public Colaborador() {
+		addPerfil(Perfil.COLABORADOR);
 	}
-	
+
 	public Colaborador(Integer id, String nome, String email, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
+		addPerfil(Perfil.COLABORADOR);
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getSenha() {
 		return senha;
 	}
+
+	public Set<Perfil> getPerfis() {
+		return perfis.stream()
+				.map(x -> Perfil.toEnum(x))
+				.collect(Collectors.toSet());
+	}
+
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
+	}
+	
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
@@ -92,5 +116,5 @@ public class Colaborador implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 }

@@ -16,6 +16,7 @@ import com.mauriciopd.carstore.domain.Veiculo;
 import com.mauriciopd.carstore.domain.enums.CambioVeiculo;
 import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
 import com.mauriciopd.carstore.domain.enums.CorVeiculo;
+import com.mauriciopd.carstore.domain.enums.Perfil;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 import com.mauriciopd.carstore.repository.AdicionalRepository;
 import com.mauriciopd.carstore.repository.ColaboradorRepository;
@@ -350,6 +351,8 @@ public class Instantiation implements CommandLineRunner {
 		//-----
 		
 		Colaborador c1 = new Colaborador(null, "Mauricio Pruss Duarte", "prussdev@gmail.com", pe.encode("123")); 
+		c1.addPerfil(Perfil.ADMIN);
+		
 		Colaborador c2 = new Colaborador(null, "Carlos da Silva", "prussdesign@gmail.com", pe.encode("1234")); 
 		Colaborador c3 = new Colaborador(null, "Julia Pruss Duarte", "julia.prussduarte@hotmail.com", pe.encode("12345")); 
 		colaboradorRepository.saveAll(Arrays.asList(c1, c2, c3));

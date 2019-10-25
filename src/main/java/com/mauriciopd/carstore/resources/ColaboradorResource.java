@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mauriciopd.carstore.domain.Colaborador;
+import com.mauriciopd.carstore.dto.ColaboradorNewDTO;
 import com.mauriciopd.carstore.services.ColaboradorService;
 
 @RestController
@@ -31,15 +32,16 @@ public class ColaboradorResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping("/id")
+	@GetMapping("/{id}")
 	public ResponseEntity<Colaborador> findById(@PathVariable Integer id) {
 		Colaborador obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody Colaborador colaborador) {
-		Colaborador obj = service.insert(colaborador);
+	public ResponseEntity<Void> insert(@Valid @RequestBody ColaboradorNewDTO colaboradorNewDTO) {
+		Colaborador obj = service.fromDTO(colaboradorNewDTO);
+		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
