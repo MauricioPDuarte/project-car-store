@@ -43,17 +43,17 @@ public class MarcaResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@GetMapping(value = "/{marcaId}")
-	public ResponseEntity<Marca> findById(@PathVariable Integer marcaId) {
-		Marca marca = service.findById(marcaId);
-		return ResponseEntity.ok().body(marca);
-	}
-	
 	@GetMapping
 	public ResponseEntity<List<MarcaDTO>> findAll() {
 		List<Marca> list = service.findAll();
 		List<MarcaDTO> listDto = list.stream().map(x -> new MarcaDTO(x)).collect(Collectors.toList()); 
 		return ResponseEntity.ok().body(listDto);
+	}
+	
+	@GetMapping(value = "/{marcaId}")
+	public ResponseEntity<Marca> findById(@PathVariable Integer marcaId) {
+		Marca marca = service.findById(marcaId);
+		return ResponseEntity.ok().body(marca);
 	}
 	
 	@GetMapping(value = "/{marcaId}/modelos")

@@ -43,17 +43,9 @@ public class VeiculoNewDTO implements Serializable {
 
 	private Long kmRodado;
 
-	private boolean ipvaPago;
-
-	private boolean blindado;
-
-	private boolean troca;
-
-	private boolean garantiaFabrica;
-
-	private boolean unicoDono;
-
 	private List<Integer> opcionais = new ArrayList<>();
+	
+	private List<Integer> adicionais = new ArrayList<>();
 
 	public VeiculoNewDTO() {
 	}
@@ -154,52 +146,20 @@ public class VeiculoNewDTO implements Serializable {
 		this.kmRodado = kmRodado;
 	}
 
-	public boolean isIpvaPago() {
-		return ipvaPago;
-	}
-
-	public void setIpvaPago(boolean ipvaPago) {
-		this.ipvaPago = ipvaPago;
-	}
-
-	public boolean isBlindado() {
-		return blindado;
-	}
-
-	public void setBlindado(boolean blindado) {
-		this.blindado = blindado;
-	}
-
-	public boolean isTroca() {
-		return troca;
-	}
-
-	public void setTroca(boolean troca) {
-		this.troca = troca;
-	}
-
-	public boolean isGarantiaFabrica() {
-		return garantiaFabrica;
-	}
-
-	public void setGarantiaFabrica(boolean garantiaFabrica) {
-		this.garantiaFabrica = garantiaFabrica;
-	}
-
-	public boolean isUnicoDono() {
-		return unicoDono;
-	}
-
-	public void setUnicoDono(boolean unicoDono) {
-		this.unicoDono = unicoDono;
-	}
-
 	public Integer getNumPortas() {
 		return numPortas;
 	}
 
 	public void setNumPortas(Integer numPortas) {
 		this.numPortas = numPortas;
+	}
+
+	public List<Integer> getAdicionais() {
+		return adicionais;
+	}
+
+	public void setAdicionais(List<Integer> adicionais) {
+		this.adicionais = adicionais;
 	}
 
 }

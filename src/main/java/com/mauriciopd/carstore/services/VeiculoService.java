@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mauriciopd.carstore.domain.Adicional;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
 import com.mauriciopd.carstore.domain.Picture;
@@ -34,6 +35,9 @@ public class VeiculoService {
 	
 	@Autowired
 	private OpcionalService opcionalService;
+	
+	@Autowired
+	private AdicionalService adicionalService;
 	
 	
 	@Transactional
@@ -150,6 +154,11 @@ public class VeiculoService {
 				.map(x -> opcionalService.findById(x))
 				.collect(Collectors.toList());
 		
+		List<Adicional> adicionais = obj.getAdicionais()
+				.stream()
+				.map(x -> adicionalService.findById(x))
+				.collect(Collectors.toList());
+		
 		return Veiculo.Builder
 				.newBuilder()
 				.withId(obj.getId())
@@ -165,6 +174,7 @@ public class VeiculoService {
 				.withKmRodado(obj.getKmRodado())
 				.withModelo(modelo)
 				.withOpcionais(opcionais)
+				.withAdicionais(adicionais)
 				.build();	
 	}
 	

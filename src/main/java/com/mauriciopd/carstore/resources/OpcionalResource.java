@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -29,15 +31,8 @@ public class OpcionalResource {
 	@Autowired
 	private OpcionalService service;
 
-	@GetMapping
-	public ResponseEntity<List<OpcionalDTO>> findAll() {
-		List<Opcional> list = service.findAll();
-		List<OpcionalDTO> listDto = list.stream().map(x -> new OpcionalDTO(x)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDto);
-	}
-	
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody OpcionalDTO obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody OpcionalDTO obj) {
 		Opcional opcional = service.fromDTO(obj);
 		opcional = service.insert(opcional);
 		URI uri = ServletUriComponentsBuilder
@@ -46,6 +41,13 @@ public class OpcionalResource {
 				.buildAndExpand(opcional.getId())
 				.toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<OpcionalDTO>> findAll() {
+		List<Opcional> list = service.findAll();
+		List<OpcionalDTO> listDto = list.stream().map(x -> new OpcionalDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@GetMapping("/{id}")
