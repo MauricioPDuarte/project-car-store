@@ -38,6 +38,16 @@ public class ColaboradorService {
 		return repo.save(obj);
 	}
 	
+	public void deleteById(Integer id) {
+		findById(id);
+		repo.deleteById(id);
+	}
+	
+	public void update(Colaborador obj) {
+		findById(obj.getId());
+		repo.save(obj);
+	}
+	
 	public Colaborador fromDTO(ColaboradorNewDTO objDto) {
 		
 		Colaborador obj = new Colaborador(null, objDto.getNome(), objDto.getEmail(), pe.encode(objDto.getSenha()));

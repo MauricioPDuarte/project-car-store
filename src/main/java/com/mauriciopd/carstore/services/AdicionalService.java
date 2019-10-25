@@ -32,6 +32,16 @@ public class AdicionalService {
 		
 	}
 	
+	public void deleteById(Integer id) {
+		findById(id);
+		repo.deleteById(id);
+	}
+	
+	public void update(Adicional obj) {
+		findById(obj.getId());
+		repo.save(obj);
+	}
+	
 	public Adicional fromDTO(AdicionalDTO objDto) {
 		return new Adicional(objDto.getId(), objDto.getNome());
 	}
