@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.mauriciopd.carstore.services.exceptions.AuthorizationException;
 import com.mauriciopd.carstore.services.exceptions.DataIntegrityException;
 import com.mauriciopd.carstore.services.exceptions.FileException;
 import com.mauriciopd.carstore.services.exceptions.FileStorageException;
@@ -110,6 +111,21 @@ public class ResourceExceptionHandler {
 				.build();
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);	
+	}
+	
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<StandartError> authorization(AuthorizationException e, HttpServletRequest request) {
+		StandartError err = StandartError
+				.Builder
+				.newBuilder()
+				.withTimestamp(System.currentTimeMillis())
+				.withStatus(HttpStatus.FORBIDDEN.value())
+				.withError("Não encontrado")
+				.withMessage(e.getMessage())
+				.withPath(request.getRequestURI())
+				.build();
+		
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);	
 	}
 	
 }

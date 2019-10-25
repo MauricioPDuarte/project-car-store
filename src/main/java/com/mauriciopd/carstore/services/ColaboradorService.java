@@ -12,6 +12,8 @@ import com.mauriciopd.carstore.domain.Colaborador;
 import com.mauriciopd.carstore.domain.enums.Perfil;
 import com.mauriciopd.carstore.dto.ColaboradorNewDTO;
 import com.mauriciopd.carstore.repository.ColaboradorRepository;
+import com.mauriciopd.carstore.security.UserSS;
+import com.mauriciopd.carstore.services.exceptions.AuthorizationException;
 import com.mauriciopd.carstore.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -28,6 +30,13 @@ public class ColaboradorService {
 	}
 	
 	public Colaborador findById(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		
+		if(user==null || !user.hasHole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Colaborador> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado: " + id));
 	}

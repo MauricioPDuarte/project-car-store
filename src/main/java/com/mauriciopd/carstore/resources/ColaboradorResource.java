@@ -2,6 +2,7 @@ package com.mauriciopd.carstore.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mauriciopd.carstore.domain.Colaborador;
+import com.mauriciopd.carstore.dto.ColaboradorDTO;
 import com.mauriciopd.carstore.dto.ColaboradorNewDTO;
 import com.mauriciopd.carstore.services.ColaboradorService;
 
@@ -30,9 +32,10 @@ public class ColaboradorResource {
 	private ColaboradorService service;
 
 	@GetMapping
-	public ResponseEntity<List<Colaborador>> findAll() {
+	public ResponseEntity<List<ColaboradorDTO>> findAll() {
 		List<Colaborador> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<ColaboradorDTO> listDto = list.stream().map(x -> new ColaboradorDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 
 	@GetMapping("/{id}")
