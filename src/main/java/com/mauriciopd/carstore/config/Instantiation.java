@@ -5,8 +5,10 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.mauriciopd.carstore.domain.Adicional;
+import com.mauriciopd.carstore.domain.Colaborador;
 import com.mauriciopd.carstore.domain.Marca;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
@@ -16,6 +18,7 @@ import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
 import com.mauriciopd.carstore.domain.enums.CorVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 import com.mauriciopd.carstore.repository.AdicionalRepository;
+import com.mauriciopd.carstore.repository.ColaboradorRepository;
 import com.mauriciopd.carstore.repository.MarcaRepository;
 import com.mauriciopd.carstore.repository.ModeloRepository;
 import com.mauriciopd.carstore.repository.OpcionalRepository;
@@ -38,6 +41,12 @@ public class Instantiation implements CommandLineRunner {
 	
 	@Autowired
 	private AdicionalRepository adicionalRepository;
+	
+	@Autowired
+	private ColaboradorRepository colaboradorRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -337,6 +346,13 @@ public class Instantiation implements CommandLineRunner {
 		mod8.getVeiculos().addAll(Arrays.asList(v7, v9));
 		mod9.getVeiculos().addAll(Arrays.asList(v8));
 		mod9.getVeiculos().addAll(Arrays.asList(v10));
+		
+		//-----
+		
+		Colaborador c1 = new Colaborador(null, "Mauricio Pruss Duarte", "prussdev@gmail.com", pe.encode("123")); 
+		Colaborador c2 = new Colaborador(null, "Carlos da Silva", "prussdesign@gmail.com", pe.encode("1234")); 
+		Colaborador c3 = new Colaborador(null, "Julia Pruss Duarte", "julia.prussduarte@hotmail.com", pe.encode("12345")); 
+		colaboradorRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
 		marcaRepository.saveAll(Arrays.asList(m1, m2, m3, m4, m5, m6, m7));
 		modeloRepository.saveAll(Arrays.asList(mod1, mod2, mod3, mod4, mod5, mod6, mod7, mod8, mod9, mod10));
