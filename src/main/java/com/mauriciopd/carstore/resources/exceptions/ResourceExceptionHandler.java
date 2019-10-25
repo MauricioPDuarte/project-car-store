@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -120,7 +121,22 @@ public class ResourceExceptionHandler {
 				.newBuilder()
 				.withTimestamp(System.currentTimeMillis())
 				.withStatus(HttpStatus.FORBIDDEN.value())
-				.withError("Não encontrado")
+				.withError("Acesso negado")
+				.withMessage(e.getMessage())
+				.withPath(request.getRequestURI())
+				.build();
+		
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);	
+	}
+	
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<StandartError> accessDenied(AccessDeniedException e, HttpServletRequest request) {
+		StandartError err = StandartError
+				.Builder
+				.newBuilder()
+				.withTimestamp(System.currentTimeMillis())
+				.withStatus(HttpStatus.FORBIDDEN.value())
+				.withError("Acesso negado")
 				.withMessage(e.getMessage())
 				.withPath(request.getRequestURI())
 				.build();
