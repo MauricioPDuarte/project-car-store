@@ -21,24 +21,37 @@ public class ColaboradorService {
 
 	@Autowired
 	private ColaboradorRepository repo;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder pe;
 
 	public List<Colaborador> findAll() {
 		return repo.findAll();
 	}
-	
+
 	public Colaborador findById(Integer id) {
-		
 		UserSS user = UserService.authenticated();
-		
-		if(user==null || !user.hasHole(Perfil.ADMIN) && !id.equals(user.getId())) {
+		if (user == null || !user.hasHole(Perfil.ADMIN) && !id.equals(user.getId())) {
 			throw new AuthorizationException("Acesso negado");
 		}
-		
+
 		Optional<Colaborador> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado: " + id));
+	}
+
+	public Colaborador findByEmail(String email) {
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasHole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+
+		Colaborador obj = repo.findByEmail(email);
+		if (obj == null) {
+			throw new ObjectNotFoundException(
+					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Colaborador.class.getName());
+		}
+
+		return obj;
 	}
 
 	public Colaborador insert(Colaborador obj) {
@@ -46,23 +59,23 @@ public class ColaboradorService {
 		obj.setSenha(pe.encode(obj.getSenha()));
 		return repo.save(obj);
 	}
-	
+
 	public void deleteById(Integer id) {
 		findById(id);
 		repo.deleteById(id);
 	}
-	
+
 	public void update(Colaborador obj) {
 		findById(obj.getId());
 		repo.save(obj);
 	}
-	
+
 	public Colaborador fromDTO(ColaboradorNewDTO objDto) {
-		
+
 		Colaborador obj = new Colaborador(null, objDto.getNome(), objDto.getEmail(), pe.encode(objDto.getSenha()));
 		List<Perfil> perfis = objDto.getPerfis().stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toList());
 		perfis.forEach(x -> obj.addPerfil(x));
-		
+
 		return obj;
 	}
 }
