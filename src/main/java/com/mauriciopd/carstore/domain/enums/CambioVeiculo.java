@@ -1,5 +1,8 @@
 package com.mauriciopd.carstore.domain.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum CambioVeiculo {
 	MANUAL(1, "Manual"),
 	AUTOMATICA(2, "Automática"),

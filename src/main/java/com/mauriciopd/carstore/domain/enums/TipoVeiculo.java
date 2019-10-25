@@ -1,5 +1,8 @@
 package com.mauriciopd.carstore.domain.enums;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum TipoVeiculo {
 	HATCHBACK(1, "Hatchback"),
 	SEDAN(2, "Sedan"),

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Picture;
 import com.mauriciopd.carstore.domain.Veiculo;
+import com.mauriciopd.carstore.domain.enums.CorVeiculo;
+import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 
 public class VeiculoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -12,8 +14,8 @@ public class VeiculoDTO implements Serializable{
 	private Integer id;
 	private double preco;
 	private int ano;
-	private String tipo;
-	private String cor;
+	private TipoVeiculo tipo;
+	private CorVeiculo cor;
 	private Modelo modelo;
 	private Picture picture;
 	private Long kmRodado;
@@ -58,20 +60,20 @@ public class VeiculoDTO implements Serializable{
 		this.ano = ano;
 	}
 
-	public String getTipo() {
+	public TipoVeiculo getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(TipoVeiculo tipo) {
 		this.tipo = tipo;
 	}
 
-	public void setCor(String cor) {
-		this.cor = cor;
-	}
-	
-	public String getCor() {
+	public CorVeiculo getCor() {
 		return cor;
+	}
+
+	public void setCor(CorVeiculo cor) {
+		this.cor = cor;
 	}
 
 	public Modelo getModelo() {
