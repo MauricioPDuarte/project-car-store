@@ -16,6 +16,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.mauriciopd.carstore.security.JWTAuthenticationFilter;
+import com.mauriciopd.carstore.security.JWTAuthorizationFilter;
 import com.mauriciopd.carstore.security.JWTUtil;
 
 @Configuration
@@ -37,7 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/marcas/**",
 			"/opcionais/**",
 			"/adicionais/**",
-			"/colaboradores/**"
 		};
 	
 	@Override
@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.anyRequest().authenticated();
 		
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 	}
