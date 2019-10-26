@@ -1,11 +1,11 @@
-package com.mauriciopd.carstore.config;
+package com.mauriciopd.carstore.services;
 
+import java.text.ParseException;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.mauriciopd.carstore.domain.Adicional;
 import com.mauriciopd.carstore.domain.Colaborador;
@@ -25,9 +25,9 @@ import com.mauriciopd.carstore.repository.ModeloRepository;
 import com.mauriciopd.carstore.repository.OpcionalRepository;
 import com.mauriciopd.carstore.repository.VeiculoRepository;
 
-@Configuration
-public class Instantiation implements CommandLineRunner {
-
+@Service
+public class DBService {
+	
 	@Autowired
 	private MarcaRepository marcaRepository;
 
@@ -48,9 +48,8 @@ public class Instantiation implements CommandLineRunner {
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
-
-	@Override
-	public void run(String... args) throws Exception {
+	
+	public void instantiateTestDatabase() throws ParseException {
 		Marca m1 = new Marca(null, "Dodge");
 		Marca m2 = new Marca(null, "Fiat");
 		Marca m3 = new Marca(null, "Ford");
@@ -362,6 +361,5 @@ public class Instantiation implements CommandLineRunner {
 		veiculoRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11));
 		opcionalRepository.saveAll(Arrays.asList(op1, op2, op3, op4, op5, op6, op7, op8, op9, op10, op11, op12, op13, op14, op15, op16, op17, op18, op19, op20, op21, op22, op23));
 		adicionalRepository.saveAll(Arrays.asList(ad1, ad2, ad3, ad4, ad5));
-		
 	}
 }
