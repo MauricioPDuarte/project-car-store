@@ -34,6 +34,7 @@ import com.mauriciopd.carstore.resources.utils.URL;
 import com.mauriciopd.carstore.services.VeiculoService;
 
 import io.swagger.annotations.ApiOperation;
+import net.bytebuddy.implementation.bytecode.Throw;
 
 @RestController
 @RequestMapping(value = "/veiculos")

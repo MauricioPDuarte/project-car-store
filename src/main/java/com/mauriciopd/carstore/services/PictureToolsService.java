@@ -10,6 +10,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FilenameUtils;
+import org.imgscalr.Scalr;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,6 +49,10 @@ public class PictureToolsService {
 		} catch (Exception e) {
 			throw new FileException("Erro ao ler arquivo");
 		}
+	}
+	
+	public BufferedImage resize(BufferedImage sourceImg, int width, int height) {
+		return Scalr.resize(sourceImg, Scalr.Method.ULTRA_QUALITY, width, height);
 	}
 	
 }
