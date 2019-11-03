@@ -17,7 +17,6 @@ import javax.persistence.OneToMany;
 
 import com.mauriciopd.carstore.domain.enums.CambioVeiculo;
 import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
-import com.mauriciopd.carstore.domain.enums.CorVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 
 @Entity
@@ -30,7 +29,6 @@ public class Veiculo implements Serializable {
 	private double preco;
 	private Integer ano;
 	private Integer tipo;
-	private Integer cor;
 	private Integer combustivel;
 	private Integer cambio;
 	private Integer numPortas;
@@ -45,6 +43,9 @@ public class Veiculo implements Serializable {
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinTable(name = "ADICIONAL_VEICULO", joinColumns = @JoinColumn(name = "veiculo_id"), inverseJoinColumns = @JoinColumn(name = "adicional_id"))
 	private List<Adicional> adicionais = new ArrayList<>();
+	
+	@ManyToOne
+	private Cor cor;
 
 	@ManyToOne
 	@JoinColumn(name = "modelo_id")
@@ -65,7 +66,7 @@ public class Veiculo implements Serializable {
 		private double preco;
 		private Integer ano;
 		private Integer tipo;
-		private Integer cor;
+		private Cor cor;
 		private Integer combustivel;
 		private Integer cambio;
 		private Integer numPortas;
@@ -102,7 +103,7 @@ public class Veiculo implements Serializable {
 			return this;
 		}
 		
-		public Builder withCor(Integer cor) {
+		public Builder withCor(Cor cor) {
 			this.cor = cor;
 			return this;
 		}
@@ -204,14 +205,6 @@ public class Veiculo implements Serializable {
 	public void setTipo(Integer tipo) {
 		this.tipo = tipo;
 	}
-
-	public CorVeiculo getCor() {
-		return CorVeiculo.toEnum(cor);
-	}
-	
-	public void setCor(Integer cor) {
-		this.cor = cor;
-	}
 	
 	public Modelo getModelo() {
 		return modelo;
@@ -291,6 +284,14 @@ public class Veiculo implements Serializable {
 
 	public void setAdicionais(List<Adicional> adicionais) {
 		this.adicionais = adicionais;
+	}
+
+	public void setCor(Cor cor) {
+		this.cor = cor;
+	}
+	
+	public Cor getCor() {
+		return cor;
 	}
 
 	@Override

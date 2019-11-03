@@ -2,10 +2,10 @@ package com.mauriciopd.carstore.dto;
 
 import java.io.Serializable;
 
+import com.mauriciopd.carstore.domain.Cor;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Picture;
 import com.mauriciopd.carstore.domain.Veiculo;
-import com.mauriciopd.carstore.domain.enums.CorVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 
 public class VeiculoDTO implements Serializable{
@@ -15,7 +15,7 @@ public class VeiculoDTO implements Serializable{
 	private double preco;
 	private int ano;
 	private TipoVeiculo tipo;
-	private CorVeiculo cor;
+	private Cor cor;
 	private Modelo modelo;
 	private Picture picture;
 	private Long kmRodado;
@@ -68,11 +68,11 @@ public class VeiculoDTO implements Serializable{
 		this.tipo = tipo;
 	}
 
-	public CorVeiculo getCor() {
+	public Cor getCor() {
 		return cor;
 	}
 
-	public void setCor(CorVeiculo cor) {
+	public void setCor(Cor cor) {
 		this.cor = cor;
 	}
 
@@ -96,8 +96,5 @@ public class VeiculoDTO implements Serializable{
 	public void setKmRodado(Long kmRodado) {
 		this.kmRodado = kmRodado;
 	}
-	
-	
-
 	
 }

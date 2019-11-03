@@ -9,17 +9,18 @@ import org.springframework.stereotype.Service;
 
 import com.mauriciopd.carstore.domain.Adicional;
 import com.mauriciopd.carstore.domain.Colaborador;
+import com.mauriciopd.carstore.domain.Cor;
 import com.mauriciopd.carstore.domain.Marca;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
 import com.mauriciopd.carstore.domain.Veiculo;
 import com.mauriciopd.carstore.domain.enums.CambioVeiculo;
 import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
-import com.mauriciopd.carstore.domain.enums.CorVeiculo;
 import com.mauriciopd.carstore.domain.enums.Perfil;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 import com.mauriciopd.carstore.repository.AdicionalRepository;
 import com.mauriciopd.carstore.repository.ColaboradorRepository;
+import com.mauriciopd.carstore.repository.CorRepository;
 import com.mauriciopd.carstore.repository.MarcaRepository;
 import com.mauriciopd.carstore.repository.ModeloRepository;
 import com.mauriciopd.carstore.repository.OpcionalRepository;
@@ -48,6 +49,9 @@ public class DBService {
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
+	
+	@Autowired
+	private CorRepository corRepository;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		Marca m1 = new Marca(null, "Dodge");
@@ -99,6 +103,12 @@ public class DBService {
 		Modelo mod9 = new Modelo(null, "X1", m7);
 		Modelo mod10 = new Modelo(null, "Elantra", m6);
 		
+		Cor cor1 = new Cor(null, "Preto");
+		Cor cor2 = new Cor(null, "Branco");
+		Cor cor3 = new Cor(null, "Azul");
+		Cor cor4 = new Cor(null, "Bege");
+		Cor cor5 = new Cor(null, "Prata");
+		
 		m1.getModelos().addAll(Arrays.asList(mod1, mod2));
 		m2.getModelos().addAll(Arrays.asList(mod3));
 		m4.getModelos().addAll(Arrays.asList(mod4));
@@ -113,7 +123,7 @@ public class DBService {
 				.withPreco(25000.20)
 				.withAno(2019)
 				.withTipo(TipoVeiculo.SUV.getCod())
-				.withCor(CorVeiculo.PRETO.getCod())
+				.withCor(cor1)
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
 				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
 				.withNumPortas(4)
@@ -131,7 +141,7 @@ public class DBService {
 				.withPreco(33000.20)
 				.withAno(2017)
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
-				.withCor(CorVeiculo.BRANCO.getCod())
+				.withCor(cor2)
 				.withCombustivel(CombustivelVeiculo.GASOLINAEGAS.getCod())
 				.withCambio(CambioVeiculo.MANUAL.getCod())
 				.withNumPortas(4)
@@ -149,7 +159,7 @@ public class DBService {
 				.withPreco(36500.70)
 				.withAno(2014)
 				.withTipo(TipoVeiculo.SEDAN.getCod())
-				.withCor(CorVeiculo.BEGE.getCod())
+				.withCor(cor3)
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
 				.withCambio(CambioVeiculo.AUTOMATIZADA.getCod())
 				.withNumPortas(4)
@@ -167,7 +177,7 @@ public class DBService {
 				.withPreco(55000.20)
 				.withAno(2012)
 				.withTipo(TipoVeiculo.SUV.getCod())
-				.withCor(CorVeiculo.PRETO.getCod())
+				.withCor(cor4)
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
 				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
 				.withNumPortas(4)
@@ -185,7 +195,7 @@ public class DBService {
 				.withPreco(120000.20)
 				.withAno(2019)
 				.withTipo(TipoVeiculo.PICAPE.getCod())
-				.withCor(CorVeiculo.AZUL.getCod())
+				.withCor(cor5)
 				.withCombustivel(CombustivelVeiculo.DIESEL.getCod())
 				.withCambio(CambioVeiculo.MANUAL.getCod())
 				.withNumPortas(4)
@@ -203,7 +213,7 @@ public class DBService {
 				.withPreco(126000.20)
 				.withAno(2019)
 				.withTipo(TipoVeiculo.MINIVAN.getCod())
-				.withCor(CorVeiculo.AMARELO.getCod())
+				.withCor(cor1)
 				.withCombustivel(CombustivelVeiculo.GASOLINAALCOOLEGAS.getCod())
 				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
 				.withNumPortas(4)
@@ -221,7 +231,7 @@ public class DBService {
 				.withPreco(226000.20)
 				.withAno(2009)
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
-				.withCor(CorVeiculo.PRATA.getCod())
+				.withCor(cor4)
 				.withCombustivel(CombustivelVeiculo.ELETRICO.getCod())
 				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
 				.withNumPortas(4)
@@ -239,7 +249,7 @@ public class DBService {
 				.withPreco(23609.30)
 				.withAno(2014)
 				.withTipo(TipoVeiculo.SUV.getCod())
-				.withCor(CorVeiculo.ROSA.getCod())
+				.withCor(cor3)
 				.withCombustivel(CombustivelVeiculo.GASOLINAEELETRICO.getCod())
 				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
 				.withNumPortas(4)
@@ -257,7 +267,7 @@ public class DBService {
 				.withPreco(63604.64)
 				.withAno(2017)
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
-				.withCor(CorVeiculo.VERMELHO.getCod())
+				.withCor(cor2)
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
 				.withCambio(CambioVeiculo.MANUAL.getCod())
 				.withNumPortas(4)
@@ -275,7 +285,7 @@ public class DBService {
 				.withPreco(90000.64)
 				.withAno(2020)
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
-				.withCor(CorVeiculo.BRANCO.getCod())
+				.withCor(cor1)
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
 				.withCambio(CambioVeiculo.AUTOMATIZADA.getCod())
 				.withNumPortas(4)
@@ -293,7 +303,7 @@ public class DBService {
 				.withPreco(99000.64)
 				.withAno(2020)
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
-				.withCor(CorVeiculo.BRANCO.getCod())
+				.withCor(cor4)
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
 				.withCambio(CambioVeiculo.AUTOMATIZADA.getCod())
 				.withNumPortas(4)
@@ -335,7 +345,6 @@ public class DBService {
 		ad4.getVeiculos().addAll(Arrays.asList(v3, v4, v9));
 		ad5.getVeiculos().addAll(Arrays.asList(v1, v3, v4, v6, v7, v9));
 		
-		
 		mod1.getVeiculos().addAll(Arrays.asList(v4));
 		mod2.getVeiculos().addAll(Arrays.asList());
 		mod3.getVeiculos().addAll(Arrays.asList(v2));
@@ -346,6 +355,12 @@ public class DBService {
 		mod8.getVeiculos().addAll(Arrays.asList(v7, v9));
 		mod9.getVeiculos().addAll(Arrays.asList(v8));
 		mod9.getVeiculos().addAll(Arrays.asList(v10));
+		
+		cor1.getVeiculos().addAll(Arrays.asList(v1, v10, v6));
+		cor2.getVeiculos().addAll(Arrays.asList(v2, v9));
+		cor3.getVeiculos().addAll(Arrays.asList(v3, v8));
+		cor4.getVeiculos().addAll(Arrays.asList(v4, v7, v11));
+		cor5.getVeiculos().addAll(Arrays.asList(v5));
 		
 		//-----
 		
@@ -358,8 +373,10 @@ public class DBService {
 		
 		marcaRepository.saveAll(Arrays.asList(m1, m2, m3, m4, m5, m6, m7));
 		modeloRepository.saveAll(Arrays.asList(mod1, mod2, mod3, mod4, mod5, mod6, mod7, mod8, mod9, mod10));
+		corRepository.saveAll(Arrays.asList(cor1, cor2, cor3, cor4, cor5));
 		veiculoRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11));
 		opcionalRepository.saveAll(Arrays.asList(op1, op2, op3, op4, op5, op6, op7, op8, op9, op10, op11, op12, op13, op14, op15, op16, op17, op18, op19, op20, op21, op22, op23));
 		adicionalRepository.saveAll(Arrays.asList(ad1, ad2, ad3, ad4, ad5));
+		
 	}
 }

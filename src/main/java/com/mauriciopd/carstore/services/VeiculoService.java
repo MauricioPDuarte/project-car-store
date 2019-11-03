@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mauriciopd.carstore.domain.Adicional;
+import com.mauriciopd.carstore.domain.Cor;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
 import com.mauriciopd.carstore.domain.Picture;
@@ -38,7 +39,6 @@ public class VeiculoService {
 	
 	@Autowired
 	private AdicionalService adicionalService;
-	
 	
 	@Transactional
 	public Veiculo insert(Veiculo obj) {
@@ -148,6 +148,7 @@ public class VeiculoService {
 
 	public Veiculo fromDTO(VeiculoNewDTO obj) {
 		Modelo modelo = new Modelo(obj.getModeloId(), null, null);
+		Cor cor = new Cor(obj.getCor(), null);
 
 		List<Opcional> opcionais = obj.getOpcionais()
 				.stream()
@@ -158,14 +159,14 @@ public class VeiculoService {
 				.stream()
 				.map(x -> adicionalService.findById(x))
 				.collect(Collectors.toList());
-		
+			
 		return Veiculo.Builder
 				.newBuilder()
 				.withId(obj.getId())
 				.withPreco(obj.getPreco())
 				.withAno(obj.getAno())
 				.withTipo(obj.getTipo())
-				.withCor(obj.getCor())
+				.withCor(cor)
 				.withCombustivel(obj.getCombustivel())
 				.withCambio(obj.getCambio())
 				.withNumPortas(obj.getNumPortas())
@@ -177,7 +178,5 @@ public class VeiculoService {
 				.withAdicionais(adicionais)
 				.build();	
 	}
-	
-	
 	
 }
