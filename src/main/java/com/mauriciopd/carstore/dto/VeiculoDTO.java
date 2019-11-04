@@ -2,6 +2,7 @@ package com.mauriciopd.carstore.dto;
 
 import java.io.Serializable;
 
+import com.mauriciopd.carstore.domain.Cambio;
 import com.mauriciopd.carstore.domain.Cor;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Picture;
@@ -19,6 +20,7 @@ public class VeiculoDTO implements Serializable{
 	private Modelo modelo;
 	private Picture picture;
 	private Long kmRodado;
+	private Cambio cambio;
 	
 	public VeiculoDTO() {
 	}
@@ -30,6 +32,7 @@ public class VeiculoDTO implements Serializable{
 		this.tipo = obj.getTipo();
 		this.cor = obj.getCor();
 		this.kmRodado = obj.getKmRodado();
+		this.cambio = obj.getCambio();
 		
 		this.modelo = obj.getModelo();
 		for(Picture picture : obj.getPictures()) {
@@ -79,12 +82,15 @@ public class VeiculoDTO implements Serializable{
 	public Modelo getModelo() {
 		return modelo;
 	}
+	
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
 	}
+	
 	public Picture getPicture() {
 		return picture;
 	}
+	
 	public void setPicture(Picture picture) {
 		this.picture = picture;
 	}
@@ -96,5 +102,14 @@ public class VeiculoDTO implements Serializable{
 	public void setKmRodado(Long kmRodado) {
 		this.kmRodado = kmRodado;
 	}
+
+	public Cambio getCambio() {
+		return cambio;
+	}
+
+	public void setCambio(Cambio cambio) {
+		this.cambio = cambio;
+	}
+	
 	
 }

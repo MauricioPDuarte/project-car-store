@@ -8,17 +8,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mauriciopd.carstore.domain.Adicional;
+import com.mauriciopd.carstore.domain.Cambio;
 import com.mauriciopd.carstore.domain.Colaborador;
 import com.mauriciopd.carstore.domain.Cor;
 import com.mauriciopd.carstore.domain.Marca;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
 import com.mauriciopd.carstore.domain.Veiculo;
-import com.mauriciopd.carstore.domain.enums.CambioVeiculo;
 import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
 import com.mauriciopd.carstore.domain.enums.Perfil;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 import com.mauriciopd.carstore.repository.AdicionalRepository;
+import com.mauriciopd.carstore.repository.CambioRepository;
 import com.mauriciopd.carstore.repository.ColaboradorRepository;
 import com.mauriciopd.carstore.repository.CorRepository;
 import com.mauriciopd.carstore.repository.MarcaRepository;
@@ -46,6 +47,9 @@ public class DBService {
 	
 	@Autowired
 	private ColaboradorRepository colaboradorRepository;
+	
+	@Autowired
+	private CambioRepository cambioRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
@@ -109,6 +113,12 @@ public class DBService {
 		Cor cor4 = new Cor(null, "Bege");
 		Cor cor5 = new Cor(null, "Prata");
 		
+		Cambio cb1 = new Cambio(null, "Automática");
+		Cambio cb2 = new Cambio(null, "Manual");
+		Cambio cb3 = new Cambio(null, "CVT");
+		Cambio cb4 = new Cambio(null, "Automátizada");
+		
+		
 		m1.getModelos().addAll(Arrays.asList(mod1, mod2));
 		m2.getModelos().addAll(Arrays.asList(mod3));
 		m4.getModelos().addAll(Arrays.asList(mod4));
@@ -125,7 +135,7 @@ public class DBService {
 				.withTipo(TipoVeiculo.SUV.getCod())
 				.withCor(cor1)
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
-				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
+				.withCambio(cb1)
 				.withNumPortas(4)
 				.withPlaca("UTY-4343")
 				.withDescricao("Veiculo em ótimo estado, nunca foi batido!")
@@ -143,7 +153,7 @@ public class DBService {
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
 				.withCor(cor2)
 				.withCombustivel(CombustivelVeiculo.GASOLINAEGAS.getCod())
-				.withCambio(CambioVeiculo.MANUAL.getCod())
+				.withCambio(cb2)
 				.withNumPortas(4)
 				.withPlaca("ADY-4244")
 				.withDescricao("Já teve 3 donos, já foi batido")
@@ -161,7 +171,7 @@ public class DBService {
 				.withTipo(TipoVeiculo.SEDAN.getCod())
 				.withCor(cor3)
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
-				.withCambio(CambioVeiculo.AUTOMATIZADA.getCod())
+				.withCambio(cb4)
 				.withNumPortas(4)
 				.withPlaca("JKY-2763")
 				.withDescricao("Carro super confortavel!")
@@ -179,7 +189,7 @@ public class DBService {
 				.withTipo(TipoVeiculo.SUV.getCod())
 				.withCor(cor4)
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
-				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
+				.withCambio(cb2)
 				.withNumPortas(4)
 				.withPlaca("JCE-8242")
 				.withDescricao("Carro em perfeito estado, fazer as trocas dos pneus.")
@@ -197,7 +207,7 @@ public class DBService {
 				.withTipo(TipoVeiculo.PICAPE.getCod())
 				.withCor(cor5)
 				.withCombustivel(CombustivelVeiculo.DIESEL.getCod())
-				.withCambio(CambioVeiculo.MANUAL.getCod())
+				.withCambio(cb3)
 				.withNumPortas(4)
 				.withPlaca("HFT-3232")
 				.withDescricao("Carro era utilizado para fazer offroad.")
@@ -215,7 +225,7 @@ public class DBService {
 				.withTipo(TipoVeiculo.MINIVAN.getCod())
 				.withCor(cor1)
 				.withCombustivel(CombustivelVeiculo.GASOLINAALCOOLEGAS.getCod())
-				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
+				.withCambio(cb3)
 				.withNumPortas(4)
 				.withPlaca("GFE-3434")
 				.withDescricao("Carro era utilizado para fazer fretes, nos correios. Carro faz um barulho na roda dianteira")
@@ -233,7 +243,7 @@ public class DBService {
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
 				.withCor(cor4)
 				.withCombustivel(CombustivelVeiculo.ELETRICO.getCod())
-				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
+				.withCambio(cb4)
 				.withNumPortas(4)
 				.withPlaca("HHE-2224")
 				.withDescricao("Carro em perfeito estado, utilizado apenas por uma familia")
@@ -251,7 +261,7 @@ public class DBService {
 				.withTipo(TipoVeiculo.SUV.getCod())
 				.withCor(cor3)
 				.withCombustivel(CombustivelVeiculo.GASOLINAEELETRICO.getCod())
-				.withCambio(CambioVeiculo.AUTOMATICA.getCod())
+				.withCambio(cb3)
 				.withNumPortas(4)
 				.withPlaca("KHK-7524")
 				.withDescricao("Em ótimas condições")
@@ -269,7 +279,7 @@ public class DBService {
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
 				.withCor(cor2)
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
-				.withCambio(CambioVeiculo.MANUAL.getCod())
+				.withCambio(cb1)
 				.withNumPortas(4)
 				.withPlaca("GSK-6424")
 				.withDescricao("Carro precisa ser reparado algumas partes da lataria")
@@ -287,7 +297,7 @@ public class DBService {
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
 				.withCor(cor1)
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
-				.withCambio(CambioVeiculo.AUTOMATIZADA.getCod())
+				.withCambio(cb1)
 				.withNumPortas(4)
 				.withPlaca("LSK-9824")
 				.withDescricao("Só comprar e andar")
@@ -305,7 +315,7 @@ public class DBService {
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
 				.withCor(cor4)
 				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
-				.withCambio(CambioVeiculo.AUTOMATIZADA.getCod())
+				.withCambio(cb2)
 				.withNumPortas(4)
 				.withPlaca("LGK-5824")
 				.withDescricao("Muito bom!")
@@ -362,6 +372,12 @@ public class DBService {
 		cor4.getVeiculos().addAll(Arrays.asList(v4, v7, v11));
 		cor5.getVeiculos().addAll(Arrays.asList(v5));
 		
+		cb1.getVeiculos().addAll((Arrays.asList(v1, v10)));
+		cb2.getVeiculos().addAll((Arrays.asList(v2, v4, v11)));
+		cb3.getVeiculos().addAll((Arrays.asList(v5, v6, v8)));
+		cb4.getVeiculos().addAll((Arrays.asList(v3, v7)));
+		
+		
 		//-----
 		
 		Colaborador c1 = new Colaborador(null, "Mauricio Pruss Duarte", "prussdev@gmail.com", pe.encode("123")); 
@@ -374,6 +390,7 @@ public class DBService {
 		marcaRepository.saveAll(Arrays.asList(m1, m2, m3, m4, m5, m6, m7));
 		modeloRepository.saveAll(Arrays.asList(mod1, mod2, mod3, mod4, mod5, mod6, mod7, mod8, mod9, mod10));
 		corRepository.saveAll(Arrays.asList(cor1, cor2, cor3, cor4, cor5));
+		cambioRepository.saveAll((Arrays.asList(cb1, cb2, cb3, cb4)));
 		veiculoRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11));
 		opcionalRepository.saveAll(Arrays.asList(op1, op2, op3, op4, op5, op6, op7, op8, op9, op10, op11, op12, op13, op14, op15, op16, op17, op18, op19, op20, op21, op22, op23));
 		adicionalRepository.saveAll(Arrays.asList(ad1, ad2, ad3, ad4, ad5));

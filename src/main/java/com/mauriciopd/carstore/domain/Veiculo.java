@@ -15,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.mauriciopd.carstore.domain.enums.CambioVeiculo;
 import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 
@@ -30,7 +29,6 @@ public class Veiculo implements Serializable {
 	private Integer ano;
 	private Integer tipo;
 	private Integer combustivel;
-	private Integer cambio;
 	private Integer numPortas;
 	private String placa;
 	private String descricao;
@@ -46,6 +44,9 @@ public class Veiculo implements Serializable {
 	
 	@ManyToOne
 	private Cor cor;
+	
+	@ManyToOne
+	private Cambio cambio;
 
 	@ManyToOne
 	@JoinColumn(name = "modelo_id")
@@ -68,7 +69,7 @@ public class Veiculo implements Serializable {
 		private Integer tipo;
 		private Cor cor;
 		private Integer combustivel;
-		private Integer cambio;
+		private Cambio cambio;
 		private Integer numPortas;
 		private String placa;
 		private String descricao;
@@ -113,7 +114,7 @@ public class Veiculo implements Serializable {
 			return this;
 		}
 		
-		public Builder withCambio(Integer cambio) {
+		public Builder withCambio(Cambio cambio) {
 			this.cambio = cambio;
 			return this;
 		}
@@ -152,7 +153,7 @@ public class Veiculo implements Serializable {
 			this.adicionais = adicionais;
 			return this;
 		}
-		
+
 		public Veiculo build() {
 			Veiculo veiculo = new Veiculo();
 			veiculo.setId(id);
@@ -230,14 +231,6 @@ public class Veiculo implements Serializable {
 		this.combustivel = combustivel;
 	}
 
-	public CambioVeiculo getCambio() {
-		return CambioVeiculo.toEnum(cambio);
-	}
-	
-	public void setCambio(Integer cambio) {
-		this.cambio = cambio;
-	}
-
 	public String getPlaca() {
 		return placa;
 	}
@@ -292,6 +285,14 @@ public class Veiculo implements Serializable {
 	
 	public Cor getCor() {
 		return cor;
+	}
+
+	public Cambio getCambio() {
+		return cambio;
+	}
+
+	public void setCambio(Cambio cambio) {
+		this.cambio = cambio;
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mauriciopd.carstore.domain.Adicional;
+import com.mauriciopd.carstore.domain.Cambio;
 import com.mauriciopd.carstore.domain.Cor;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
@@ -95,7 +96,7 @@ public class VeiculoService {
 			Long deKm,
 			Long ateKm,
 			List<String> cores,
-			List<Integer> cambios,
+			List<String> cambios,
 			List<Integer> combustivel,
 			List<Integer> tipoCarro,
 			List<String> nomeAdicionais,
@@ -149,6 +150,7 @@ public class VeiculoService {
 	public Veiculo fromDTO(VeiculoNewDTO obj) {
 		Modelo modelo = new Modelo(obj.getModeloId(), null, null);
 		Cor cor = new Cor(obj.getCor(), null);
+		Cambio cambio = new Cambio(obj.getCambio(), null);
 
 		List<Opcional> opcionais = obj.getOpcionais()
 				.stream()
@@ -168,7 +170,7 @@ public class VeiculoService {
 				.withTipo(obj.getTipo())
 				.withCor(cor)
 				.withCombustivel(obj.getCombustivel())
-				.withCambio(obj.getCambio())
+				.withCambio(cambio)
 				.withNumPortas(obj.getNumPortas())
 				.withPlaca(obj.getPlaca())
 				.withDescricao(obj.getDescricao())
