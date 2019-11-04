@@ -189,7 +189,7 @@ public class VeiculoResource {
 			@RequestParam(value = "atekm", required = false, defaultValue = "0") Long ateKm,
 			@RequestParam(value = "cores", required = false, defaultValue = "") String cores,
 			@RequestParam(value = "cambios", required = false, defaultValue = "") String cambios,
-			@RequestParam(value = "combustivel", required = false, defaultValue = "0") String combustivel,
+			@RequestParam(value = "combustiveis", required = false, defaultValue = "") String combustiveis,
 			@RequestParam(value = "tipo", required = false, defaultValue = "0") String tipo,
 			@RequestParam(value = "adc", required = false, defaultValue = "") String adicionais,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -208,7 +208,7 @@ public class VeiculoResource {
 		List<String> nomesOpcional = URL.decodeList(opcionais);
 		List<String> nomeCores = URL.decodeList(cores);
 		List<String> tiposCambios = URL.decodeList(cambios);
-		List<Integer> tiposCombustivel = URL.decodeIntList(combustivel);
+		List<String> tiposCombustivel = URL.decodeList(combustiveis);
 		List<Integer> tipoCarro = URL.decodeIntList(tipo);
 		List<String> nomeAdicionais = URL.decodeList(adicionais);
 

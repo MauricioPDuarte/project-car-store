@@ -98,7 +98,7 @@ public class VeiculoService {
 			Long ateKm,
 			List<String> cores,
 			List<String> cambios,
-			List<Integer> combustivel,
+			List<String> combustiveis,
 			List<Integer> tipoCarro,
 			List<String> nomeAdicionais,
 			Integer page,
@@ -106,7 +106,7 @@ public class VeiculoService {
 			String orderBy,
 			String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		Specification<Veiculo> spec = Specification.where(VeiculoSpecs.findByCarroCustom(marca, modelo,  opcionais, deAno, ateAno, dePreco, atePreco,  deKm, ateKm, cores, cambios, combustivel, tipoCarro, nomeAdicionais));
+		Specification<Veiculo> spec = Specification.where(VeiculoSpecs.findByCarroCustom(marca, modelo,  opcionais, deAno, ateAno, dePreco, atePreco,  deKm, ateKm, cores, cambios, combustiveis, tipoCarro, nomeAdicionais));
 		return repo.findAll(spec, pageRequest);
 	}
 	
