@@ -15,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 
 @Entity
@@ -28,7 +27,6 @@ public class Veiculo implements Serializable {
 	private double preco;
 	private Integer ano;
 	private Integer tipo;
-	private Integer combustivel;
 	private Integer numPortas;
 	private String placa;
 	private String descricao;
@@ -47,6 +45,9 @@ public class Veiculo implements Serializable {
 	
 	@ManyToOne
 	private Cambio cambio;
+	
+	@ManyToOne
+	private Combustivel combustivel;
 
 	@ManyToOne
 	@JoinColumn(name = "modelo_id")
@@ -68,7 +69,7 @@ public class Veiculo implements Serializable {
 		private Integer ano;
 		private Integer tipo;
 		private Cor cor;
-		private Integer combustivel;
+		private Combustivel combustivel;
 		private Cambio cambio;
 		private Integer numPortas;
 		private String placa;
@@ -109,7 +110,7 @@ public class Veiculo implements Serializable {
 			return this;
 		}
 		
-		public Builder withCombustivel(Integer combustivel) {
+		public Builder withCombustivel(Combustivel combustivel) {
 			this.combustivel = combustivel;
 			return this;
 		}
@@ -223,11 +224,11 @@ public class Veiculo implements Serializable {
 		this.pictures = pictures;
 	}
 
-	public CombustivelVeiculo getCombustivel() {
-		return CombustivelVeiculo.toEnum(combustivel);
+	public Combustivel getCombustivel() {
+		return combustivel;
 	}
-	
-	public void setCombustivel(Integer combustivel) {
+
+	public void setCombustivel(Combustivel combustivel) {
 		this.combustivel = combustivel;
 	}
 

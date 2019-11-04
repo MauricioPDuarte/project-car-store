@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mauriciopd.carstore.domain.Cor;
-import com.mauriciopd.carstore.dto.CorDTO;
-import com.mauriciopd.carstore.services.CorService;
+import com.mauriciopd.carstore.domain.Combustivel;
+import com.mauriciopd.carstore.dto.CombustivelDTO;
+import com.mauriciopd.carstore.services.CombustivelService;
 
 @RestController
-@RequestMapping("/cores")
-public class CorResource {
+@RequestMapping("/combustiveis")
+public class CombustivelResource {
 	
 	@Autowired
-	private CorService service;
+	private CombustivelService service;
 
 	@GetMapping
-	public ResponseEntity<List<CorDTO>> findAll() {
-		List<Cor> list = service.findAll();
-		List<CorDTO> listDto = list.stream().map(x -> new CorDTO(x)).collect(Collectors.toList());
+	public ResponseEntity<List<CombustivelDTO>> findAll() {
+		List<Combustivel> list = service.findAll();
+		List<CombustivelDTO> listDto = list.stream().map(x -> new CombustivelDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 }

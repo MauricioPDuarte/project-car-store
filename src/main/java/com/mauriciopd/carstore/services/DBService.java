@@ -10,17 +10,18 @@ import org.springframework.stereotype.Service;
 import com.mauriciopd.carstore.domain.Adicional;
 import com.mauriciopd.carstore.domain.Cambio;
 import com.mauriciopd.carstore.domain.Colaborador;
+import com.mauriciopd.carstore.domain.Combustivel;
 import com.mauriciopd.carstore.domain.Cor;
 import com.mauriciopd.carstore.domain.Marca;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
 import com.mauriciopd.carstore.domain.Veiculo;
-import com.mauriciopd.carstore.domain.enums.CombustivelVeiculo;
 import com.mauriciopd.carstore.domain.enums.Perfil;
 import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 import com.mauriciopd.carstore.repository.AdicionalRepository;
 import com.mauriciopd.carstore.repository.CambioRepository;
 import com.mauriciopd.carstore.repository.ColaboradorRepository;
+import com.mauriciopd.carstore.repository.CombustivelRepository;
 import com.mauriciopd.carstore.repository.CorRepository;
 import com.mauriciopd.carstore.repository.MarcaRepository;
 import com.mauriciopd.carstore.repository.ModeloRepository;
@@ -50,6 +51,9 @@ public class DBService {
 	
 	@Autowired
 	private CambioRepository cambioRepository;
+	
+	@Autowired
+	private CombustivelRepository combustivelRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
@@ -118,6 +122,15 @@ public class DBService {
 		Cambio cb3 = new Cambio(null, "CVT");
 		Cambio cb4 = new Cambio(null, "Automátizada");
 		
+		Combustivel comb1 = new Combustivel(null, "Gasolina");
+		Combustivel comb2 = new Combustivel(null, "Álcool");
+		Combustivel comb3 = new Combustivel(null, "Diesel");
+		Combustivel comb4 = new Combustivel(null, "Elétrico");
+		Combustivel comb5 = new Combustivel(null, "Gasolina e álcool");
+		Combustivel comb6 = new Combustivel(null, "Gasolina e elétrico");
+		Combustivel comb7 = new Combustivel(null, "Gasolina, álcool e gás natural");
+		Combustivel comb8 = new Combustivel(null, "Gasolina e gás natural");
+		Combustivel comb9 = new Combustivel(null, "Álcool e gás natural");
 		
 		m1.getModelos().addAll(Arrays.asList(mod1, mod2));
 		m2.getModelos().addAll(Arrays.asList(mod3));
@@ -134,7 +147,7 @@ public class DBService {
 				.withAno(2019)
 				.withTipo(TipoVeiculo.SUV.getCod())
 				.withCor(cor1)
-				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
+				.withCombustivel(comb1)
 				.withCambio(cb1)
 				.withNumPortas(4)
 				.withPlaca("UTY-4343")
@@ -152,7 +165,7 @@ public class DBService {
 				.withAno(2017)
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
 				.withCor(cor2)
-				.withCombustivel(CombustivelVeiculo.GASOLINAEGAS.getCod())
+				.withCombustivel(comb8)
 				.withCambio(cb2)
 				.withNumPortas(4)
 				.withPlaca("ADY-4244")
@@ -170,7 +183,7 @@ public class DBService {
 				.withAno(2014)
 				.withTipo(TipoVeiculo.SEDAN.getCod())
 				.withCor(cor3)
-				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
+				.withCombustivel(comb1)
 				.withCambio(cb4)
 				.withNumPortas(4)
 				.withPlaca("JKY-2763")
@@ -188,7 +201,7 @@ public class DBService {
 				.withAno(2012)
 				.withTipo(TipoVeiculo.SUV.getCod())
 				.withCor(cor4)
-				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
+				.withCombustivel(comb7)
 				.withCambio(cb2)
 				.withNumPortas(4)
 				.withPlaca("JCE-8242")
@@ -206,7 +219,7 @@ public class DBService {
 				.withAno(2019)
 				.withTipo(TipoVeiculo.PICAPE.getCod())
 				.withCor(cor5)
-				.withCombustivel(CombustivelVeiculo.DIESEL.getCod())
+				.withCombustivel(comb3)
 				.withCambio(cb3)
 				.withNumPortas(4)
 				.withPlaca("HFT-3232")
@@ -224,7 +237,7 @@ public class DBService {
 				.withAno(2019)
 				.withTipo(TipoVeiculo.MINIVAN.getCod())
 				.withCor(cor1)
-				.withCombustivel(CombustivelVeiculo.GASOLINAALCOOLEGAS.getCod())
+				.withCombustivel(comb7)
 				.withCambio(cb3)
 				.withNumPortas(4)
 				.withPlaca("GFE-3434")
@@ -242,7 +255,7 @@ public class DBService {
 				.withAno(2009)
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
 				.withCor(cor4)
-				.withCombustivel(CombustivelVeiculo.ELETRICO.getCod())
+				.withCombustivel(comb4)
 				.withCambio(cb4)
 				.withNumPortas(4)
 				.withPlaca("HHE-2224")
@@ -260,7 +273,7 @@ public class DBService {
 				.withAno(2014)
 				.withTipo(TipoVeiculo.SUV.getCod())
 				.withCor(cor3)
-				.withCombustivel(CombustivelVeiculo.GASOLINAEELETRICO.getCod())
+				.withCombustivel(comb6)
 				.withCambio(cb3)
 				.withNumPortas(4)
 				.withPlaca("KHK-7524")
@@ -278,7 +291,7 @@ public class DBService {
 				.withAno(2017)
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
 				.withCor(cor2)
-				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
+				.withCombustivel(comb1)
 				.withCambio(cb1)
 				.withNumPortas(4)
 				.withPlaca("GSK-6424")
@@ -296,7 +309,7 @@ public class DBService {
 				.withAno(2020)
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
 				.withCor(cor1)
-				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
+				.withCombustivel(comb8)
 				.withCambio(cb1)
 				.withNumPortas(4)
 				.withPlaca("LSK-9824")
@@ -314,7 +327,7 @@ public class DBService {
 				.withAno(2020)
 				.withTipo(TipoVeiculo.HATCHBACK.getCod())
 				.withCor(cor4)
-				.withCombustivel(CombustivelVeiculo.GASOLINA.getCod())
+				.withCombustivel(comb1)
 				.withCambio(cb2)
 				.withNumPortas(4)
 				.withPlaca("LGK-5824")
@@ -372,11 +385,19 @@ public class DBService {
 		cor4.getVeiculos().addAll(Arrays.asList(v4, v7, v11));
 		cor5.getVeiculos().addAll(Arrays.asList(v5));
 		
-		cb1.getVeiculos().addAll((Arrays.asList(v1, v10)));
-		cb2.getVeiculos().addAll((Arrays.asList(v2, v4, v11)));
-		cb3.getVeiculos().addAll((Arrays.asList(v5, v6, v8)));
-		cb4.getVeiculos().addAll((Arrays.asList(v3, v7)));
+		cb1.getVeiculos().addAll(Arrays.asList(v1, v10));
+		cb2.getVeiculos().addAll(Arrays.asList(v2, v4, v11));
+		cb3.getVeiculos().addAll(Arrays.asList(v5, v6, v8));
+		cb4.getVeiculos().addAll(Arrays.asList(v3, v7));
 		
+		comb1.getVeiculos().addAll(Arrays.asList(v1, v3, v9, v11));
+		comb2.getVeiculos().addAll(Arrays.asList());
+		comb3.getVeiculos().addAll(Arrays.asList(v5));
+		comb4.getVeiculos().addAll(Arrays.asList(v7));
+		comb5.getVeiculos().addAll(Arrays.asList());
+		comb6.getVeiculos().addAll(Arrays.asList(v8));
+		comb7.getVeiculos().addAll(Arrays.asList(v4, v6));
+		comb8.getVeiculos().addAll(Arrays.asList(v2, v10));
 		
 		//-----
 		
@@ -391,6 +412,7 @@ public class DBService {
 		modeloRepository.saveAll(Arrays.asList(mod1, mod2, mod3, mod4, mod5, mod6, mod7, mod8, mod9, mod10));
 		corRepository.saveAll(Arrays.asList(cor1, cor2, cor3, cor4, cor5));
 		cambioRepository.saveAll((Arrays.asList(cb1, cb2, cb3, cb4)));
+		combustivelRepository.saveAll(Arrays.asList(comb1, comb2, comb3, comb4, comb5, comb6, comb7, comb8, comb9));
 		veiculoRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11));
 		opcionalRepository.saveAll(Arrays.asList(op1, op2, op3, op4, op5, op6, op7, op8, op9, op10, op11, op12, op13, op14, op15, op16, op17, op18, op19, op20, op21, op22, op23));
 		adicionalRepository.saveAll(Arrays.asList(ad1, ad2, ad3, ad4, ad5));

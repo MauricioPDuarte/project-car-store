@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mauriciopd.carstore.domain.Adicional;
 import com.mauriciopd.carstore.domain.Cambio;
+import com.mauriciopd.carstore.domain.Combustivel;
 import com.mauriciopd.carstore.domain.Cor;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
@@ -120,8 +121,6 @@ public class VeiculoService {
 		pictureService.deleteFile(veiculo, fileName);
 	}
 	
-	
-	
 	public Picture uploadVehiclePicture(Veiculo obj, MultipartFile file) {
 		Picture picture = pictureService.uploadPictureVehicle(file, obj);
 		obj.getPictures().add(picture);
@@ -151,6 +150,7 @@ public class VeiculoService {
 		Modelo modelo = new Modelo(obj.getModeloId(), null, null);
 		Cor cor = new Cor(obj.getCor(), null);
 		Cambio cambio = new Cambio(obj.getCambio(), null);
+		Combustivel combustivel = new Combustivel(obj.getCombustivel(), null);
 
 		List<Opcional> opcionais = obj.getOpcionais()
 				.stream()
@@ -169,7 +169,7 @@ public class VeiculoService {
 				.withAno(obj.getAno())
 				.withTipo(obj.getTipo())
 				.withCor(cor)
-				.withCombustivel(obj.getCombustivel())
+				.withCombustivel(combustivel)
 				.withCambio(cambio)
 				.withNumPortas(obj.getNumPortas())
 				.withPlaca(obj.getPlaca())
