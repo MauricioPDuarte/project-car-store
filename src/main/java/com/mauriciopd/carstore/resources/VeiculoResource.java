@@ -34,7 +34,6 @@ import com.mauriciopd.carstore.resources.utils.URL;
 import com.mauriciopd.carstore.services.VeiculoService;
 
 import io.swagger.annotations.ApiOperation;
-import net.bytebuddy.implementation.bytecode.Throw;
 
 @RestController
 @RequestMapping(value = "/veiculos")
@@ -188,7 +187,7 @@ public class VeiculoResource {
 			@RequestParam(value = "atepreco", required = false, defaultValue = "0") Double atePreco,
 			@RequestParam(value = "dekm", required = false, defaultValue = "0") Long deKm,
 			@RequestParam(value = "atekm", required = false, defaultValue = "0") Long ateKm,
-			@RequestParam(value = "cores", required = false, defaultValue = "0") String cores,
+			@RequestParam(value = "cores", required = false, defaultValue = "") String cores,
 			@RequestParam(value = "cambio", required = false, defaultValue = "0") String tipoCambio,
 			@RequestParam(value = "combustivel", required = false, defaultValue = "0") String combustivel,
 			@RequestParam(value = "tipo", required = false, defaultValue = "0") String tipo,
@@ -207,7 +206,7 @@ public class VeiculoResource {
 		//String urlDecodeAdicionais = URL.decodeParam(adicionais);
 		
 		List<String> nomesOpcional = URL.decodeList(opcionais);
-		List<Integer> nomeCores = URL.decodeIntList(cores);
+		List<String> nomeCores = URL.decodeList(cores);
 		List<Integer> tiposCambios = URL.decodeIntList(tipoCambio);
 		List<Integer> tiposCombustivel = URL.decodeIntList(combustivel);
 		List<Integer> tipoCarro = URL.decodeIntList(tipo);

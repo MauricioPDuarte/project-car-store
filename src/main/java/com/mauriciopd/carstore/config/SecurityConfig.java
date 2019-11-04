@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/marcas/**",
 			"/opcionais/**",
 			"/adicionais/**",
+			"/cores/**",
 		};
 	
 	@Override

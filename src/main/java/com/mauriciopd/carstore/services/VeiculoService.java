@@ -94,7 +94,7 @@ public class VeiculoService {
 			Double atePreco,
 			Long deKm,
 			Long ateKm,
-			List<Integer> cores,
+			List<String> cores,
 			List<Integer> cambios,
 			List<Integer> combustivel,
 			List<Integer> tipoCarro,

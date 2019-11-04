@@ -15,7 +15,7 @@ import com.mauriciopd.carstore.domain.Veiculo;
 public class VeiculoSpecs {
 
 	public static Specification<Veiculo> findByCarroCustom(String marca, String modelo, List<String> opcionais, Integer deAno,
-			Integer ateAno, Double dePreco, Double atePreco, Long deKm, Long ateKm, List<Integer> cores,
+			Integer ateAno, Double dePreco, Double atePreco, Long deKm, Long ateKm, List<String> cores,
 			List<Integer> cambios, List<Integer> combustivel, List<Integer> tipoCarro, List<String> nomeAdicionais) {
 		return new Specification<Veiculo>() {
 			private static final long serialVersionUID = 1L;
@@ -92,9 +92,9 @@ public class VeiculoSpecs {
 				}
 
 				// Verifica cor
-
-				if (cores.get(0) != 0) {
-					predicates.add(root.get("cor").in(cores));
+				
+				if (!cores.get(0).isBlank()) {
+					predicates.add(root.get("cor").get("nome").in(cores));
 				}
 
 				// Verifica cambio
