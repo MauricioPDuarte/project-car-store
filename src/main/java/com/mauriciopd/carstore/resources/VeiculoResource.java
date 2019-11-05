@@ -190,7 +190,7 @@ public class VeiculoResource {
 			@RequestParam(value = "cores", required = false, defaultValue = "") String cores,
 			@RequestParam(value = "cambios", required = false, defaultValue = "") String cambios,
 			@RequestParam(value = "combustiveis", required = false, defaultValue = "") String combustiveis,
-			@RequestParam(value = "tipo", required = false, defaultValue = "0") String tipo,
+			@RequestParam(value = "tipos", required = false, defaultValue = "") String tipos,
 			@RequestParam(value = "adc", required = false, defaultValue = "") String adicionais,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
@@ -209,11 +209,11 @@ public class VeiculoResource {
 		List<String> nomeCores = URL.decodeList(cores);
 		List<String> tiposCambios = URL.decodeList(cambios);
 		List<String> tiposCombustivel = URL.decodeList(combustiveis);
-		List<Integer> tipoCarro = URL.decodeIntList(tipo);
+		List<String> tiposVeiculos = URL.decodeList(tipos);
 		List<String> nomeAdicionais = URL.decodeList(adicionais);
 
 		Page<Veiculo> veiculos = service.findByCarroCustom(marca, modelo, nomesOpcional, deAno, ateAno, dePreco, atePreco, deKm, 
-				ateKm, nomeCores, tiposCambios, tiposCombustivel, tipoCarro, nomeAdicionais, page, linesPerPage, orderBy, direction);
+				ateKm, nomeCores, tiposCambios, tiposCombustivel, tiposVeiculos, nomeAdicionais, page, linesPerPage, orderBy, direction);
 		
 		Page<VeiculoDTO> listDto = veiculos.map(x -> new VeiculoDTO(x));
 		return ResponseEntity.ok().body(listDto);

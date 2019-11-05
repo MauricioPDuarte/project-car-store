@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/cores/**",
 			"/cambios/**",
 			"/combustiveis/**",
+			"/tipos/**"
 		};
 	
 	@Override

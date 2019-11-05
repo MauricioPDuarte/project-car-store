@@ -15,8 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
-
 @Entity
 public class Veiculo implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -26,7 +24,6 @@ public class Veiculo implements Serializable {
 	private Integer id;
 	private double preco;
 	private Integer ano;
-	private Integer tipo;
 	private Integer numPortas;
 	private String placa;
 	private String descricao;
@@ -48,6 +45,9 @@ public class Veiculo implements Serializable {
 	
 	@ManyToOne
 	private Combustivel combustivel;
+	
+	@ManyToOne
+	private Tipo tipo;
 
 	@ManyToOne
 	@JoinColumn(name = "modelo_id")
@@ -67,7 +67,7 @@ public class Veiculo implements Serializable {
 		private Integer id;
 		private double preco;
 		private Integer ano;
-		private Integer tipo;
+		private Tipo tipo;
 		private Cor cor;
 		private Combustivel combustivel;
 		private Cambio cambio;
@@ -100,7 +100,7 @@ public class Veiculo implements Serializable {
 			return this;
 		}
 		
-		public Builder withTipo(Integer tipo) {
+		public Builder withTipo(Tipo tipo) {
 			this.tipo = tipo;
 			return this;
 		}
@@ -199,14 +199,6 @@ public class Veiculo implements Serializable {
 	public void setAno(int ano) {
 		this.ano = ano;
 	}
-
-	public TipoVeiculo getTipo() {
-		return TipoVeiculo.toEnum(tipo);
-	}
-	
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
-	}
 	
 	public Modelo getModelo() {
 		return modelo;
@@ -294,6 +286,14 @@ public class Veiculo implements Serializable {
 
 	public void setCambio(Cambio cambio) {
 		this.cambio = cambio;
+	}
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
 	}
 
 	@Override

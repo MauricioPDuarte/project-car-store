@@ -15,9 +15,9 @@ import com.mauriciopd.carstore.domain.Cor;
 import com.mauriciopd.carstore.domain.Marca;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
+import com.mauriciopd.carstore.domain.Tipo;
 import com.mauriciopd.carstore.domain.Veiculo;
 import com.mauriciopd.carstore.domain.enums.Perfil;
-import com.mauriciopd.carstore.domain.enums.TipoVeiculo;
 import com.mauriciopd.carstore.repository.AdicionalRepository;
 import com.mauriciopd.carstore.repository.CambioRepository;
 import com.mauriciopd.carstore.repository.ColaboradorRepository;
@@ -26,6 +26,7 @@ import com.mauriciopd.carstore.repository.CorRepository;
 import com.mauriciopd.carstore.repository.MarcaRepository;
 import com.mauriciopd.carstore.repository.ModeloRepository;
 import com.mauriciopd.carstore.repository.OpcionalRepository;
+import com.mauriciopd.carstore.repository.TipoRepository;
 import com.mauriciopd.carstore.repository.VeiculoRepository;
 
 @Service
@@ -54,6 +55,9 @@ public class DBService {
 	
 	@Autowired
 	private CombustivelRepository combustivelRepository;
+	
+	@Autowired
+	private TipoRepository tipoRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
@@ -132,6 +136,13 @@ public class DBService {
 		Combustivel comb8 = new Combustivel(null, "Gasolina e gás natural");
 		Combustivel comb9 = new Combustivel(null, "Álcool e gás natural");
 		
+		Tipo t1 = new Tipo(null, "Hatchback");
+		Tipo t2 = new Tipo(null, "Sedan");
+		Tipo t3 = new Tipo(null, "SUV");
+		Tipo t4 = new Tipo(null, "Picape");
+		Tipo t5 = new Tipo(null, "Minivan");
+		Tipo t6 = new Tipo(null, "Esportivo");
+		
 		m1.getModelos().addAll(Arrays.asList(mod1, mod2));
 		m2.getModelos().addAll(Arrays.asList(mod3));
 		m4.getModelos().addAll(Arrays.asList(mod4));
@@ -145,7 +156,7 @@ public class DBService {
 				.withId(null)
 				.withPreco(25000.20)
 				.withAno(2019)
-				.withTipo(TipoVeiculo.SUV.getCod())
+				.withTipo(t3)
 				.withCor(cor1)
 				.withCombustivel(comb1)
 				.withCambio(cb1)
@@ -163,7 +174,7 @@ public class DBService {
 				.withId(null)
 				.withPreco(33000.20)
 				.withAno(2017)
-				.withTipo(TipoVeiculo.HATCHBACK.getCod())
+				.withTipo(t1)
 				.withCor(cor2)
 				.withCombustivel(comb8)
 				.withCambio(cb2)
@@ -181,7 +192,7 @@ public class DBService {
 				.withId(null)
 				.withPreco(36500.70)
 				.withAno(2014)
-				.withTipo(TipoVeiculo.SEDAN.getCod())
+				.withTipo(t2)
 				.withCor(cor3)
 				.withCombustivel(comb1)
 				.withCambio(cb4)
@@ -199,7 +210,7 @@ public class DBService {
 				.withId(null)
 				.withPreco(55000.20)
 				.withAno(2012)
-				.withTipo(TipoVeiculo.SUV.getCod())
+				.withTipo(t3)
 				.withCor(cor4)
 				.withCombustivel(comb7)
 				.withCambio(cb2)
@@ -217,7 +228,7 @@ public class DBService {
 				.withId(null)
 				.withPreco(120000.20)
 				.withAno(2019)
-				.withTipo(TipoVeiculo.PICAPE.getCod())
+				.withTipo(t4)
 				.withCor(cor5)
 				.withCombustivel(comb3)
 				.withCambio(cb3)
@@ -235,7 +246,7 @@ public class DBService {
 				.withId(null)
 				.withPreco(126000.20)
 				.withAno(2019)
-				.withTipo(TipoVeiculo.MINIVAN.getCod())
+				.withTipo(t5)
 				.withCor(cor1)
 				.withCombustivel(comb7)
 				.withCambio(cb3)
@@ -253,7 +264,7 @@ public class DBService {
 				.withId(null)
 				.withPreco(226000.20)
 				.withAno(2009)
-				.withTipo(TipoVeiculo.HATCHBACK.getCod())
+				.withTipo(t1)
 				.withCor(cor4)
 				.withCombustivel(comb4)
 				.withCambio(cb4)
@@ -271,7 +282,7 @@ public class DBService {
 				.withId(null)
 				.withPreco(23609.30)
 				.withAno(2014)
-				.withTipo(TipoVeiculo.SUV.getCod())
+				.withTipo(t2)
 				.withCor(cor3)
 				.withCombustivel(comb6)
 				.withCambio(cb3)
@@ -289,7 +300,7 @@ public class DBService {
 				.withId(null)
 				.withPreco(63604.64)
 				.withAno(2017)
-				.withTipo(TipoVeiculo.HATCHBACK.getCod())
+				.withTipo(t1)
 				.withCor(cor2)
 				.withCombustivel(comb1)
 				.withCambio(cb1)
@@ -307,7 +318,7 @@ public class DBService {
 				.withId(null)
 				.withPreco(90000.64)
 				.withAno(2020)
-				.withTipo(TipoVeiculo.HATCHBACK.getCod())
+				.withTipo(t1)
 				.withCor(cor1)
 				.withCombustivel(comb8)
 				.withCambio(cb1)
@@ -325,7 +336,7 @@ public class DBService {
 				.withId(null)
 				.withPreco(99000.64)
 				.withAno(2020)
-				.withTipo(TipoVeiculo.HATCHBACK.getCod())
+				.withTipo(t6)
 				.withCor(cor4)
 				.withCombustivel(comb1)
 				.withCambio(cb2)
@@ -399,6 +410,13 @@ public class DBService {
 		comb7.getVeiculos().addAll(Arrays.asList(v4, v6));
 		comb8.getVeiculos().addAll(Arrays.asList(v2, v10));
 		
+		t1.getVeiculos().addAll(Arrays.asList(v2, v7, v9, v10));
+		t2.getVeiculos().addAll(Arrays.asList(v3, v8));
+		t3.getVeiculos().addAll(Arrays.asList(v1, v4));
+		t4.getVeiculos().addAll(Arrays.asList(v5));
+		t5.getVeiculos().addAll(Arrays.asList(v6));
+		t6.getVeiculos().addAll(Arrays.asList(v11));
+		
 		//-----
 		
 		Colaborador c1 = new Colaborador(null, "Mauricio Pruss Duarte", "prussdev@gmail.com", pe.encode("123")); 
@@ -413,6 +431,7 @@ public class DBService {
 		corRepository.saveAll(Arrays.asList(cor1, cor2, cor3, cor4, cor5));
 		cambioRepository.saveAll((Arrays.asList(cb1, cb2, cb3, cb4)));
 		combustivelRepository.saveAll(Arrays.asList(comb1, comb2, comb3, comb4, comb5, comb6, comb7, comb8, comb9));
+		tipoRepository.saveAll(Arrays.asList(t1, t2, t3, t4, t5, t6));
 		veiculoRepository.saveAll(Arrays.asList(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11));
 		opcionalRepository.saveAll(Arrays.asList(op1, op2, op3, op4, op5, op6, op7, op8, op9, op10, op11, op12, op13, op14, op15, op16, op17, op18, op19, op20, op21, op22, op23));
 		adicionalRepository.saveAll(Arrays.asList(ad1, ad2, ad3, ad4, ad5));

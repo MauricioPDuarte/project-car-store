@@ -16,7 +16,7 @@ public class VeiculoSpecs {
 
 	public static Specification<Veiculo> findByCarroCustom(String marca, String modelo, List<String> opcionais, Integer deAno,
 			Integer ateAno, Double dePreco, Double atePreco, Long deKm, Long ateKm, List<String> cores,
-			List<String> cambios, List<String> combustiveis, List<Integer> tipoCarro, List<String> nomeAdicionais) {
+			List<String> cambios, List<String> combustiveis, List<String> tipos, List<String> nomeAdicionais) {
 		return new Specification<Veiculo>() {
 			private static final long serialVersionUID = 1L;
 
@@ -110,8 +110,8 @@ public class VeiculoSpecs {
 				}
 
 				// Verifica tipo carro
-				if (tipoCarro.get(0) != 0) {
-					predicates.add(root.get("tipo").in(tipoCarro));
+				if (!tipos.get(0).isBlank()) {
+					predicates.add(root.get("tipo").get("nome").in(tipos));
 				}
 
 				query.distinct(true);

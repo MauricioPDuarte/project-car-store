@@ -21,6 +21,7 @@ import com.mauriciopd.carstore.domain.Cor;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
 import com.mauriciopd.carstore.domain.Picture;
+import com.mauriciopd.carstore.domain.Tipo;
 import com.mauriciopd.carstore.domain.Veiculo;
 import com.mauriciopd.carstore.dto.VeiculoNewDTO;
 import com.mauriciopd.carstore.repository.VeiculoRepository;
@@ -99,14 +100,14 @@ public class VeiculoService {
 			List<String> cores,
 			List<String> cambios,
 			List<String> combustiveis,
-			List<Integer> tipoCarro,
+			List<String> tipos,
 			List<String> nomeAdicionais,
 			Integer page,
 			Integer linesPerPage,
 			String orderBy,
 			String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		Specification<Veiculo> spec = Specification.where(VeiculoSpecs.findByCarroCustom(marca, modelo,  opcionais, deAno, ateAno, dePreco, atePreco,  deKm, ateKm, cores, cambios, combustiveis, tipoCarro, nomeAdicionais));
+		Specification<Veiculo> spec = Specification.where(VeiculoSpecs.findByCarroCustom(marca, modelo,  opcionais, deAno, ateAno, dePreco, atePreco,  deKm, ateKm, cores, cambios, combustiveis, tipos, nomeAdicionais));
 		return repo.findAll(spec, pageRequest);
 	}
 	
@@ -151,6 +152,7 @@ public class VeiculoService {
 		Cor cor = new Cor(obj.getCor(), null);
 		Cambio cambio = new Cambio(obj.getCambio(), null);
 		Combustivel combustivel = new Combustivel(obj.getCombustivel(), null);
+		Tipo tipo = new Tipo(obj.getTipo(), null);
 
 		List<Opcional> opcionais = obj.getOpcionais()
 				.stream()
@@ -167,7 +169,7 @@ public class VeiculoService {
 				.withId(obj.getId())
 				.withPreco(obj.getPreco())
 				.withAno(obj.getAno())
-				.withTipo(obj.getTipo())
+				.withTipo(tipo)
 				.withCor(cor)
 				.withCombustivel(combustivel)
 				.withCambio(cambio)
