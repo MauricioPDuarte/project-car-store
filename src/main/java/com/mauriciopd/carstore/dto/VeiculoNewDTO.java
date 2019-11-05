@@ -19,16 +19,16 @@ public class VeiculoNewDTO implements Serializable {
 	private int ano;
 
 	@Min(value = 1, message = "Preenchimento obrigatório")
-	private Integer tipo;
+	private Integer tipoId;
 
 	@Min(value = 1, message = "Preenchimento obrigatório")
-	private Integer cor;
+	private Integer corId;
 
 	@Min(value = 1, message = "Preenchimento obrigatório")
-	private Integer combustivel;
+	private Integer combustivelId;
 
 	@Min(value = 1, message = "Preenchimento obrigatório")
-	private Integer cambio;
+	private Integer cambioId;
 
 	@Min(value = 1, message = "Preenchimento obrigatório")
 	private Integer numPortas;
@@ -74,22 +74,6 @@ public class VeiculoNewDTO implements Serializable {
 		this.ano = ano;
 	}
 
-	public Integer getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
-	}
-
-	public Integer getCor() {
-		return cor;
-	}
-
-	public void setCor(Integer cor) {
-		this.cor = cor;
-	}
-
 	public Integer getModeloId() {
 		return modeloId;
 	}
@@ -104,22 +88,6 @@ public class VeiculoNewDTO implements Serializable {
 
 	public void setOpcionais(List<Integer> opcionais) {
 		this.opcionais = opcionais;
-	}
-
-	public Integer getCombustivel() {
-		return combustivel;
-	}
-
-	public void setCombustivel(Integer combustivel) {
-		this.combustivel = combustivel;
-	}
-
-	public Integer getCambio() {
-		return cambio;
-	}
-
-	public void setCambio(Integer cambio) {
-		this.cambio = cambio;
 	}
 
 	public String getPlaca() {
@@ -161,5 +129,39 @@ public class VeiculoNewDTO implements Serializable {
 	public void setAdicionais(List<Integer> adicionais) {
 		this.adicionais = adicionais;
 	}
+
+	public Integer getTipoId() {
+		return tipoId;
+	}
+
+	public void setTipoId(Integer tipoId) {
+		this.tipoId = tipoId;
+	}
+
+	public Integer getCorId() {
+		return corId;
+	}
+
+	public void setCorId(Integer corId) {
+		this.corId = corId;
+	}
+
+	public Integer getCombustivelId() {
+		return combustivelId;
+	}
+
+	public void setCombustivelId(Integer combustivelId) {
+		this.combustivelId = combustivelId;
+	}
+
+	public Integer getCambioId() {
+		return cambioId;
+	}
+
+	public void setCambioId(Integer cambioId) {
+		this.cambioId = cambioId;
+	}
+	
+	
 
 }

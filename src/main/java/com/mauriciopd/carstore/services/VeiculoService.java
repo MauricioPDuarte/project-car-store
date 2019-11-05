@@ -149,10 +149,10 @@ public class VeiculoService {
 
 	public Veiculo fromDTO(VeiculoNewDTO obj) {
 		Modelo modelo = new Modelo(obj.getModeloId(), null, null);
-		Cor cor = new Cor(obj.getCor(), null);
-		Cambio cambio = new Cambio(obj.getCambio(), null);
-		Combustivel combustivel = new Combustivel(obj.getCombustivel(), null);
-		Tipo tipo = new Tipo(obj.getTipo(), null);
+		Cor cor = new Cor(obj.getCorId(), null);
+		Cambio cambio = new Cambio(obj.getCambioId(), null);
+		Combustivel combustivel = new Combustivel(obj.getCombustivelId(), null);
+		Tipo tipo = new Tipo(obj.getTipoId(), null);
 
 		List<Opcional> opcionais = obj.getOpcionais()
 				.stream()
