@@ -1,6 +1,7 @@
 package com.mauriciopd.carstore.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.mauriciopd.carstore.domain.Cambio;
 import com.mauriciopd.carstore.domain.Cor;
@@ -18,9 +19,10 @@ public class VeiculoDTO implements Serializable{
 	private Tipo tipo;
 	private Cor cor;
 	private Modelo modelo;
-	private Picture picture;
+	//private Picture picture;
 	private Long kmRodado;
 	private Cambio cambio;
+	private List<Picture> pictures;
 	
 	public VeiculoDTO() {
 	}
@@ -33,17 +35,27 @@ public class VeiculoDTO implements Serializable{
 		this.cor = obj.getCor();
 		this.kmRodado = obj.getKmRodado();
 		this.cambio = obj.getCambio();
-		
 		this.modelo = obj.getModelo();
-		for(Picture picture : obj.getPictures()) {
-			if(picture.isThumbnail()) {
-				this.picture = picture;
-				return;
-			}
-		}
+		this.pictures = obj.getPictures();
+//		for(Picture picture : obj.getPictures()) {
+//			if(picture.isThumbnail()) {
+//				this.picture = picture;
+//				return;
+//			}
+//		}
 		
 	}
-	
+
+
+
+	public List<Picture> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<Picture> pictures) {
+		this.pictures = pictures;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -87,13 +99,13 @@ public class VeiculoDTO implements Serializable{
 		this.modelo = modelo;
 	}
 	
-	public Picture getPicture() {
-		return picture;
-	}
-	
-	public void setPicture(Picture picture) {
-		this.picture = picture;
-	}
+//	public Picture getPicture() {
+//		return picture;
+//	}
+//	
+//	public void setPicture(Picture picture) {
+//		this.picture = picture;
+//	}
 
 	public Long getKmRodado() {
 		return kmRodado;

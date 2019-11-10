@@ -89,7 +89,7 @@ public class VeiculoResource {
 	}
 
 	@ApiOperation(value = "Altera thumbnail veiculo")
-	@PutMapping("{vehicleId}/picture/{pictureId}")
+	@PostMapping("{vehicleId}/picture/{pictureId}")
 	public ResponseEntity<Void> updateVehiclePicture(@PathVariable("vehicleId") Integer vehicleId,
 			@PathVariable("pictureId") Integer pictureId) {
 		service.updateThumbnailVehicle(pictureId, vehicleId);
