@@ -72,14 +72,14 @@ public class PictureService {
 	}
 	
 	private String obterNovoFileName(Veiculo obj) {
-		return obj.getModelo().getNome() + "-" +
-				obj.getModelo().getMarca().getNome() + "-" +
+		return obj.getVersao().getModelo().getNome() + "-" +
+				obj.getVersao().getModelo().getMarca().getNome() + "-" +
 				obj.getId() + "-" + new Date().getTime() + ".jpg";
 	}
 	
 	private Path obterDiretorioFotoVeiculo(Veiculo veiculo) {
-		String modelo = veiculo.getModelo().getNome();
-		String marca = veiculo.getModelo().getMarca().getNome();
+		String modelo = veiculo.getVersao().getModelo().getNome();
+		String marca = veiculo.getVersao().getModelo().getMarca().getNome();
 		return Paths.get(marca, modelo, veiculo.getId().toString());
 	}
 

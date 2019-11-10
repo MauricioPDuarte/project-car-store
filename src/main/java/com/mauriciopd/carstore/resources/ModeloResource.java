@@ -1,6 +1,8 @@
 package com.mauriciopd.carstore.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -18,8 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mauriciopd.carstore.domain.Modelo;
+import com.mauriciopd.carstore.domain.Versao;
 import com.mauriciopd.carstore.dto.ModeloNewDTO;
+import com.mauriciopd.carstore.dto.VersaoDTO;
 import com.mauriciopd.carstore.services.ModeloService;
+import com.mauriciopd.carstore.services.VersaoService;
 
 @RestController
 @RequestMapping(value = "/modelos")
@@ -27,6 +32,9 @@ public class ModeloResource {
 	
 	@Autowired
 	private ModeloService service;
+	
+	@Autowired
+	private VersaoService versaoService;
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
@@ -57,5 +65,12 @@ public class ModeloResource {
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/{id}/versoes")
+	public ResponseEntity<List<VersaoDTO>> findAllVersoesByModelo(@PathVariable Integer id) {
+		List<Versao> list = versaoService.findAllVersaoByModelo(id);
+		List<VersaoDTO> listDto = list.stream().map(x -> new VersaoDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 }

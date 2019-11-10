@@ -18,11 +18,11 @@ import com.mauriciopd.carstore.domain.Adicional;
 import com.mauriciopd.carstore.domain.Cambio;
 import com.mauriciopd.carstore.domain.Combustivel;
 import com.mauriciopd.carstore.domain.Cor;
-import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
 import com.mauriciopd.carstore.domain.Picture;
 import com.mauriciopd.carstore.domain.Tipo;
 import com.mauriciopd.carstore.domain.Veiculo;
+import com.mauriciopd.carstore.domain.Versao;
 import com.mauriciopd.carstore.dto.VeiculoNewDTO;
 import com.mauriciopd.carstore.repository.VeiculoRepository;
 import com.mauriciopd.carstore.repository.specification.VeiculoSpecs;
@@ -70,21 +70,21 @@ public class VeiculoService {
 	}
 	
 	public List<Veiculo> findByMarca(String marca) {
-		return repo.findByModeloMarcaNomeIgnoreCase(marca);
+		return repo.findByVersaoModeloMarcaNomeIgnoreCase(marca);
 	}
 	
 	public Page<Veiculo> findByMarcaPage(String marca, Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repo.findByModeloMarcaNomeIgnoreCase(marca, pageRequest);
+		return repo.findByVersaoModeloMarcaNomeIgnoreCase(marca, pageRequest);
 	}
 	
 	public List<Veiculo> findByMarcaAndModelo(String marca, String modelo) {
-		return repo.findByModeloMarcaNomeAndModeloNomeAllIgnoreCase(marca, modelo);
+		return repo.findByVersaoModeloMarcaNomeAndVersaoModeloNomeAllIgnoreCase(marca, modelo);
 	}
 	
 	public Page<Veiculo> findByModeloPage(String marca, String modelo, Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repo.findByModeloMarcaNomeAndModeloNomeAllIgnoreCase(marca, modelo, pageRequest);
+		return repo.findByVersaoModeloMarcaNomeAndVersaoModeloNomeAllIgnoreCase(marca, modelo, pageRequest);
 	}
 	
 	public Page<Veiculo> findByCarroCustom(
@@ -148,7 +148,7 @@ public class VeiculoService {
 	}
 
 	public Veiculo fromDTO(VeiculoNewDTO obj) {
-		Modelo modelo = new Modelo(obj.getModeloId(), null, null);
+		Versao versao = new Versao(obj.getVersaoId(), null, null);
 		Cor cor = new Cor(obj.getCorId(), null);
 		Cambio cambio = new Cambio(obj.getCambioId(), null);
 		Combustivel combustivel = new Combustivel(obj.getCombustivelId(), null);
@@ -177,7 +177,8 @@ public class VeiculoService {
 				.withPlaca(obj.getPlaca())
 				.withDescricao(obj.getDescricao())
 				.withKmRodado(obj.getKmRodado())
-				.withModelo(modelo)
+				//.withModelo(modelo)
+				.withVersao(versao)
 				.withOpcionais(opcionais)
 				.withAdicionais(adicionais)
 				.build();	

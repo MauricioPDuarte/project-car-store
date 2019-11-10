@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,34 +15,31 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Modelo implements Serializable {
+public class Versao implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String nome;
 	
 	@ManyToOne
-	@JoinColumn(name = "marca_id")
-	private Marca marca;
+	@JoinColumn(name = "modelo_id")
+	private Modelo modelo;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "modelo", cascade = CascadeType.ALL)
-	private List<Versao> versoes = new ArrayList<>();
-
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "modelo")
-//	private List<Veiculo> veiculos = new ArrayList<>();
-
-	public Modelo() {
+	@OneToMany(mappedBy = "versao")
+	private List<Veiculo> veiculos = new ArrayList<>();
+	
+	public Versao() {
 	}
 
-	public Modelo(Integer id, String nome, Marca marca) {
+	public Versao(Integer id, String nome, Modelo modelo) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.marca = marca;
+		this.modelo = modelo;
 	}
 
 	public Integer getId() {
@@ -62,28 +58,21 @@ public class Modelo implements Serializable {
 		this.nome = nome;
 	}
 
-	public Marca getMarca() {
-		return marca;
+	public Modelo getModelo() {
+		return modelo;
 	}
 
-	public void setMarca(Marca marca) {
-		this.marca = marca;
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
 	}
 
-//	public List<Veiculo> getVeiculos() {
-//		return veiculos;
-//	}
-//
-//	public void setVeiculos(List<Veiculo> veiculos) {
-//		this.veiculos = veiculos;
-//	}
-
-	public List<Versao> getVersoes() {
-		return versoes;
+	public List<Veiculo> getVeiculos() {
+		return veiculos;
 	}
 
-	public void setVersoes(List<Versao> versoes) {
-		this.versoes = versoes;
+	public void setVeiculos(List<Veiculo> veiculos) {
+		this.veiculos = veiculos;
 	}
+	
 
 }

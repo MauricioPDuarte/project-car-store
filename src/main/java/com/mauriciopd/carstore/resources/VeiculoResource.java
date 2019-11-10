@@ -127,7 +127,7 @@ public class VeiculoResource {
 	@GetMapping("/page")
 	public ResponseEntity<Page<VeiculoDTO>> findAllPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
-			@RequestParam(value = "orderBy", defaultValue = "modelo.marca.nome") String orderBy,
+			@RequestParam(value = "orderBy", defaultValue = "versao.modelo.marca.nome") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		Page<Veiculo> list = service.findAllPage(page, linesPerPage, orderBy, direction);
 		Page<VeiculoDTO> listDto = list.map(x -> new VeiculoDTO(x));

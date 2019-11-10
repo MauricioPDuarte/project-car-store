@@ -17,6 +17,7 @@ import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
 import com.mauriciopd.carstore.domain.Tipo;
 import com.mauriciopd.carstore.domain.Veiculo;
+import com.mauriciopd.carstore.domain.Versao;
 import com.mauriciopd.carstore.domain.enums.Perfil;
 import com.mauriciopd.carstore.repository.AdicionalRepository;
 import com.mauriciopd.carstore.repository.CambioRepository;
@@ -28,6 +29,7 @@ import com.mauriciopd.carstore.repository.ModeloRepository;
 import com.mauriciopd.carstore.repository.OpcionalRepository;
 import com.mauriciopd.carstore.repository.TipoRepository;
 import com.mauriciopd.carstore.repository.VeiculoRepository;
+import com.mauriciopd.carstore.repository.VersaoRepository;
 
 @Service
 public class DBService {
@@ -63,13 +65,16 @@ public class DBService {
 	private BCryptPasswordEncoder pe;
 	
 	@Autowired
+	private VersaoRepository versaoRepository;
+	
+	@Autowired
 	private CorRepository corRepository;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		Marca m1 = new Marca(null, "Dodge");
 		Marca m2 = new Marca(null, "Fiat");
 		Marca m3 = new Marca(null, "Ford");
-		Marca m4 = new Marca(null, "volkswagen");
+		Marca m4 = new Marca(null, "Volkswagen");
 		Marca m5 = new Marca(null, "Chevrolet");
 		Marca m6 = new Marca(null, "Hyundai");
 		Marca m7 = new Marca(null, "BMW");
@@ -114,6 +119,170 @@ public class DBService {
 		Modelo mod8 = new Modelo(null, "HB20", m6);
 		Modelo mod9 = new Modelo(null, "X1", m7);
 		Modelo mod10 = new Modelo(null, "Elantra", m6);
+		
+		//Dodge - Journey
+		Versao ver1 = new Versao(null, "JOURNEY RT 2.7 V6 185CV AUT.", mod1);
+		Versao ver2 = new Versao(null, "JOURNEY SE 2.7 V6 185CV AUT.", mod1);
+		Versao ver3 = new Versao(null, "JOURNEY SXT 2.7 V6 185CV AUT.", mod1);
+		Versao ver4 = new Versao(null, "JOURNEY SXT 3.6 V6 AUT.", mod1);
+		Versao ver5 = new Versao(null, "JOURNEY RT  3.6 V6 AUT.", mod1);
+		Versao ver6 = new Versao(null, "JOURNEY CROSSROAD 3.6 V6 AUT.", mod1);
+		Versao ver7 = new Versao(null, "JOURNEY RT 3.6 AWD V6 AUT.", mod1);
+		
+		//Dodge - Durango
+		Versao ver8 = new Versao(null, "DURANGO CREW 3.6 24V 4X4 AUT.", mod2);
+		Versao ver9 = new Versao(null, "DURANGO CITADEL 3.6 24V 4X4 AUT.", mod2);
+		Versao ver10 = new Versao(null, "DURANGO LIMITED 3.6 24V 4X4 AUT.", mod2);
+		
+		//Fiat - Grand Siena
+		Versao ver11 = new Versao(null, "GRAND SIENA ESSENCE 1.6 FLEX 16V", mod3);
+		Versao ver12 = new Versao(null, "GRAND SIENA TETRAFUEL 1.4 EVO F. FLEX 8V", mod3);
+		Versao ver13 = new Versao(null, "GRAND SIENA ATTRAC. 1.4 EVO F.FLEX 8V", mod3);
+		Versao ver14 = new Versao(null, "GRAND SIENA ESSENCE DUAL. 1.6 FLEX 16V", mod3);
+		Versao ver15 = new Versao(null, "GRAND SIENA ESSEN.SUBLIME 1.6 FLEX", mod3);
+		Versao ver16 = new Versao(null, "GRAND SIENA ESSEN.SUBLIME DUAL. 1.6 FLEX", mod3);
+		Versao ver17 = new Versao(null, "GRAND SIENA ESSEN. ITALIA DUAL. 1.6 FLEX", mod3);
+		Versao ver18 = new Versao(null, "GRAND SIENA ESSENCE ITALIA 1.6 FLEX 16V", mod3);
+		Versao ver19 = new Versao(null, "GRAND SIENA ATTRACTIVE 1.0 FLEX 8V 4P", mod3);
+		
+		//Ford - Fusion
+		Versao ver20 = new Versao(null, "FUSION HYBRID 2.5 16V 193CV AUT.", mod5);
+		Versao ver21 = new Versao(null, "FUSION SEL 2.3 16V  162CV AUT.", mod5);
+		Versao ver22 = new Versao(null, "FUSION SEL 2.5 16V 173CV AUT.", mod5);
+		Versao ver23 = new Versao(null, "FUSION SEL 3.0 V6  24V 243CV AUT.", mod5);
+		Versao ver24 = new Versao(null, "FUSION SEL 3.0 V6 AWD 24V 243CV AUT.", mod5);
+		Versao ver25 = new Versao(null, "FUSION TITANIUM 2.0 GTDI ECO. AWD AUT.", mod5);
+		Versao ver26 = new Versao(null, "FUSION TITANIUM 2.0 GTDI ECO. FWD AUT.", mod5);
+		Versao ver27 = new Versao(null, "FUSION 2.5L I-VCT FLEX AUT.", mod5);
+		Versao ver28 = new Versao(null, "FUSION TITANIUM HYBRID 2.0 145CV AUT.", mod5);
+		Versao ver29 = new Versao(null, "FUSION SE 2.5 I-VCT FLEX 16V AUT.", mod5);
+		Versao ver30 = new Versao(null, "FUSION SEL 2.0 ECOBO. 16V 248CV AUT.", mod5);
+		
+		//Ford - Focus
+		Versao ver31 = new Versao(null, "FUSION HYBRID 2.5 16V 193CV AUT.", mod6);
+		Versao ver32 = new Versao(null, "FUSION SEL 2.3 16V  162CV AUT.", mod6);
+		Versao ver33 = new Versao(null, "FUSION SEL 2.5 16V 173CV AUT.", mod6);
+		Versao ver34 = new Versao(null, "FUSION SEL 3.0 V6  24V 243CV AUT.", mod6);
+		Versao ver35 = new Versao(null, "FUSION SEL 3.0 V6 AWD 24V 243CV AUT.", mod6);
+		Versao ver36 = new Versao(null, "FUSION TITANIUM 2.0 GTDI ECO. AWD AUT.", mod6);
+		Versao ver37 = new Versao(null, "FUSION TITANIUM 2.0 GTDI ECO. FWD AUT.", mod6);
+		Versao ver38 = new Versao(null, "FUSION 2.5L I-VCT FLEX AUT.", mod6);
+		Versao ver39 = new Versao(null, "FUSION TITANIUM HYBRID 2.0 145CV AUT.", mod6);
+		Versao ver40 = new Versao(null, "FUSION SE 2.5 I-VCT FLEX 16V AUT.", mod6);
+		Versao ver41 = new Versao(null, "FUSION SEL 2.0 ECOBO. 16V 248CV AUT.", mod6);
+		Versao ver42 = new Versao(null, "FUSION SEL 3.0 V6  24V 243CV AUT.", mod6);
+		Versao ver43 = new Versao(null, "FUSION SEL 3.0 V6 AWD 24V 243CV AUT.", mod6);
+		Versao ver44 = new Versao(null, "FUSION TITANIUM 2.0 GTDI ECO. AWD AUT.", mod6);
+		Versao ver45 = new Versao(null, "FUSION TITANIUM 2.0 GTDI ECO. FWD AUT.", mod6);
+		Versao ver46 = new Versao(null, "FUSION 2.5L I-VCT FLEX AUT.", mod6);
+		Versao ver47 = new Versao(null, "FUSION TITANIUM HYBRID 2.0 145CV AUT.", mod6);
+		Versao ver48 = new Versao(null, "FUSION SE 2.5 I-VCT FLEX 16V AUT.", mod6);
+		Versao ver49 = new Versao(null, "FUSION SEL 2.0 ECOBO. 16V 248CV AUT.", mod6);
+		
+		//Volkswagen - POLO
+		Versao ver50 = new Versao(null, "POLO BLUEMOTION 1.6 TOTAL FLEX 8V 5P", mod4);
+		Versao ver51 = new Versao(null, "POLO GT 2.0 MI TOTAL FLEX 8V 5P", mod4);
+		Versao ver52 = new Versao(null, "POLO 1.0 MI 79CV 16V 5P", mod4);
+		Versao ver53 = new Versao(null, "POLO 1.6 E-FLEX 8V 5P", mod4);
+		Versao ver54 = new Versao(null, "POLO 1.6 MI/ S.OURO 1.6MI 101CV 8V 5P", mod4);
+		Versao ver55 = new Versao(null, "POLO 1.6 MI/S.OURO 1.6 MI TOT.FLEX 8V 5P", mod4);
+		Versao ver56 = new Versao(null, "POLO 2.0 MI 116CV 8V 5P", mod4);
+		Versao ver57 = new Versao(null, "POLO CLASSIC 1.0 MI 16V  65CV 4P", mod4);
+		Versao ver58 = new Versao(null, "POLO CLASSIC/ SPECIAL 1.8 MI", mod4);
+		Versao ver59 = new Versao(null, "POLO GTI 1.8 MI 150CV 20V TURBO 3P", mod4);
+		Versao ver60 = new Versao(null, "POLO I MOTION 1.6 TOTAL FLEX  5P", mod4);
+		Versao ver61 = new Versao(null, "POLO NEXT 1.6 MI 101CV 8V 5P", mod4);
+		Versao ver62 = new Versao(null, "POLO SPORTLINE 1.6 MI TOTAL FLEX 8V 5P", mod4);
+		Versao ver63 = new Versao(null, "POLO SPORTLINE I MOTION 1.6 T.FLEX 5P", mod4);
+		Versao ver64 = new Versao(null, "POLO SED. COMFORT. 1.6 MI TOT. FLEX 8V", mod4);
+		Versao ver65 = new Versao(null, "POLO SED./SED. COMF. 2.0/2.0 FLEX 8V 4P", mod4);
+		Versao ver66 = new Versao(null, "POLO SED.COMFORT. I MOTION 1.6 T.FLEX 4P", mod4);
+		Versao ver67 = new Versao(null, "POLO SEDAN 1.6 MI 101CV 8V 4P", mod4);
+		Versao ver68 = new Versao(null, "POLO SEDAN 1.6 MI TOTAL FLEX 8V 4P", mod4);
+		Versao ver69 = new Versao(null, "POLO SEDAN EVIDENCE 1.6 MI T.FLEX 8V 4P", mod4);
+		Versao ver70 = new Versao(null, "POLO SEDAN I MOTION  1.6 TOTAL FLEX  4P", mod4);
+		Versao ver71 = new Versao(null, "POLO SPORTLINE 2.0 MI TOTAL FLEX 8V 5P", mod4);
+		Versao ver72 = new Versao(null, "POLO 1.6 MI FLEX 8V 4P", mod4);
+		Versao ver73 = new Versao(null, "POLO 1.0 FLEX 12V 5P", mod4);
+		Versao ver74 = new Versao(null, "POLO 1.6 MSI FLEX 16V 5P", mod4);
+		Versao ver75 = new Versao(null, "POLO COMFORT. 200 TSI 1.0 FLEX 12V AUT.", mod4);
+		Versao ver76 = new Versao(null, "POLO HIGHLINE 200 TSI 1.0 FLEX 12V AUT.", mod4);
+		Versao ver77 = new Versao(null, "POLO 1.6 MSI TOTAL FLEX 16V 5P AUT", mod4);
+		Versao ver78 = new Versao(null, "POLO SENSE 200 TSI 1.0 FLEX 12V AUT(PCD)", mod4);
+
+		//Chevrolet - Spin
+		Versao ver79 = new Versao(null, "SPIN LTZ 1.8 8V ECONO.FLEX 5P AUT.", mod7);
+		Versao ver80 = new Versao(null, "SPIN LT 1.8 8V ECONO.FLEX 5P MEC.", mod7);
+		Versao ver81 = new Versao(null, "SPIN LTZ 1.8 8V ECONO.FLEX 5P MEC.", mod7);
+		Versao ver82 = new Versao(null, "SPIN LT 1.8 8V ECONO.FLEX 5P AUT.", mod7);
+		Versao ver83 = new Versao(null, "SPIN LS 1.8 8V ECONO.FLEX 5P MEC.", mod7);
+		Versao ver84 = new Versao(null, "SPIN ADVANTAGE 1.8 8V ECONO.FLEX 5P AUT.", mod7);
+		Versao ver85 = new Versao(null, "SPIN ADVANTAGE 1.8 8V ECONO.FLEX 5P MEC.", mod7);
+		Versao ver86 = new Versao(null, "SPIN ACTIV 1.8 8V ECONO. FLEX 5P AUT.", mod7);
+		Versao ver87 = new Versao(null, "SPIN ACTIV 1.8 8V ECONO. FLEX 5P MEC.", mod7);
+		Versao ver88 = new Versao(null, "SPIN ACTIV7 1.8 8V ECONO.FLEX 5P AUT.", mod7);
+		Versao ver89 = new Versao(null, "SPIN PREMIER 1.8 8V ECONO.FLEX 5P AUT.", mod7);
+		Versao ver90 = new Versao(null, "SPIN PREMIER 1.8 8V ECONO.FLEX 5P MEC.", mod7);
+		
+		//Hyundai - HB20
+		Versao ver91 = new Versao(null, "HB20 C./C.PLUS/C.STYLE 1.6 FLEX 16V MEC.", mod8);
+		Versao ver92 = new Versao(null, "HB20 PREMIUM 1.6 FLEX 16V MEC.", mod8);
+		Versao ver93 = new Versao(null, "HB20 COMF./C.PLUS/C.STYLE 1.0 FLEX 12V", mod8);
+		Versao ver94 = new Versao(null, "HB20 C.STYLE/C.PLUS 1.6 FLEX 16V AUT.", mod8);
+		Versao ver95 = new Versao(null, "HB20 PREMIUM 1.6 FLEX 16V AUT.", mod8);
+		Versao ver96 = new Versao(null, "HB20 COPA DO MUNDO 1.0 FLEX 12V MEC.", mod8);
+		Versao ver97 = new Versao(null, "HB20 COPA DO MUNDO 1.6 FLEX 16V AUT.", mod8);
+		Versao ver98 = new Versao(null, "HB20 COPA DO MUNDO 1.6 FLEX 16V MEC.", mod8);
+		Versao ver99 = new Versao(null, "HB20 FOR YOU 1.0 FLEX 12V 5P", mod8);
+		Versao ver100 = new Versao(null, "HB20 S FOR YOU 1.0 FLEX 12V 4P", mod8);
+		Versao ver101 = new Versao(null, "HB20 SPICY 1.0 FLEX 12V MEC.", mod8);
+		Versao ver102 = new Versao(null, "HB20 SPICY 1.6 FLEX 16V AUT.", mod8);
+		Versao ver103 = new Versao(null, "HB20 SPICY 1.6 FLEX 16V MEC.", mod8);
+		Versao ver104 = new Versao(null, "HB20 R SPEC 1.6 AUTOMATICO.", mod8);
+		Versao ver105 = new Versao(null, "HB20 R SPEC 1.6 MANUAL", mod8);
+		Versao ver106 = new Versao(null, "HB20 R SPEC 1.6 FLEX 16V AUT.", mod8);
+		Versao ver107 = new Versao(null, "HB20 R SPEC 1.6 FLEX 16V MEC.", mod8);
+		Versao ver108 = new Versao(null, "HB20 COMFORT PLUS 1.0 TB FLEX 12V MEC.", mod8);
+		Versao ver109 = new Versao(null, "HB20 COMFORT STYLE 1.0 TB FLEX 12V MEC.", mod8);
+		Versao ver110 = new Versao(null, "HB20 OCEAN 1.0 FLEX 12V 5P MEC.", mod8);
+		Versao ver111 = new Versao(null, "HB20 OCEAN 1.6 FLEX 16V 5P AUT.", mod8);
+		Versao ver112 = new Versao(null, "HB20 OCEAN 1.6 FLEX 16V 5P MEC.", mod8);
+		Versao ver113 = new Versao(null, "1.0 OCEAN", mod8);
+		Versao ver114 = new Versao(null, "COMFORT STYLE 1.0 TURBO", mod8);
+		Versao ver115 = new Versao(null, "R-SPEC 1.6 AUTOMATICO", mod8);
+		Versao ver116 = new Versao(null, "R-SPEC 1.6 MANUAL", mod8);
+		Versao ver117 = new Versao(null, "HB20 5 ANOS 1.0 FLEX 12V MEC.", mod8);
+		Versao ver118 = new Versao(null, "HB20 5 ANOS 1.6 FLEX 16V AUT.", mod8);
+		Versao ver119 = new Versao(null, "HB20 R SPEC LIMITED 1.6 FLEX 16V AUT.", mod8);
+		Versao ver120 = new Versao(null, "HB20 1 MILLION 1.6 FLEX 16V AUT.", mod8);
+		Versao ver121 = new Versao(null, "HB20 UNIQUE 1.0 FLEX 12V MEC.", mod8);
+		
+		//Hyundai - Elantra
+		Versao ver122 = new Versao(null, "ELANTRA GL", mod10);
+		Versao ver123 = new Versao(null, "ELANTRA GLS 1.6", mod10);
+		Versao ver124 = new Versao(null, "ELANTRA GLS 1.8 16V", mod10);
+		Versao ver125 = new Versao(null, "ELANTRA GLS 2.0 16V AUT.", mod10);
+		Versao ver126 = new Versao(null, "ELANTRA GLS 2.0 16V MEC.", mod10);
+		Versao ver127 = new Versao(null, "ELANTRA WAGON 1.8 16V", mod10);
+		Versao ver128 = new Versao(null, "ELANTRA GLS 2.0 16V FLEX AUT.", mod10);
+		Versao ver129 = new Versao(null, "ELANTRA GLS 1.8 16V MEC.", mod10);
+		Versao ver130 = new Versao(null, "ELANTRA GLS 1.8 16V AUT.", mod10);
+		Versao ver131 = new Versao(null, "ELANTRA 2.0 16V FLEX AUT.", mod10);
+		Versao ver132 = new Versao(null, "ELANTRA SPECIAL EDIT. 2.0 16V FLEX AUT.", mod10);
+		
+		//BMW - X1
+		Versao ver133 = new Versao(null, "ELANTRA GLS 2.0 16V MEC.", mod9);
+		Versao ver134 = new Versao(null, "ELANTRA WAGON 1.8 16V", mod9);
+		Versao ver135 = new Versao(null, "ELANTRA GLS 2.0 16V FLEX AUT.", mod9);
+		Versao ver136 = new Versao(null, "ELANTRA GLS 1.8 16V MEC.", mod9);
+		Versao ver137 = new Versao(null, "ELANTRA GLS 1.8 16V AUT.", mod9);
+		Versao ver138 = new Versao(null, "ELANTRA 2.0 16V FLEX AUT.", mod9);
+		Versao ver139 = new Versao(null, "ELANTRA SPECIAL EDIT. 2.0 16V FLEX AUT.", mod9);
+		
+		
+		mod1.getVersoes().addAll(Arrays.asList(ver1, ver3));
+		mod2.getVersoes().addAll(Arrays.asList(ver2));
+		
 		
 		Cor cor1 = new Cor(null, "Preto");
 		Cor cor2 = new Cor(null, "Branco");
@@ -164,7 +333,8 @@ public class DBService {
 				.withPlaca("UTY-4343")
 				.withDescricao("Veiculo em ótimo estado, nunca foi batido!")
 				.withKmRodado(45000L)
-				.withModelo(mod5)
+				//.withModelo(mod5)
+				.withVersao(ver20)
 				.withOpcionais(Arrays.asList(op1, op2, op3, op4, op5))
 				.withAdicionais(Arrays.asList(ad1, ad2, ad5))
 				.build();
@@ -182,7 +352,8 @@ public class DBService {
 				.withPlaca("ADY-4244")
 				.withDescricao("Já teve 3 donos, já foi batido")
 				.withKmRodado(200000L)
-				.withModelo(mod3)
+				//.withModelo(mod3)
+				.withVersao(ver11)
 				.withOpcionais(Arrays.asList(op6, op7, op8, op9, op10))
 				.withAdicionais(Arrays.asList(ad1))
 				.build();
@@ -200,7 +371,8 @@ public class DBService {
 				.withPlaca("JKY-2763")
 				.withDescricao("Carro super confortavel!")
 				.withKmRodado(83456L)
-				.withModelo(mod6)
+				//.withModelo(mod6)
+				.withVersao(ver31)
 				.withOpcionais(Arrays.asList(op11, op12, op13, op14, op15, op1))
 				.withAdicionais(Arrays.asList(ad3, ad5, ad4))
 				.build();
@@ -218,7 +390,8 @@ public class DBService {
 				.withPlaca("JCE-8242")
 				.withDescricao("Carro em perfeito estado, fazer as trocas dos pneus.")
 				.withKmRodado(120000L)
-				.withModelo(mod1)
+				//.withModelo(mod1)
+				.withVersao(ver3)
 				.withOpcionais(Arrays.asList(op16, op17, op18, op19, op20))
 				.withAdicionais(Arrays.asList(ad1, ad2, ad5, ad4))
 				.build();
@@ -236,7 +409,8 @@ public class DBService {
 				.withPlaca("HFT-3232")
 				.withDescricao("Carro era utilizado para fazer offroad.")
 				.withKmRodado(92000L)
-				.withModelo(mod4)
+				//.withModelo(mod4)
+				.withVersao(ver50)
 				.withOpcionais(Arrays.asList(op21, op22, op23, op10, op12))
 				.withAdicionais(Arrays.asList(ad1, ad2))
 				.build();
@@ -254,7 +428,8 @@ public class DBService {
 				.withPlaca("GFE-3434")
 				.withDescricao("Carro era utilizado para fazer fretes, nos correios. Carro faz um barulho na roda dianteira")
 				.withKmRodado(82450L)
-				.withModelo(mod7)
+				//.withModelo(mod7)
+				.withVersao(ver86)
 				.withOpcionais(Arrays.asList(op17, op3, op23, op15, op19))
 				.withAdicionais(Arrays.asList(ad2, ad5, ad3))
 				.build();
@@ -272,7 +447,8 @@ public class DBService {
 				.withPlaca("HHE-2224")
 				.withDescricao("Carro em perfeito estado, utilizado apenas por uma familia")
 				.withKmRodado(10300L)
-				.withModelo(mod8)
+				//.withModelo(mod8)
+				.withVersao(ver92)
 				.withOpcionais(Arrays.asList(op1, op2, op9, op15, op17))
 				.withAdicionais(Arrays.asList(ad1, ad5))
 				.build();
@@ -290,7 +466,8 @@ public class DBService {
 				.withPlaca("KHK-7524")
 				.withDescricao("Em ótimas condições")
 				.withKmRodado(2000L)
-				.withModelo(mod9)
+				//.withModelo(mod9)
+				.withVersao(ver139)
 				.withOpcionais(Arrays.asList(op8, op2, op12, op20, op23))
 				.withAdicionais(Arrays.asList(ad1, ad2, ad3))
 				.build();
@@ -308,7 +485,8 @@ public class DBService {
 				.withPlaca("GSK-6424")
 				.withDescricao("Carro precisa ser reparado algumas partes da lataria")
 				.withKmRodado(89600L)
-				.withModelo(mod8)
+				//.withModelo(mod8)
+				.withVersao(ver103)
 				.withOpcionais(Arrays.asList(op23, op22, op7, op21, op17))
 				.withAdicionais(Arrays.asList(ad1, ad2, ad3, ad4, ad5))
 				.build();
@@ -326,7 +504,8 @@ public class DBService {
 				.withPlaca("LSK-9824")
 				.withDescricao("Só comprar e andar")
 				.withKmRodado(2000L)
-				.withModelo(mod10)
+				//.withModelo(mod10)
+				.withVersao(ver128)
 				.withOpcionais(Arrays.asList(op9, op10, op23, op11, op14))
 				.withAdicionais(Arrays.asList(ad1, ad2))
 				.build();
@@ -344,10 +523,23 @@ public class DBService {
 				.withPlaca("LGK-5824")
 				.withDescricao("Muito bom!")
 				.withKmRodado(9000L)
-				.withModelo(mod5)
+				//.withModelo(mod5)
+				.withVersao(ver28)
 				.withOpcionais(Arrays.asList(op1, op2, op6))
 				.withAdicionais(Arrays.asList(ad2))
 				.build();
+		
+		ver3.getVeiculos().addAll(Arrays.asList(v4));
+		ver11.getVeiculos().addAll(Arrays.asList(v2));
+		ver20.getVeiculos().addAll(Arrays.asList(v1));
+		ver28.getVeiculos().addAll(Arrays.asList(v11));
+		ver31.getVeiculos().addAll(Arrays.asList(v3));
+		ver50.getVeiculos().addAll(Arrays.asList(v5));
+		ver86.getVeiculos().addAll(Arrays.asList(v6));
+		ver92.getVeiculos().addAll(Arrays.asList(v7));
+		ver103.getVeiculos().addAll(Arrays.asList(v9));
+		ver128.getVeiculos().addAll(Arrays.asList(v10));
+		ver139.getVeiculos().addAll(Arrays.asList(v8));
 		
 		op1.getVeiculos().addAll(Arrays.asList(v1, v7, v3, v11));
 		op2.getVeiculos().addAll(Arrays.asList(v8, v7, v1, v11));
@@ -379,16 +571,16 @@ public class DBService {
 		ad4.getVeiculos().addAll(Arrays.asList(v3, v4, v9));
 		ad5.getVeiculos().addAll(Arrays.asList(v1, v3, v4, v6, v7, v9));
 		
-		mod1.getVeiculos().addAll(Arrays.asList(v4));
-		mod2.getVeiculos().addAll(Arrays.asList());
-		mod3.getVeiculos().addAll(Arrays.asList(v2));
-		mod4.getVeiculos().addAll(Arrays.asList(v5));
-		mod5.getVeiculos().addAll(Arrays.asList(v1, v11));
-		mod6.getVeiculos().addAll(Arrays.asList(v3));
-		mod7.getVeiculos().addAll(Arrays.asList(v6));
-		mod8.getVeiculos().addAll(Arrays.asList(v7, v9));
-		mod9.getVeiculos().addAll(Arrays.asList(v8));
-		mod9.getVeiculos().addAll(Arrays.asList(v10));
+//		mod1.getVeiculos().addAll(Arrays.asList(v4));
+//		mod2.getVeiculos().addAll(Arrays.asList());
+//		mod3.getVeiculos().addAll(Arrays.asList(v2));
+//		mod4.getVeiculos().addAll(Arrays.asList(v5));
+//		mod5.getVeiculos().addAll(Arrays.asList(v1, v11));
+//		mod6.getVeiculos().addAll(Arrays.asList(v3));
+//		mod7.getVeiculos().addAll(Arrays.asList(v6));
+//		mod8.getVeiculos().addAll(Arrays.asList(v7, v9));
+//		mod9.getVeiculos().addAll(Arrays.asList(v8));
+//		mod9.getVeiculos().addAll(Arrays.asList(v10));
 		
 		cor1.getVeiculos().addAll(Arrays.asList(v1, v10, v6));
 		cor2.getVeiculos().addAll(Arrays.asList(v2, v9));
@@ -428,6 +620,15 @@ public class DBService {
 		
 		marcaRepository.saveAll(Arrays.asList(m1, m2, m3, m4, m5, m6, m7));
 		modeloRepository.saveAll(Arrays.asList(mod1, mod2, mod3, mod4, mod5, mod6, mod7, mod8, mod9, mod10));
+		
+		versaoRepository.saveAll(Arrays.asList(ver1, ver2, ver3, ver4 , ver5, ver6, ver7, ver8, ver9, ver10, ver11, ver12, ver13, ver14, ver15, ver16, ver17, ver17,
+				ver18, ver19, ver20, ver21, ver22, ver23, ver24, ver25, ver26, ver27, ver28, ver29, ver30, ver31, ver32, ver34, ver35, ver37, ver38, ver39, ver40,
+				ver41, ver42, ver43, ver44, ver45, ver46, ver47, ver48, ver49, ver50, ver51, ver52, ver53, ver54, ver55, ver56, ver57, ver58, ver59, ver60, ver61, ver62,
+				ver63, ver64, ver65, ver66, ver67, ver68, ver69, ver70, ver71, ver71, ver72, ver73, ver74, ver75, ver76, ver77, ver78, ver79, ver80, ver81, ver82, ver82,
+				ver83, ver84, ver85, ver86, ver87, ver88, ver89, ver90, ver91, ver91, ver92, ver93, ver94, ver95, ver96, ver97, ver98, ver99, ver100, ver100, ver101, ver102, 
+				ver103, ver104, ver105, ver106, ver107, ver108, ver109, ver110, ver111, ver112, ver113, ver114, ver115, ver116, ver117, ver118, ver119, ver120, ver121, ver122,
+				ver123, ver124, ver125, ver126, ver127, ver128, ver129, ver130, ver131, ver132, ver133, ver134, ver135, ver136, ver137, ver138, ver139));
+		
 		corRepository.saveAll(Arrays.asList(cor1, cor2, cor3, cor4, cor5));
 		cambioRepository.saveAll((Arrays.asList(cb1, cb2, cb3, cb4)));
 		combustivelRepository.saveAll(Arrays.asList(comb1, comb2, comb3, comb4, comb5, comb6, comb7, comb8, comb9));

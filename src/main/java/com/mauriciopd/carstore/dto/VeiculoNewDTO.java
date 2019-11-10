@@ -33,8 +33,11 @@ public class VeiculoNewDTO implements Serializable {
 	@Min(value = 1, message = "Preenchimento obrigatório")
 	private Integer numPortas;
 
+//	@Min(value = 1, message = "Preenchimento obrigatório")
+//	private Integer modeloId;
+	
 	@Min(value = 1, message = "Preenchimento obrigatório")
-	private Integer modeloId;
+	private Integer versaoId;
 
 	@NotEmpty(message = "Preenchimento obrigatório")
 	private String placa;
@@ -74,16 +77,24 @@ public class VeiculoNewDTO implements Serializable {
 		this.ano = ano;
 	}
 
-	public Integer getModeloId() {
-		return modeloId;
-	}
-
-	public void setModeloId(Integer modeloId) {
-		this.modeloId = modeloId;
-	}
+//	public Integer getModeloId() {
+//		return modeloId;
+//	}
+//
+//	public void setModeloId(Integer modeloId) {
+//		this.modeloId = modeloId;
+//	}
 
 	public List<Integer> getOpcionais() {
 		return opcionais;
+	}
+
+	public Integer getVersaoId() {
+		return versaoId;
+	}
+
+	public void setVersaoId(Integer versaoId) {
+		this.versaoId = versaoId;
 	}
 
 	public void setOpcionais(List<Integer> opcionais) {

@@ -33,16 +33,16 @@ public interface VeiculoRepository extends JpaRepository<Veiculo, Integer>, JpaS
 //	Page<Veiculo> findModeloPage(@Param("marca") String marca, @Param("modelo")String modelo, Pageable pageable);
 	
 	@Transactional(readOnly=true)
-	Page<Veiculo> findByModeloMarcaNomeIgnoreCase(@Param("marca") String marca, Pageable pageable);
+	Page<Veiculo> findByVersaoModeloMarcaNomeIgnoreCase(@Param("marca") String marca, Pageable pageable);
 	
 	@Transactional(readOnly=true)
-	Page<Veiculo> findByModeloMarcaNomeAndModeloNomeAllIgnoreCase(@Param("marca") String marca, @Param("modelo")String modelo, Pageable pageable);
+	Page<Veiculo> findByVersaoModeloMarcaNomeAndVersaoModeloNomeAllIgnoreCase(@Param("marca") String marca, @Param("modelo")String modelo, Pageable pageable);
 	
 	@Transactional(readOnly=true)
-	List<Veiculo> findByModeloMarcaNomeIgnoreCase(String marca);
+	List<Veiculo> findByVersaoModeloMarcaNomeIgnoreCase(String marca);
 	
 	@Transactional(readOnly=true)
-	List<Veiculo> findByModeloMarcaNomeAndModeloNomeAllIgnoreCase(String marca, String modelo);
+	List<Veiculo> findByVersaoModeloMarcaNomeAndVersaoModeloNomeAllIgnoreCase(String marca, String modelo);
 	
 	@Transactional(readOnly=true)
 	Page<Veiculo> findAll(Specification<Veiculo> spec, Pageable pageable);

@@ -6,9 +6,11 @@ import java.util.List;
 import com.mauriciopd.carstore.domain.Cambio;
 import com.mauriciopd.carstore.domain.Cor;
 import com.mauriciopd.carstore.domain.Modelo;
+import com.mauriciopd.carstore.domain.Opcional;
 import com.mauriciopd.carstore.domain.Picture;
 import com.mauriciopd.carstore.domain.Tipo;
 import com.mauriciopd.carstore.domain.Veiculo;
+import com.mauriciopd.carstore.domain.Versao;
 
 public class VeiculoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -18,11 +20,13 @@ public class VeiculoDTO implements Serializable{
 	private int ano;
 	private Tipo tipo;
 	private Cor cor;
-	private Modelo modelo;
+	//private Modelo modelo;
 	//private Picture picture;
 	private Long kmRodado;
 	private Cambio cambio;
 	private List<Picture> pictures;
+	private List<Opcional> opcionais;
+	private Versao versao;
 	
 	public VeiculoDTO() {
 	}
@@ -35,8 +39,10 @@ public class VeiculoDTO implements Serializable{
 		this.cor = obj.getCor();
 		this.kmRodado = obj.getKmRodado();
 		this.cambio = obj.getCambio();
-		this.modelo = obj.getModelo();
+		//this.modelo = obj.getModelo();
 		this.pictures = obj.getPictures();
+		this.opcionais = obj.getOpcionais();
+		this.versao = obj.getVersao();
 //		for(Picture picture : obj.getPictures()) {
 //			if(picture.isThumbnail()) {
 //				this.picture = picture;
@@ -46,7 +52,13 @@ public class VeiculoDTO implements Serializable{
 		
 	}
 
+	public List<Opcional> getOpcionais() {
+		return opcionais;
+	}
 
+	public void setOpcionais(List<Opcional> opcionais) {
+		this.opcionais = opcionais;
+	}
 
 	public List<Picture> getPictures() {
 		return pictures;
@@ -91,12 +103,20 @@ public class VeiculoDTO implements Serializable{
 		this.cor = cor;
 	}
 
-	public Modelo getModelo() {
-		return modelo;
-	}
+//	public Modelo getModelo() {
+//		return modelo;
+//	}
+//	
+//	public void setModelo(Modelo modelo) {
+//		this.modelo = modelo;
+//	}
 	
-	public void setModelo(Modelo modelo) {
-		this.modelo = modelo;
+	public Versao getVersao() {
+		return versao;
+	}
+
+	public void setVersao(Versao versao) {
+		this.versao = versao;
 	}
 	
 //	public Picture getPicture() {

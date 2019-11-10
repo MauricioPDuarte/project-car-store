@@ -24,12 +24,12 @@ public class VeiculoSpecs {
 				List<Predicate> predicates = new ArrayList<>();
 
 				if (!marca.isEmpty()) {
-					predicates.add(builder.equal(builder.lower(root.get("modelo").get("marca").get("nome")),
+					predicates.add(builder.equal(builder.lower(root.get("versao").get("modelo").get("marca").get("nome")),
 							marca.toLowerCase()));
 				}
 				
 				if (!modelo.isEmpty()) {
-					predicates.add(builder.equal(builder.lower(root.get("modelo").get("nome")),
+					predicates.add(builder.equal(builder.lower(root.get("versao").get("modelo").get("nome")),
 							modelo.toLowerCase()));
 				}
 

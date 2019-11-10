@@ -49,9 +49,13 @@ public class Veiculo implements Serializable {
 	@ManyToOne
 	private Tipo tipo;
 
+//	@ManyToOne
+//	@JoinColumn(name = "modelo_id")
+//	private Modelo modelo;
+	
 	@ManyToOne
-	@JoinColumn(name = "modelo_id")
-	private Modelo modelo;
+	@JoinColumn(name = "versao_id")
+	private Versao versao;
 
 	@OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL)
 	private List<Picture> pictures = new ArrayList<>();
@@ -75,7 +79,8 @@ public class Veiculo implements Serializable {
 		private String placa;
 		private String descricao;
 		private Long kmRodado;
-		private Modelo modelo;
+		//private Modelo modelo;
+		private Versao versao;
 		private List<Opcional> opcionais = new ArrayList<>();
 		private List<Adicional> adicionais = new ArrayList<>();
 		
@@ -140,8 +145,13 @@ public class Veiculo implements Serializable {
 			return this;
 		}
 		
-		public Builder withModelo(Modelo modelo) {
-			this.modelo = modelo;
+//		public Builder withModelo(Modelo modelo) {
+//			this.modelo = modelo;
+//			return this;
+//		}
+		
+		public Builder withVersao(Versao versao) {
+			this.versao = versao;
 			return this;
 		}
 		
@@ -168,9 +178,10 @@ public class Veiculo implements Serializable {
 			veiculo.setPlaca(placa);
 			veiculo.setDescricao(descricao);
 			veiculo.setKmRodado(kmRodado);
-			veiculo.setModelo(modelo);
+			//veiculo.setModelo(modelo);
 			veiculo.setOpcionais(opcionais);
 			veiculo.setAdicionais(adicionais);
+			veiculo.setVersao(versao);
 			return veiculo;
 		}
 		
@@ -200,13 +211,13 @@ public class Veiculo implements Serializable {
 		this.ano = ano;
 	}
 	
-	public Modelo getModelo() {
-		return modelo;
-	}
-
-	public void setModelo(Modelo modelo) {
-		this.modelo = modelo;
-	}
+//	public Modelo getModelo() {
+//		return modelo;
+//	}
+//
+//	public void setModelo(Modelo modelo) {
+//		this.modelo = modelo;
+//	}
 
 	public List<Picture> getPictures() {
 		return pictures;
@@ -294,6 +305,14 @@ public class Veiculo implements Serializable {
 
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
+	}
+
+	public Versao getVersao() {
+		return versao;
+	}
+
+	public void setVersao(Versao versao) {
+		this.versao = versao;
 	}
 
 	@Override
