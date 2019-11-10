@@ -90,6 +90,7 @@ public class VeiculoService {
 	public Page<Veiculo> findByCarroCustom(
 			String marca,
 			String modelo, 
+			String versao,
 			List<String> opcionais,
 			Integer deAno,
 			Integer ateAno,
@@ -107,7 +108,7 @@ public class VeiculoService {
 			String orderBy,
 			String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		Specification<Veiculo> spec = Specification.where(VeiculoSpecs.findByCarroCustom(marca, modelo,  opcionais, deAno, ateAno, dePreco, atePreco,  deKm, ateKm, cores, cambios, combustiveis, tipos, nomeAdicionais));
+		Specification<Veiculo> spec = Specification.where(VeiculoSpecs.findByCarroCustom(marca, modelo, versao, opcionais, deAno, ateAno, dePreco, atePreco,  deKm, ateKm, cores, cambios, combustiveis, tipos, nomeAdicionais));
 		return repo.findAll(spec, pageRequest);
 	}
 	

@@ -14,7 +14,7 @@ import com.mauriciopd.carstore.domain.Veiculo;
 
 public class VeiculoSpecs {
 
-	public static Specification<Veiculo> findByCarroCustom(String marca, String modelo, List<String> opcionais, Integer deAno,
+	public static Specification<Veiculo> findByCarroCustom(String marca, String modelo, String versao, List<String> opcionais, Integer deAno,
 			Integer ateAno, Double dePreco, Double atePreco, Long deKm, Long ateKm, List<String> cores,
 			List<String> cambios, List<String> combustiveis, List<String> tipos, List<String> nomeAdicionais) {
 		return new Specification<Veiculo>() {
@@ -31,6 +31,11 @@ public class VeiculoSpecs {
 				if (!modelo.isEmpty()) {
 					predicates.add(builder.equal(builder.lower(root.get("versao").get("modelo").get("nome")),
 							modelo.toLowerCase()));
+				}
+				
+				if (!versao.isEmpty()) {
+					predicates.add(builder.equal(builder.lower(root.get("versao").get("nome")),
+							versao.toLowerCase()));
 				}
 
 				if (!opcionais.isEmpty()) {
