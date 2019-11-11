@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.mauriciopd.carstore.domain.Cambio;
+import com.mauriciopd.carstore.domain.Combustivel;
 import com.mauriciopd.carstore.domain.Cor;
 import com.mauriciopd.carstore.domain.Modelo;
 import com.mauriciopd.carstore.domain.Opcional;
@@ -19,7 +20,6 @@ public class VeiculoDTO implements Serializable{
 	private double preco;
 	private int ano;
 	private Tipo tipo;
-	private Cor cor;
 	//private Modelo modelo;
 	//private Picture picture;
 	private Long kmRodado;
@@ -27,6 +27,7 @@ public class VeiculoDTO implements Serializable{
 	private List<Picture> pictures;
 	private List<Opcional> opcionais;
 	private Versao versao;
+	private Combustivel combustivel;
 	
 	public VeiculoDTO() {
 	}
@@ -36,13 +37,13 @@ public class VeiculoDTO implements Serializable{
 		this.preco = obj.getPreco();
 		this.ano = obj.getAno();
 		this.tipo = obj.getTipo();
-		this.cor = obj.getCor();
 		this.kmRodado = obj.getKmRodado();
 		this.cambio = obj.getCambio();
 		//this.modelo = obj.getModelo();
 		this.pictures = obj.getPictures();
 		this.opcionais = obj.getOpcionais();
 		this.versao = obj.getVersao();
+		this.combustivel = obj.getCombustivel();
 //		for(Picture picture : obj.getPictures()) {
 //			if(picture.isThumbnail()) {
 //				this.picture = picture;
@@ -50,6 +51,14 @@ public class VeiculoDTO implements Serializable{
 //			}
 //		}
 		
+	}
+	
+	public Combustivel getCombustivel() {
+		return combustivel;
+	}
+
+	public void setCombustivel(Combustivel combustivel) {
+		this.combustivel = combustivel;
 	}
 
 	public List<Opcional> getOpcionais() {
@@ -93,14 +102,6 @@ public class VeiculoDTO implements Serializable{
 
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
-	}
-
-	public Cor getCor() {
-		return cor;
-	}
-
-	public void setCor(Cor cor) {
-		this.cor = cor;
 	}
 
 //	public Modelo getModelo() {
