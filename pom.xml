@@ -12,6 +12,7 @@
 	<groupId>com.mauriciopd.carstore</groupId>
 	<artifactId>project-car-store</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>project-car-store</name>
 	<description>Projeto loja de carros web. </description>
 
