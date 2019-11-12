@@ -29,7 +29,7 @@ public class Modelo implements Serializable {
 	private Marca marca;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "modelo", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "modelo")
 	private List<Versao> versoes = new ArrayList<>();
 
 //	@JsonIgnore
