@@ -27,6 +27,10 @@ public class PictureService {
 	
 	@Autowired
 	private UploadService uploadService;
+	
+	public Picture salvarPicture(Picture picture) {
+		return repo.save(picture);
+	}
 
 	public Picture findByNomeFile(String fileName) {
 		Optional<Picture> picture = repo.findByFileName(fileName);
@@ -71,7 +75,7 @@ public class PictureService {
 
 	}
 	
-	private String obterNovoFileName(Veiculo obj) {
+	public String obterNovoFileName(Veiculo obj) {
 		return obj.getVersao().getModelo().getNome() + "-" +
 				obj.getVersao().getModelo().getMarca().getNome() + "-" +
 				obj.getId() + "-" + new Date().getTime() + ".jpg";

@@ -1,5 +1,6 @@
 package com.mauriciopd.carstore.services;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,6 +43,9 @@ public class VeiculoService {
 	
 	@Autowired
 	private AdicionalService adicionalService;
+	
+	@Autowired
+	private S3Service s3Service;
 	
 	@Transactional
 	public Veiculo insert(Veiculo obj) {
@@ -121,6 +125,17 @@ public class VeiculoService {
 	public void deleteVehiclePicture(Integer id, String fileName) {
 		Veiculo veiculo = findById(id);
 		pictureService.deleteFile(veiculo, fileName);
+	}
+	
+	public Picture uploadCarPictureNew(Veiculo obj, MultipartFile file) {
+		String fileName = pictureService.obterNovoFileName(obj);
+		URI uri = s3Service.uploadFile(file, fileName);
+		Picture picture = new Picture(null, uri.toString(), false, obj);
+		picture = pictureService.salvarPicture(picture);
+		obj.getPictures().add(picture);
+		repo.save(obj);
+		return picture;
+		
 	}
 	
 	public Picture uploadVehiclePicture(Veiculo obj, MultipartFile file) {
