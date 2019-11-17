@@ -18,8 +18,11 @@ public class Picture implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	//trocar nome - fileDownloadURI
 	private String fileName;
-	private boolean thumbnail;
+	
+	private String fileDownloadUri;
 
 	@JsonIgnore
 	@ManyToOne
@@ -29,12 +32,12 @@ public class Picture implements Serializable {
 	public Picture() {
 	}
 
-	public Picture(Integer id, String fileName, boolean thumbnail, Veiculo veiculo) {
+	public Picture(Integer id, String fileName, Veiculo veiculo, String fileDownloadURI) {
 		super();
 		this.id = id;
 		this.fileName = fileName;
-		this.thumbnail = thumbnail;
 		this.veiculo = veiculo;
+		this.fileDownloadUri = fileDownloadURI;
 	}
 
 	public Integer getId() {
@@ -49,16 +52,8 @@ public class Picture implements Serializable {
 		return fileName;
 	}
 
-	public void setFileDownloadUri(String fileDownloadUri) {
+	public void setFileName(String fileName) {
 		this.fileName = fileDownloadUri;
-	}
-
-	public boolean isThumbnail() {
-		return thumbnail;
-	}
-
-	public void setThumbnail(boolean thumbnail) {
-		this.thumbnail = thumbnail;
 	}
 
 	public Veiculo getVeiculo() {
@@ -67,6 +62,14 @@ public class Picture implements Serializable {
 
 	public void setVeiculo(Veiculo veiculo) {
 		this.veiculo = veiculo;
+	}
+
+	public String getFileDownloadUri() {
+		return fileDownloadUri;
+	}
+
+	public void setFileDownloadUri(String fileDownloadUri) {
+		this.fileDownloadUri = fileDownloadUri;
 	}
 
 	@Override

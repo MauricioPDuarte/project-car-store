@@ -83,17 +83,9 @@ public class VeiculoResource {
 	public ResponseEntity<List<Picture>> insertVehiclePicture(@RequestParam(name = "file") List<MultipartFile> files,
 			@PathVariable("id") Integer id) {
 		Veiculo veiculo = service.findById(id);
-		List<Picture> pictures = files.stream().map(x -> service.uploadCarPictureNew(veiculo, x))
+		List<Picture> pictures = files.stream().map(x -> service.uploadVehiclePicture(veiculo, x))
 				.collect(Collectors.toList());
 		return ResponseEntity.ok().body(pictures);
-	}
-
-	@ApiOperation(value = "Altera thumbnail veiculo")
-	@PostMapping("{vehicleId}/picture/{pictureId}")
-	public ResponseEntity<Void> updateVehiclePicture(@PathVariable("vehicleId") Integer vehicleId,
-			@PathVariable("pictureId") Integer pictureId) {
-		service.updateThumbnailVehicle(pictureId, vehicleId);
-		return ResponseEntity.noContent().build();
 	}
 
 	@ApiOperation(value = "Deletar determinada foto do veiculo")

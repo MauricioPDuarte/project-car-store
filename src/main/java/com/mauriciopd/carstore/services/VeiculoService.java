@@ -127,35 +127,23 @@ public class VeiculoService {
 		pictureService.deleteFile(veiculo, fileName);
 	}
 	
+	//Upload S3
 	public Picture uploadCarPictureNew(Veiculo obj, MultipartFile file) {
 		String fileName = pictureService.obterNovoFileName(obj);
 		URI uri = s3Service.uploadFile(file, fileName);
-		Picture picture = new Picture(null, uri.toString(), false, obj);
+		Picture picture = new Picture(null, fileName, obj, uri.toString());
 		picture = pictureService.salvarPicture(picture);
 		obj.getPictures().add(picture);
 		repo.save(obj);
-		return picture;
-		
+		return picture;	
 	}
 	
+	//Upload local
 	public Picture uploadVehiclePicture(Veiculo obj, MultipartFile file) {
 		Picture picture = pictureService.uploadPictureVehicle(file, obj);
 		obj.getPictures().add(picture);
 		repo.save(obj);
 		return picture;
-	}
-	
-	public void updateThumbnailVehicle(Integer pictureId, Integer veiculoId) {
-		Veiculo veiculo = findById(veiculoId);
-		Picture picture = pictureService.findById(pictureId);
-		for(Picture obj : veiculo.getPictures()) {
-			if(obj.equals(picture)) {
-				obj.setThumbnail(true);
-			}else {
-				obj.setThumbnail(false);				
-			}
-		}
-		repo.save(veiculo);
 	}
 	
 	public Resource loadPictureVehicle(String fileName, Integer veiculoId) {

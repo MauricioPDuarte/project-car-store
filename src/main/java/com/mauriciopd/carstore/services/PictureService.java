@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mauriciopd.carstore.domain.Picture;
 import com.mauriciopd.carstore.domain.Veiculo;
@@ -45,9 +46,10 @@ public class PictureService {
 	public Picture uploadPictureVehicle(MultipartFile file, Veiculo obj) {
 		Path path = obterDiretorioFotoVeiculo(obj);
 		String fileName = obterNovoFileName(obj);
-		Picture picture = uploadService.uploadPicture(file, path, fileName);
-		picture.setVeiculo(obj);
-		return repo.save(picture);
+		uploadService.uploadPicture(file, path, fileName);
+		String fileDownloadURI = formarDownloadUri(fileName, obj.getId());
+		Picture pic = new Picture(null, fileName, obj, fileDownloadURI);
+		return repo.save(pic);
 	}
 	
 	public Resource loadPicture(String fileName, Veiculo obj) {
@@ -85,6 +87,16 @@ public class PictureService {
 		String modelo = veiculo.getVersao().getModelo().getNome();
 		String marca = veiculo.getVersao().getModelo().getMarca().getNome();
 		return Paths.get(marca, modelo, veiculo.getId().toString());
+	}
+	
+	private String formarDownloadUri(String fileName, Integer id) {
+		return ServletUriComponentsBuilder.fromCurrentContextPath()
+				.path("/veiculos/")
+				.path("/picture/")
+				.path(Integer.toString(id))
+				.path("/")
+				.path(fileName)
+				.toUriString();
 	}
 
 }

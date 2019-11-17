@@ -16,7 +16,6 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mauriciopd.carstore.domain.Picture;
 import com.mauriciopd.carstore.services.exceptions.FileStorageException;
 import com.mauriciopd.carstore.services.exceptions.MyFileNotFoundException;
 
@@ -29,7 +28,7 @@ public class UploadService {
 	@Autowired
 	private PictureToolsService pictureToolsService;
 
-	public Picture uploadPicture(MultipartFile picture, Path path, String fileName) {
+	public void uploadPicture(MultipartFile picture, Path path, String fileName) {
 		BufferedImage jpgImage = pictureToolsService.getJpgImageFromFile(picture);
 		Path finalPath = Paths.get(raiz, path.toString());
 		File file = new File(finalPath.toUri());
@@ -38,7 +37,6 @@ public class UploadService {
 				Files.createDirectories(finalPath);	
 			}
 			Files.copy(pictureToolsService.getInputStream(jpgImage, "jpg"), finalPath.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
-			return new Picture(null, fileName, false, null);
 		} catch (IOException e) {
 			throw new FileStorageException("Erro ao tentar armazenar o arquivo. Porfavor tente novamente!");
 		}
