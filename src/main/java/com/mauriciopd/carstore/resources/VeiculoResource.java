@@ -83,7 +83,7 @@ public class VeiculoResource {
 	public ResponseEntity<List<Picture>> insertVehiclePicture(@RequestParam(name = "file") List<MultipartFile> files,
 			@PathVariable("id") Integer id) {
 		Veiculo veiculo = service.findById(id);
-		List<Picture> pictures = files.stream().map(x -> service.uploadVehiclePicture(veiculo, x))
+		List<Picture> pictures = files.stream().map(x -> service.uploadCarPictureNew(veiculo, x))
 				.collect(Collectors.toList());
 		return ResponseEntity.ok().body(pictures);
 	}
