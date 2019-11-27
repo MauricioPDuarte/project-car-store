@@ -187,8 +187,8 @@ public class VeiculoResource {
 			@RequestParam(value = "adc", required = false, defaultValue = "") String adicionais,
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
-			@RequestParam(value = "orderBy", defaultValue = "ano") String orderBy,
-			@RequestParam(value = "direction", defaultValue = "ASC") String direction
+			@RequestParam(value = "orderBy", defaultValue = "preco") String orderBy,
+			@RequestParam(value = "direction", defaultValue = "DESC") String direction
 			) {
 		
 		//String urlDecodeOpcionais = URL.decodeParam(opcionais);
